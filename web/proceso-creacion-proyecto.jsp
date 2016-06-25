@@ -12,11 +12,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>TMPH00028</title>
-<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
 <script type="text/javascript">
     function cbSub(){
         alert("cambiar a select dependiente");
-        $("#i_opc").val("1");
+        $("#f_opc").val("1");
             $post("comboD.jsp",$("#data").serialize(),function(data){("#idcbSubC").html(data);});
     }
 </script>
