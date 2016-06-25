@@ -15,7 +15,7 @@
 <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript">
     function cbSub(){
-        //alert("cambiar a select dependiente");
+        alert("cambiar a select dependiente");
         $("#i_opc").val("1");
             $post("comboD.jsp",$("#data").serialize(),function(data){("#idcbSubC").html(data);});
     }
@@ -68,7 +68,7 @@
     <div class="right-panel">
       <!--div class="panel"-->
           <div class ="contact-panel">
-                <form action ="ingreso_iniciativa" method = "post" id="data">
+                <form action ="" method = "post" id="data">
                 <table border ="0">
                     <tr>
                         <td>
