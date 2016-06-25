@@ -6,22 +6,22 @@
 
 <%@page import="java.util.ArrayList"%>
 <%@page import="Conexiones.DetalleIniciativa"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page language ="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>TMPH00028</title>
-<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
-    function cbSub(){
-        alert("cambiar a select dependiente");
+    function cbSub(){                             
+        //alert("Hola ya salio");
         $("#f_opc").val("1");
-            $post("comboD.jsp",$("#data").serialize(),function(data){("#idcbSubC").html(data);});
+            $.post("comboD.jsp",$("#data").serialize(),function(data){$("#idcbSubC").html(data);});
     }
 </script>
 <link href="css/styles.css" rel="stylesheet" type="text/css" />
-<link href='http://fonts.googleapis.com/css?family=Oswald|Open+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Oswald|Open+Sans' rel='stylesheet' type='text/css'/>
 </head>
 <body>
 <div class="social-wrapper">
@@ -136,7 +136,7 @@
                                 
                             %>
                             
-                            <select name="cbCategoria" class="selec-field" id="cbCategoria" onchange="cbSub">
+                            <select name="cbCategoria"  id="cbCategoria" class="selec-field" onchange="cbSub()">
                                 <% for(String categoria : categorias){%>
                                 <option value="<%out.print(di.getIdCategoria(categoria));%>"><%out.print(categoria);%></option>
                                 <%
@@ -164,8 +164,8 @@
                             
                         %>
                         <td>
-                            <select name="cbSubC" id="idcbSubC" class="selec-field">
-                                <option ></option>
+                            <select name="cbSubC" id="idcbSubC"  class="selec-field">
+                                <option value="" >--Seleccione Subcategoria--</option>
                             </select>
                         </td>
                         <td>

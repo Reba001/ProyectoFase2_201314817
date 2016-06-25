@@ -17,8 +17,8 @@ import java.util.Scanner;
 public class Testing {
     public static void main(String[] args) {
         DetalleIniciativa di = new DetalleIniciativa();
-        
-        ArrayList<String> subcategorias = di.listaSubcategoria(4);
+        int id = di.getIdCategoria("categoria4");
+        ArrayList<String> subcategorias = di.listaSubcategoria(id);
         
         for(String s : subcategorias){
             System.out.println(s);
