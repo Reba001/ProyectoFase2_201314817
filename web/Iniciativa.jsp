@@ -4,6 +4,9 @@
     Author     : aaper
 --%>
 
+<%@page import="Conexiones.Iniciativa"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Conexiones.DetalleIniciativa"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -39,7 +42,7 @@
 <div class="header">
   <div class="row">
     <div class="logo">
-      <h1>SITE NAME</h1>
+        <h1><a href="creador.jsp">COPERACHA S.A.</a></h1>
     </div>
     <div class="menu">
       <ul>
@@ -59,8 +62,26 @@
   <div class="content_wrap">
     <div class="left-panel">
       <div class="panel">
+          <%
+              DetalleIniciativa di = new DetalleIniciativa();
+              ArrayList<Iniciativa> iniciativas = di.getIniciativa(usuario);
+              if(iniciativas != null){
+                  for(Iniciativa ini : iniciativas){
+              
+              %>
         <div class="title">
-          <h1>ENIAN FEUGIAT BLANDIT NEQUE</h1>
+          <h1><%out.print(ini.getNombre());%></h1>
+          <h2><%out.print(ini.getFechainicio()+"---"+ini.getFechafinal());%></h2>
+        </div>
+        <div class="content">
+            <p><% out.print(ini.getDescripcion()); %></p>
+        </div>
+        <%
+                }
+            }else{
+        %>
+        <div class="title">
+          <h1>Aun debes de Publica tu Proyecto</h1>
           <h2>Vivamus et augue sed orci auctor</h2>
         </div>
         <div class="content">
@@ -74,6 +95,9 @@
           <p>Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euismod vel, velit.</p>
           <p> Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo.</p>
         </div>
+        <% 
+           } 
+        %>
       </div>
       <div class="clear"></div>
     </div>

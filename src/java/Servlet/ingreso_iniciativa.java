@@ -17,13 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author aaper
  */
 public class ingreso_iniciativa extends HttpServlet {
-
+    boolean save = false;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -61,9 +62,16 @@ public class ingreso_iniciativa extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Servlet ingreso_iniciativa at " + request.getContextPath() + "</h1>");
             if(guardar != null && subcategoria != null){
-                di.setIniciativa(nombre, fechainicio, fechalimite, usuario,descripcion, m, s);
-            }else if(publicar != null){
+                if(save == false){
+                    di.setIniciativa(nombre, fechainicio, fechalimite, usuario,descripcion, m, s,"no");
+                    save = true;
+                }else {
+                    JOptionPane.showMessageDialog(null, "Proyecto Ya Creado");
+                }
                 
+                
+            }else if(publicar != null){
+                di.publicarIniciativa(usuario, "si");
             }
             
             

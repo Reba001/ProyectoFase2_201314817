@@ -39,7 +39,7 @@
 <div class="header">
   <div class="row">
     <div class="logo">
-      <h1>¡Bienvenido!</h1>
+        <h1><a href="creador.jsp">COPERACHA S.A</a></h1>
     </div>
     <div class="menu">
       <ul>

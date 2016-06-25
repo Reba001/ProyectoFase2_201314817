@@ -24,16 +24,96 @@ public class DetalleIniciativa {
     public DetalleIniciativa(){
         
     }
-    
-    public ArrayList<Iniciativa> getlistaIniciativa(String usuario){
+    public void publicarIniciativa(String idusuario, String publicado){
         Connection cn = null;
         PreparedStatement ps = null;
-        String SQLScript = "select * from iniciativa where idusuario = ?";
+        String SQLScript = "UPDATE iniciativa SET publicado = ? WHERE idusuario = ?";
+        try{
+            cn = new Conexion().getDBConnection();
+            ps = cn.prepareStatement(SQLScript);
+            ps.setString(1, publicado);
+            ps.setString(2, idusuario);
+            ps.executeUpdate();
+            cn.close();
+            ps.close();
+        }catch(Exception e){
+        }
+    }
+    
+    public boolean getPublicacion(String usuario){
+        Connection cn  = null;
+        PreparedStatement ps = null;
+        String SQLScript = "select publicado from iniciativa where idusuario = ?";
+        String publicado ="";
+        try{
+            cn = new Conexion().getDBConnection();
+            ps = cn.prepareStatement(SQLScript);
+            ps.setString(1, usuario);
+            ResultSet rs;
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                publicado = rs.getString("publicado");
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+            
+            
+        }catch(Exception e){
+            e.printStackTrace();
+            
+        }
+            if(publicado == "si"){
+                return true;
+            }else 
+                return false;
+    }
+    
+    public ArrayList<Iniciativa> getIniciativa(String usuario){
+        Connection cn = null;
+        PreparedStatement ps = null;
+        String SQLScript = "select * from iniciativa where idusuario = ? and publicado ='si'";
         try{
             ArrayList<Iniciativa> iniciativas = new ArrayList<Iniciativa>();
             cn = new Conexion().getDBConnection();
             ps = cn.prepareStatement(SQLScript);
             ps.setString(1, usuario);
+            ResultSet rs;
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Iniciativa in = new Iniciativa();
+                in.setIdiniciativa(rs.getInt("idinciativa"));
+                in.setNombre(rs.getString("nombre"));
+                in.setFechainicio(rs.getDate("fechainicio"));
+                in.setFechafinal(rs.getDate("fechafinal"));
+                in.setIdUsuario(rs.getString("idusuario"));
+                in.setMetaEconomica(rs.getDouble("metaeconomica"));
+                in.setIdSubcategoria(rs.getInt("idsubcategoria"));
+                in.setDescripcion(rs.getString("descripcion"));
+                iniciativas.add(in);
+            }
+            cn.close();
+            ps.close();
+            rs.close();
+            return iniciativas;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public ArrayList<Iniciativa> getlistaIniciativa(){
+        Connection cn = null;
+        PreparedStatement ps = null;
+        String SQLScript = "select * from iniciativa where publicado = 'si'";
+        try{
+            ArrayList<Iniciativa> iniciativas = new ArrayList<Iniciativa>();
+            cn = new Conexion().getDBConnection();
+            ps = cn.prepareStatement(SQLScript);
+            
+            
             ResultSet rs;
             rs = ps.executeQuery();
             while(rs.next()){
@@ -170,12 +250,12 @@ public class DetalleIniciativa {
     }
     
     public boolean setIniciativa(String nombre, String fechainicio, String fechafinal, String idusuario, 
-            String descripcion, double metaeconomica, int idSubcategoria){
+            String descripcion, double metaeconomica, int idSubcategoria, String publicada){
         Connection dbC = null;
         PreparedStatement ps = null;
         String insertTableSQL = "insert into iniciativa"+
-                " (nombre, fechainicio, fechafinal, idusuario, descripcion, metaeconomica, idsubcategoria)"+
-                " values (?,?,?,?,?,?,?)";
+                " (nombre, fechainicio, fechafinal, idusuario, descripcion, metaeconomica, idsubcategoria, publicada)"+
+                " values (?,?,?,?,?,?,?,?)";
          try {
             SimpleDateFormat sdffinal = new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat sdfinicio = new SimpleDateFormat("dd/MM/yyyy");
@@ -192,6 +272,7 @@ public class DetalleIniciativa {
             ps.setString(5, descripcion);
             ps.setDouble(6, metaeconomica);
             ps.setInt(7, idSubcategoria);
+            ps.setString(8, publicada);
 
             // execute insert SQL stetement
             ps.executeUpdate();

@@ -56,15 +56,7 @@
 <div class="header">
   <div class="row">
     <div class="logo">
-      <h1><a href="creador.jsp">Coperacha</a></h1>
-    </div>
-  </div>
-  <div class="clear"></div>
-</div>
-<div class="header">
-  <div class="row">
-    <div class="logo">
-      <h1><a href="creador.jsp">S.A.</a></h1>
+      <h1><a href="creador.jsp">COPERACHA S.A.</a></h1>
     </div>
   </div>
   <div class="clear"></div>
@@ -213,11 +205,15 @@
         
       
     </div>
-                        <div class="contact-panel">
-                            <form action ="" method="post">
-                                <input type="submit" value ="Publicar"/>
-                            </form>
+                        <div class ="right-panel">
+                            
+                            <div class="contact-panel">
+                            
+                                <form action ="" method="post">
+                                    <input type="submit" value ="Publicar"/>
+                                </form>
                         
+                            </div>
                         </div>
                         
           </div>

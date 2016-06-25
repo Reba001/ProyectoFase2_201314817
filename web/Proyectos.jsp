@@ -4,6 +4,9 @@
     Author     : aaper
 --%>
 
+<%@page import="Conexiones.Iniciativa"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Conexiones.DetalleIniciativa"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -40,7 +43,7 @@
 <div class="header">
   <div class="row">
     <div class="logo">
-      <h1>SITE NAME</h1>
+      <h1><a href="creador.jsp">COPERACHA S.A.</a></h1>
     </div>
     <div class="menu">
       <ul>
@@ -60,45 +63,25 @@
   <div class="content_wrap">
     <div class="portfolio">
       <div class="title">
-        <h1>Work</h1>
-        <h2>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus hasellus ultrices nulla quis nibh. Quisque a lectus.</h2>
+        <h1>Proyectos</h1>
+        <h2>A continuacion presentamos todas las iniciativas, que necesitan de tu aporte.</h2>
       </div>
+        <%
+            DetalleIniciativa di = new DetalleIniciativa();
+            ArrayList<Iniciativa> iniciativas = di.getlistaIniciativa();
+            if(iniciativas != null){
+                for(Iniciativa ini : iniciativas ){
+        %>
       <div class="panel marRight30">
         <div class="content"> <img src="images/img4.jpg" />
-          <p><span>Project Name</span></p>
+          <p><span><%out.print(ini.getNombre());%></span></p>
           <p>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus.</p>
           <a href="#">visit site</a> </div>
       </div>
-      <div class="panel marRight30">
-        <div class="content"> <img src="images/img5.jpg" />
-          <p><span>Project Name</span></p>
-          <p>Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. </p>
-          <a href="#">visit site</a> </div>
-      </div>
-      <div class="panel">
-        <div class="content"> <img src="images/img6.jpg" />
-          <p><span>Project Name</span></p>
-          <p>Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum</p>
-          <a href="#">visit site</a> </div>
-      </div>
-      <div class="panel marRight30">
-        <div class="content"> <img src="images/img4.jpg" />
-          <p><span>Project Name</span></p>
-          <p>Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum</p>
-          <a href="#">visit site</a> </div>
-      </div>
-      <div class="panel marRight30">
-        <div class="content"> <img src="images/img5.jpg" />
-          <p><span>Project Name</span></p>
-          <p>Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate </p>
-          <a href="#">visit site</a> </div>
-      </div>
-      <div class="panel">
-        <div class="content"> <img src="images/img6.jpg" />
-          <p><span>Project Name</span></p>
-          <p>Suspendisse mauris. Fusce accumsan mollis eros. Pellentesque a diam sit amet mi ullamcorper vehicula. Integer adipiscing risus a sem.</p>
-          <a href="#">visit site</a> </div>
-      </div>
+      <%  
+                }
+            }
+      %>
     </div>
     <div class="clear"></div>
   </div>

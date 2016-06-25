@@ -46,7 +46,7 @@ SOCIAL NETWORKING CLASSES
 MENU  CLASSES
 -------------------------------------------------*/
 .header{background:#313c53; height:60px; padding-top:30px; padding-bottom:30px; overflow:hidden;}
-.logo{float:left; width:240px;}
+.logo{float:left; width:300px;}
 .logo h1{ font-size:45px; color:#ffffff;}
 .menu{float:right; width:auto; }
 .menu ul li{ width:auto; float:left; list-style:none; }
