@@ -19,7 +19,14 @@
         $("#f_opc").val("1");
             $.post("comboD.jsp",$("#data").serialize(),function(data){$("#idcbSubC").html(data);});
     }
+    function f_subcategoria($i){
+        //alert("hola Mundo");
+        alert($i);
+    }
 </script>
+
+
+
 <link href="css/styles.css" rel="stylesheet" type="text/css" />
 <link href='http://fonts.googleapis.com/css?family=Oswald|Open+Sans' rel='stylesheet' type='text/css'/>
 </head>
@@ -68,7 +75,7 @@
     <div class="right-panel">
       <!--div class="panel"-->
           <div class ="contact-panel">
-                <form action ="" method = "post" id="data">
+                <form action ="ingreso_iniciativa" method = "post" id="data">
                 <table border ="0">
                     <tr>
                         <td>
@@ -164,7 +171,7 @@
                             
                         %>
                         <td>
-                            <select name="cbSubC" id="idcbSubC"  class="selec-field">
+                            <select name="cbSubC" id="idcbSubC"  class="selec-field" onchange ="f_subcategoria(value)">
                                 <option value="" >--Seleccione Subcategoria--</option>
                             </select>
                         </td>

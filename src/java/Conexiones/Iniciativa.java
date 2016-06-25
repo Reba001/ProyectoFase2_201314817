@@ -5,33 +5,27 @@
  */
 package Conexiones;
 
+import java.util.Date;
+
 /**
  *
  * @author aaper
  */
 public class Iniciativa {
-    private String idiniciativa;
+    private int idiniciativa;
     private String nombre;
-    private String fechainicio;
-    private String fechafinal;
+    private Date fechainicio;
+    private Date fechafinal;
     private String idUsuario;
     private String descripcion;
-    private String metaEconomica;
-    public Iniciativa(String idiniciativa, String nombre, String fechainicio, String fechafinal, String idUsuario, String descripcion, String metaEconomica) {
-        this.idiniciativa = idiniciativa;
-        this.nombre = nombre;
-        this.fechainicio = fechainicio;
-        this.fechafinal = fechafinal;
-        this.idUsuario = idUsuario;
-        this.descripcion = descripcion;
-        this.metaEconomica = metaEconomica;
-    }
+    private double metaEconomica;
+    private int idSubcategoria;
 
-    public String getIdiniciativa() {
+    public int getIdiniciativa() {
         return idiniciativa;
     }
 
-    public void setIdiniciativa(String idiniciativa) {
+    public void setIdiniciativa(int idiniciativa) {
         this.idiniciativa = idiniciativa;
     }
 
@@ -43,19 +37,19 @@ public class Iniciativa {
         this.nombre = nombre;
     }
 
-    public String getFechainicio() {
+    public Date getFechainicio() {
         return fechainicio;
     }
 
-    public void setFechainicio(String fechainicio) {
+    public void setFechainicio(Date fechainicio) {
         this.fechainicio = fechainicio;
     }
 
-    public String getFechafinal() {
+    public Date getFechafinal() {
         return fechafinal;
     }
 
-    public void setFechafinal(String fechafinal) {
+    public void setFechafinal(Date fechafinal) {
         this.fechafinal = fechafinal;
     }
 
@@ -75,14 +69,23 @@ public class Iniciativa {
         this.descripcion = descripcion;
     }
 
-    public String getMetaEconomica() {
+    public double getMetaEconomica() {
         return metaEconomica;
     }
 
-    public void setMetaEconomica(String metaEconomica) {
+    public void setMetaEconomica(double metaEconomica) {
         this.metaEconomica = metaEconomica;
     }
 
+    public int getIdSubcategoria() {
+        return idSubcategoria;
+    }
+
+    public void setIdSubcategoria(int idSubcategoria) {
+        this.idSubcategoria = idSubcategoria;
+    }
+    
+    
     
     
 }

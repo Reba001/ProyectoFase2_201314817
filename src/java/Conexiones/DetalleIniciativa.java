@@ -53,6 +53,31 @@ public class DetalleIniciativa {
             return null;
         }
     }
+    public int getIdSubCategoria(String nombre){
+        Connection cn = null;
+        PreparedStatement ps = null;
+        String insertScript ="select idsubcategoria from subcategoria where nombre = ?";
+        try{
+            int id = 0;
+            cn = new Conexion().getDBConnection();
+            ps = cn.prepareStatement(insertScript);
+            ps.setString(1, nombre);
+            ResultSet rs;
+            rs = ps.executeQuery();
+            while(rs.next()){
+                id = rs.getInt("idsubcategoria");
+            }
+            rs.close();
+            ps.close();
+            cn.close();
+            return id;
+        }catch(SQLException e){
+            System.err.print("Error: "+ e.getMessage());
+        }catch(Exception e){
+            System.err.print("Error: "+ e.getMessage());
+        }
+        return -1;
+    }
     
     public int getIdCategoria(String nombre){
         Connection cn = null;
@@ -109,12 +134,12 @@ public class DetalleIniciativa {
     }
     
     public boolean setIniciativa(String nombre, String fechainicio, String fechafinal, String idusuario, 
-            String descripcion, String metaeconomica){
+            String descripcion, double metaeconomica, int idSubcategoria){
         Connection dbC = null;
         PreparedStatement ps = null;
         String insertTableSQL = "insert into iniciativa"+
-                " (nombre, fechainicio, fechafinal, idusuario, descripcion, metaeconomica)"+
-                " values (?,?,?,?,?,?)";
+                " (nombre, fechainicio, fechafinal, idusuario, descripcion, metaeconomica, idsubcategoria)"+
+                " values (?,?,?,?,?,?,?)";
          try {
             SimpleDateFormat sdffinal = new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat sdfinicio = new SimpleDateFormat("dd/MM/yyyy");
@@ -129,7 +154,8 @@ public class DetalleIniciativa {
             ps.setDate(3, sqlDatefinal);
             ps.setString(4, idusuario);
             ps.setString(5, descripcion);
-            ps.setString(6, metaeconomica);
+            ps.setDouble(6, metaeconomica);
+            ps.setInt(7, idSubcategoria);
 
             // execute insert SQL stetement
             ps.executeUpdate();

@@ -9,10 +9,13 @@ import Conexiones.DetalleIniciativa;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.JComboBox;
 
 /**
@@ -36,9 +39,20 @@ public class ingreso_iniciativa extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             /* TODO output your page here. You may use following sample code. */
+            String nombre = request.getParameter("txtNombreIni");
+            Calendar fecha = new GregorianCalendar();
+            HttpSession sessionIn = request.getSession();
+            String usuario =(String) sessionIn.getAttribute("Usuario");
+            String fechainicio = ""+fecha.get(Calendar.DAY_OF_MONTH)+"/"+(fecha.get(Calendar.MONTH)+1)+"/"+fecha.get(Calendar.YEAR);
+            String fechalimite = request.getParameter("txtFechaLimite");
+            String descripcion = request.getParameter("txtDescripcion");
+            String meta = request.getParameter("txtMetaEconomica");
+            double m = Double.parseDouble(meta);
             String guardar = request.getParameter("btnGuardar");
             String publicar = request.getParameter("btnPublicar");
-            String seleccionar = request.getParameter("valor");
+            String subcategoria = request.getParameter("cbSubC");
+            int s = Integer.parseInt(subcategoria);
+            DetalleIniciativa di = new DetalleIniciativa();
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -46,13 +60,13 @@ public class ingreso_iniciativa extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ingreso_iniciativa at " + request.getContextPath() + "</h1>");
-            if(guardar != null){
-                out.print("<h1>Guardar</h1>");
+            if(guardar != null && subcategoria != null){
+                di.setIniciativa(nombre, fechainicio, fechalimite, usuario,descripcion, m, s);
             }else if(publicar != null){
                 out.print("<h1>Publicar</h1>");
-            }else if (seleccionar != null){
-                out.print(seleccionar);
+                out.print(subcategoria);
             }
+            
             
         
         }finally{

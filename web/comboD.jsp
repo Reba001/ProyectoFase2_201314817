@@ -5,10 +5,12 @@
 DetalleIniciativa di = new DetalleIniciativa();
 int id = Integer.parseInt(categoria);
 ArrayList<String> ini = di.listaSubcategoria(id);
-%>
-<select name="cbSubC">
-    <option value="">--Seleccione--</option>
+%>0
+
+    <select name="cbSubC" onchange="f_subcategoria()">
     <%for(String subcategoria: ini){%>
-    <option><%=subcategoria%></option>
+    <option value="<%out.print(di.getIdSubCategoria(subcategoria));%>"><%=subcategoria%></option>
     <%}%>
-</select>
+    </select>
+
+

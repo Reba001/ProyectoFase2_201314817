@@ -8,6 +8,9 @@ package Prueba;
 import Conexiones.DetalleIniciativa;
 import Conexiones.Persona;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 /**
@@ -16,15 +19,9 @@ import java.util.Scanner;
  */
 public class Testing {
     public static void main(String[] args) {
-        DetalleIniciativa di = new DetalleIniciativa();
-        int id = di.getIdCategoria("categoria4");
-        ArrayList<String> subcategorias = di.listaSubcategoria(id);
-        
-        for(String s : subcategorias){
-            System.out.println(s);
-        }
-       
-        
+        Calendar fecha = new GregorianCalendar();
+        String f = ""+fecha.get(Calendar.DAY_OF_MONTH)+"/"+(fecha.get(Calendar.MONTH)+1)+"/"+fecha.get(Calendar.YEAR);
+        System.out.println(f);
                 
     }
     
