@@ -95,7 +95,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <input name ="txtFechaLimite" type="text" class="text-field" value ="dd/MM/yyyy"/>
+                            <input name ="txtFechaLimite" type="text" class="text-field"/>
                         </td>
                         <td>
                             <br />
@@ -103,7 +103,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <h3>Meta Economica</h3>
+                            <h3>Meta Economica Q 0.00</h3>
                         </td>
                         <td>
                             <br />
@@ -111,7 +111,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <input name ="txtMetaEconomica" type="text" class="text-field" value ="Valor en Quetzales"/>
+                            <input name ="txtMetaEconomica" type="text" class="text-field"/>
                             <input type="hidden" name="i_opc" id="i_opc"/>
                         </td>
                         <td>

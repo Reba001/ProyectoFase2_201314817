@@ -27,19 +27,6 @@ public class Testing {
         System.out.println(f);
         
         DetalleIniciativa di = new DetalleIniciativa();
-        di.publicarIniciativa("Reba", "si");
-        ArrayList<Iniciativa> iniciativas = di.getlistaIniciativa();
-        
-        for(Iniciativa ini : iniciativas ){
-            System.out.println(ini.getIdiniciativa());
-            System.out.println(ini.getNombre());
-            System.out.println(ini.getDescripcion());
-            System.out.println(ini.getFechainicio());
-            System.out.println(ini.getFechafinal());
-            System.out.println(ini.getMetaEconomica());
-            System.out.println(ini.getIdUsuario());
-            System.out.println(ini.getIdSubcategoria());
-        }
         
                 
     }

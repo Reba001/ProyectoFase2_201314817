@@ -8,23 +8,18 @@ package Servlet;
 import Conexiones.DetalleIniciativa;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author aaper
  */
-public class ingreso_iniciativa extends HttpServlet {
-    boolean save = false;
+public class Publicacion extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,45 +33,41 @@ public class ingreso_iniciativa extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        try {
+        try  {
             /* TODO output your page here. You may use following sample code. */
-            String nombre = request.getParameter("txtNombreIni");
-            Calendar fecha = new GregorianCalendar();
-            HttpSession sessionIn = request.getSession();
-            String usuario =(String) sessionIn.getAttribute("Usuario");
-            String fechainicio = ""+fecha.get(Calendar.DAY_OF_MONTH)+"/"+(fecha.get(Calendar.MONTH)+1)+"/"+fecha.get(Calendar.YEAR);
-            String fechalimite = request.getParameter("txtFechaLimite");
-            String descripcion = request.getParameter("txtDescripcion");
-            String meta = request.getParameter("txtMetaEconomica");
-            double m = Double.parseDouble(meta);
-            String guardar = request.getParameter("btnGuardar");
             String publicar = request.getParameter("btnPublicar");
-            String subcategoria = request.getParameter("cbSubC");
-            int s = Integer.parseInt(subcategoria);
+            HttpSession sessionIn = request.getSession();
+            String usuario = (String) sessionIn.getAttribute("Usuario");
+            String eliminar = request.getParameter("btnEliminar");
             DetalleIniciativa di = new DetalleIniciativa();
+            String radio = request.getParameter("dish");
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ingreso_iniciativa</title>");            
+            out.println("<title>Servlet Publicacion</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ingreso_iniciativa at " + request.getContextPath() + "</h1>");
-            if(guardar != null && subcategoria != null){
+            out.println("<h1>Servlet Publicacion at " + request.getContextPath() + "</h1>");
+            if(publicar != null){
+                if(radio != null){
+                    di.publicarIniciativa(usuario,radio,"si");
+                    response.sendRedirect("Iniciativa.jsp");
+                }else{
+                    response.sendRedirect("Iniciativa.jsp?error=No posee ningun proyecto en borrador");
+                }
+            }else if(eliminar != null){
+                if(radio != null){
+                    di.borrarIniciativa(usuario, radio);
+                    response.sendRedirect("Iniciativa.jsp");
+                }else{
+                    response.sendRedirect("Iniciativa.jsp?error=No posee ningun proyecto en borrador");
+                }
                 
-                    
-                    di.setIniciativa(nombre, fechainicio, fechalimite, usuario,descripcion, m, s,"no");
-                
-                
-            }else if(publicar != null){
-                di.setIniciativa(nombre, fechainicio, fechalimite, usuario,descripcion, m, s,"si");
             }
-            
-            
-        
-        }finally{
             out.println("</body>");
             out.println("</html>");
-            out.close();
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -93,7 +84,6 @@ public class ingreso_iniciativa extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
     }
 
     /**
@@ -108,7 +98,6 @@ public class ingreso_iniciativa extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
     }
 
     /**

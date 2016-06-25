@@ -104,29 +104,51 @@
     <div class="right-panel">
       <div class="contact-panel">
         <div class="title">
-          <h1>PROIN A RISUS</h1>
-          <span>Vestibulum suscipit nib</span></div>
-        <div class="form">
-          <ul>
-            <li>
-              <input type="text"  class="text-field" value="your name here"/>
-            </li>
-            <li>
-              <input name="" type="text"  class="text-field" value="your email  here"/>
-            </li>
-            <li>
-              <textarea name="" cols="" rows="" class="textarea">your message  here
-</textarea>
-            </li>
-          </ul>
+          <h1>Proyectos en borrador</h1>
+          <span>publica tu proyecto aqui</span></div>
+          
+                <span>
+                    <%
+                        if(request.getParameter("error") != null){
+                            out.print("<h3>"+request.getParameter("error")+"</h3>");
+                        }else{
+                            out.print("");
+                        }
+                    %>
+                </span>
+            
+          <form action="Publicacion" method="post" class="form">
+          
+            <ul>
+            <%
+                
+                ArrayList<Iniciativa> listainiciativa = di.getIniciativasBorrador(usuario);
+                if(listainiciativa != null){
+                    for(Iniciativa ini : listainiciativa)
+                    {
+            %>
+                <li>
+              
+                    <input type="radio" align="right" class="text-field" value="<%out.print(ini.getNombre());%>" name="dish"><%out.print(ini.getNombre());%></input>
+            
+                </li>
+          <%
+                    }
+                }
+          %>
+            </ul>
+          <div class="clear"></div>
+          <div class="controller">
+              <input type="submit" class="buttons" value="Publicar" name="btnPublicar"/>
           <div class="clear"></div>
         </div>
-        <div class="controller">
-          <div class="buttons">
-            <h2><a href="#">SUBMIT</a></h2>
-          </div>
+          
+          <div class="controller">
+              <input type="submit" class="buttons" value="Eliminar" name="btnEliminar"/>
           <div class="clear"></div>
         </div>
+        </form>
+        
         <div class="clear"></div>
       </div>
       <div class="clear"></div>

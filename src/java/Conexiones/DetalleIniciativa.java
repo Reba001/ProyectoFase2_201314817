@@ -24,19 +24,45 @@ public class DetalleIniciativa {
     public DetalleIniciativa(){
         
     }
-    public void publicarIniciativa(String idusuario, String publicado){
+    public void borrarIniciativa(String idusuario,String nombre){
         Connection cn = null;
         PreparedStatement ps = null;
-        String SQLScript = "UPDATE iniciativa SET publicado = ? WHERE idusuario = ?";
+        String SQLScript = "DELETE FROM iniciativa WHERE idusuario = ? and nombre = ?";
+        try{
+            cn = new Conexion().getDBConnection();
+            ps = cn.prepareStatement(SQLScript);
+            
+            ps.setString(1, idusuario);
+            ps.setString(2, nombre);
+            ps.executeUpdate();
+            cn.close();
+            ps.close();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void publicarIniciativa(String idusuario,String nombre ,String publicado){
+        Connection cn = null;
+        PreparedStatement ps = null;
+        String SQLScript = "UPDATE iniciativa SET publicado = ? WHERE idusuario = ? and nombre = ?";
         try{
             cn = new Conexion().getDBConnection();
             ps = cn.prepareStatement(SQLScript);
             ps.setString(1, publicado);
             ps.setString(2, idusuario);
+            ps.setString(3, nombre);
             ps.executeUpdate();
             cn.close();
             ps.close();
-        }catch(Exception e){
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        catch(Exception e){
+            e.printStackTrace();
         }
     }
     
@@ -67,6 +93,41 @@ public class DetalleIniciativa {
                 return true;
             }else 
                 return false;
+    }
+    public ArrayList<Iniciativa> getIniciativasBorrador(String usuario){
+        Connection cn = null;
+        PreparedStatement ps = null;
+        String SQLScript = "select * from iniciativa where idusuario = ? and publicado ='no'";
+        try{
+            ArrayList<Iniciativa> iniciativas = new ArrayList<Iniciativa>();
+            cn = new Conexion().getDBConnection();
+            ps = cn.prepareStatement(SQLScript);
+            ps.setString(1, usuario);
+            ResultSet rs;
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Iniciativa in = new Iniciativa();
+                in.setIdiniciativa(rs.getInt("idinciativa"));
+                in.setNombre(rs.getString("nombre"));
+                in.setFechainicio(rs.getDate("fechainicio"));
+                in.setFechafinal(rs.getDate("fechafinal"));
+                in.setIdUsuario(rs.getString("idusuario"));
+                in.setMetaEconomica(rs.getDouble("metaeconomica"));
+                in.setIdSubcategoria(rs.getInt("idsubcategoria"));
+                in.setDescripcion(rs.getString("descripcion"));
+                iniciativas.add(in);
+            }
+            cn.close();
+            ps.close();
+            rs.close();
+            return iniciativas;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
     
     public ArrayList<Iniciativa> getIniciativa(String usuario){
@@ -254,7 +315,7 @@ public class DetalleIniciativa {
         Connection dbC = null;
         PreparedStatement ps = null;
         String insertTableSQL = "insert into iniciativa"+
-                " (nombre, fechainicio, fechafinal, idusuario, descripcion, metaeconomica, idsubcategoria, publicada)"+
+                " (nombre, fechainicio, fechafinal, idusuario, descripcion, metaeconomica, idsubcategoria, publicado)"+
                 " values (?,?,?,?,?,?,?,?)";
          try {
             SimpleDateFormat sdffinal = new SimpleDateFormat("dd/MM/yyyy");
