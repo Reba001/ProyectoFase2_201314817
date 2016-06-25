@@ -63,8 +63,7 @@ public class ingreso_iniciativa extends HttpServlet {
             if(guardar != null && subcategoria != null){
                 di.setIniciativa(nombre, fechainicio, fechalimite, usuario,descripcion, m, s);
             }else if(publicar != null){
-                out.print("<h1>Publicar</h1>");
-                out.print(subcategoria);
+                
             }
             
             

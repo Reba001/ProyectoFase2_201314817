@@ -207,28 +207,25 @@
                             
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                           
-                            <div class="controller">
-                                <input type="submit" name="btnPublicar" value="Publicar"/>
-                                <div class="clear"></div>
-                            </div>
-                        </td>
-                        <td>
-                            
-                        </td>
-                    </tr>
+                    
                 </table
             </form>
         
-      <div class="clear"></div>
+      
     </div>
+                        <div class="contact-panel">
+                            <form action ="" method="post">
+                                <input type="submit" value ="Publicar"/>
+                            </form>
+                        
+                        </div>
+                        
           </div>
           
     
   <!-- end of BOX WRAPPER -->
   <div class="clear"></div>
+  
 </div>
 </div>
 <div class="footer-wrapper">

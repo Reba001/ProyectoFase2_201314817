@@ -24,6 +24,42 @@ public class DetalleIniciativa {
     public DetalleIniciativa(){
         
     }
+    
+    public ArrayList<Iniciativa> getlistaIniciativa(String usuario){
+        Connection cn = null;
+        PreparedStatement ps = null;
+        String SQLScript = "select * from iniciativa where idusuario = ?";
+        try{
+            ArrayList<Iniciativa> iniciativas = new ArrayList<Iniciativa>();
+            cn = new Conexion().getDBConnection();
+            ps = cn.prepareStatement(SQLScript);
+            ps.setString(1, usuario);
+            ResultSet rs;
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Iniciativa in = new Iniciativa();
+                in.setIdiniciativa(rs.getInt("idinciativa"));
+                in.setNombre(rs.getString("nombre"));
+                in.setFechainicio(rs.getDate("fechainicio"));
+                in.setFechafinal(rs.getDate("fechafinal"));
+                in.setIdUsuario(rs.getString("idusuario"));
+                in.setMetaEconomica(rs.getDouble("metaeconomica"));
+                in.setIdSubcategoria(rs.getInt("idsubcategoria"));
+                in.setDescripcion(rs.getString("descripcion"));
+                iniciativas.add(in);
+            }
+            cn.close();
+            ps.close();
+            rs.close();
+            return iniciativas;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
     public ArrayList<String> listaSubcategoria(int idcategoria){
         Connection cn = null;
         PreparedStatement ps = null;
