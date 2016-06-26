@@ -5,7 +5,6 @@
  */
 package Servlet;
 
-import Conexiones.Persona;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author aaper
  */
-public class WSR extends HttpServlet {
+public class iniciativadiferente extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,50 +29,27 @@ public class WSR extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            String nombreP = request.getParameter("hnombre");
+            String usuario = request.getParameter("husuario");
+            String idiniciativa = request.getParameter("hidiniciativa");
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet WSR</title>");            
+            out.println("<title>Servlet iniciativadiferente</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet WSR at " + request.getContextPath() + "</h1>");
-            
-            Persona p = new Persona();
-            String nick = request.getParameter("txtUsuario");
-            String nombre = request.getParameter("txtNombre");
-            String fechanac = request.getParameter("txtFechaNac");
-            String direccion = request.getParameter("txtDireccion");
-            String telefono = request.getParameter("txtTelefono");
-            String contrasenia = request.getParameter("txtContrasenia");
-            String correo = request.getParameter("txtCorreo");
-            String numcuenta = request.getParameter("txtNumCuenta");
-            if(!"".equals(nick) && !"".equals(nombre) && !"".equals(contrasenia)){
-                if(p.setPersona(nick, nombre, fechanac, direccion, telefono, contrasenia, correo, numcuenta) ){ 
-                    if(p.setRol(nick, 1)){
-                        response.sendRedirect("registro.jsp?error=Usted ha sido registrado");
-                    }else{
-                        response.sendRedirect("registro.jsp?error=Ha ocurrido un error");
-                    }
-                }else{
-                    
-                        response.sendRedirect("registro.jsp?error=Ha ocurrido un error");
-                }
-            }else{
-                    
-                        response.sendRedirect("registro.jsp?error=Ha ocurrido un error");
-                }
-            
-        }/**catch(){
-        }catch(){
-        }**/finally{
+            out.println("<h1>Servlet iniciativadiferente at " + request.getContextPath() + "</h1>");
+            out.print(nombreP);
+            out.print(usuario);
+            out.print(idiniciativa);
             out.println("</body>");
             out.println("</html>");
-            out.close();
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 

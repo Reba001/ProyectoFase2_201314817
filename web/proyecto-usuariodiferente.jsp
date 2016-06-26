@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Iniciativa
-    Created on : 22/06/2016, 05:12:05 PM
+    Document   : proyecto-usuariodiferente
+    Created on : 25/06/2016, 01:15:53 PM
     Author     : aaper
 --%>
 
@@ -22,12 +22,18 @@
     <ul>
         <li><a href="#"><img src="images/th.jpg" alt="" /></a></li>
         <li><a><%
+                String u = request.getParameter("husuario").toString();
                 HttpSession sessionIn = request.getSession();
-                String usuario =(String) sessionIn.getAttribute("Usuario");
+                String usuario = sessionIn.getAttribute("Usuario").toString();
                 if( usuario == null ){
                     response.sendRedirect("index.jsp");
                 }else {
-                    out.print("<h2>"+sessionIn.getAttribute("Usuario")+"</h2>");
+                    if(!u.equals(usuario)){
+                        out.print("<h2>"+usuario+"</h2>");
+                    }else {
+                        response.sendRedirect("Iniciativa.jsp");
+                    }
+                    
                 }  
             %></a></li>
       <li><a ><form action ="Salir" method="post" class = "">
@@ -63,20 +69,24 @@
     <div class="left-panel">
       <div class="panel">
           <%
+              String nombre = request.getParameter("hnombre");
+              String user = request.getParameter("husuario");
+              String id = request.getParameter("hidiniciativa");
+              Double metaecono= 0.00;
               DetalleIniciativa di = new DetalleIniciativa();
-              ArrayList<Iniciativa> iniciativas = di.getIniciativa(usuario);
+              ArrayList<Iniciativa> iniciativas = di.getIniciativa(Integer.parseInt(id),user,nombre);
               if(iniciativas != null){
                   for(Iniciativa ini : iniciativas){
-              
+                      metaecono = ini.getMetaEconomica();
               %>
         <div class="title">
           <h1><%out.print(ini.getNombre());%></h1>
-          <h2><%out.print(ini.getFechainicio()+"---"+ini.getFechafinal());%></h2>
+          <h2><%out.print(ini.getFechainicio()+" --- "+ini.getFechafinal());%></h2>
         </div>
         <div class="content">
             <p><% out.print(ini.getDescripcion()); %></p>
         </div>
-        <%
+        <%          
                 }
             }else{
         %>
@@ -104,86 +114,37 @@
     <div class="right-panel">
       <div class="contact-panel">
         <div class="title">
-          <h1>Proyectos en borrador</h1>
+          <h1>Usuario: <%=user%></h1>
           <span>publica tu proyecto aqui</span></div>
           
-                <span>
-                    <%
-                        if(request.getParameter("error") != null){
-                            out.print("<h3>"+request.getParameter("error")+"</h3>");
-                        }else{
-                            out.print("");
-                        }
-                    %>
-                </span>
+                
             
-          <form action="Publicacion" method="post" class="form">
+          <form action="" method="post" class="form">
           
             <ul>
-            <%
-                
-                ArrayList<Iniciativa> listainiciativa = di.getIniciativasBorrador(usuario);
-                if(listainiciativa != null){
-                    for(Iniciativa ini : listainiciativa)
-                    {
-            %>
+            
                 <li>
               
-                    <input type="radio" align="right" class="text-field" value="<%out.print(ini.getNombre());%>" name="dish"><%out.print(ini.getNombre());%></input>
+                    <%out.print("<h3>Meta Economica: "+metaecono+"</h3>");%>
             
                 </li>
-          <%
-                    }
-                }
-          %>
+                <li>
+                    <h3>Recaudado has ahora:  20.00</h3>
+                </li>
+                <li>
+                    <input type="submit" class="buttons" value="Donar"/>
+                </li>
             </ul>
-          <div class="clear"></div>
-          <div class="controller">
-              <input type="submit" class="buttons" value="Publicar" name="btnPublicar"/>
-          <div class="clear"></div>
-        </div>
           
-          <div class="controller">
-              <input type="submit" class="buttons" value="Eliminar" name="btnEliminar"/>
-          <div class="clear"></div>
-        </div>
         </form>
         
         <div class="clear"></div>
       </div>
       <div class="clear"></div>
-      <div class="panel martop">
-        <div class="title">
-          <h1>Perfil Iniciativa</h1>
-        </div>
-        <div class="content">
-          <form>
-                <ul>
-                    <li><a href="Modini.jsp">Modificar Iniciativa</a></li>
-                    <li><a href="AgregarMod.jsp">Agregar Moderador</a></li>
-                </ul>
-          </form>
-        </div>
-        <div class="clear"></div>
-      </div>
+      
       <div class="clear"></div>
-      <div class="contact-panel padding-bottm">
-        <div class="title">
-          <h1>ALIQUAM ADIPIS</h1>
-          <span>Suspendisse ut urna enim</span></div>
-        <div class="search">
-          <ul>
-            <li class="libg">
-              <input type="text" class="search-filed" value="search here..."/>
-            </li>
-            <li><img src="images/search-bt.jpg" alt="" /></li>
-          </ul>
-        </div>
-        <div class="clear"></div>
-      </div>
+      
     </div>
-    <div class="clear"></div>
-  </div>
   <!-- end of BOX WRAPPER -->
   <div class="clear"></div>
 </div>

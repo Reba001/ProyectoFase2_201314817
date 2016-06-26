@@ -32,6 +32,10 @@
         <servlet-name>Publicacion</servlet-name>
         <servlet-class>Servlet.Publicacion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>iniciativadiferente</servlet-name>
+        <servlet-class>Servlet.iniciativadiferente</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/wsI</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>Publicacion</servlet-name>
         <url-pattern>/Publicacion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>iniciativadiferente</servlet-name>
+        <url-pattern>/iniciativadiferente</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

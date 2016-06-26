@@ -129,6 +129,43 @@ public class DetalleIniciativa {
             return null;
         }
     }
+    public ArrayList<Iniciativa> getIniciativa(int idIniciativa, String usuario, String nombre ){
+        Connection cn = null;
+        PreparedStatement ps = null;
+        String SQLScript = "select * from iniciativa where idinciativa = ? and idusuario = ? and nombre = ? ";
+        try{
+            ArrayList<Iniciativa> iniciativas = new ArrayList<Iniciativa>();
+            cn = new Conexion().getDBConnection();
+            ps = cn.prepareStatement(SQLScript);
+            ps.setInt(1, idIniciativa);
+            ps.setString(2, usuario);
+            ps.setString(3, nombre);
+            ResultSet rs;
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Iniciativa in = new Iniciativa();
+                in.setIdiniciativa(rs.getInt("idinciativa"));
+                in.setNombre(rs.getString("nombre"));
+                in.setFechainicio(rs.getDate("fechainicio"));
+                in.setFechafinal(rs.getDate("fechafinal"));
+                in.setIdUsuario(rs.getString("idusuario"));
+                in.setMetaEconomica(rs.getDouble("metaeconomica"));
+                in.setIdSubcategoria(rs.getInt("idsubcategoria"));
+                in.setDescripcion(rs.getString("descripcion"));
+                iniciativas.add(in);
+            }
+            cn.close();
+            ps.close();
+            rs.close();
+            return iniciativas;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
     
     public ArrayList<Iniciativa> getIniciativa(String usuario){
         Connection cn = null;
@@ -165,10 +202,46 @@ public class DetalleIniciativa {
             return null;
         }
     }
+    public ArrayList<Iniciativa> getlistaIniciativa(String nombre){
+        Connection cn = null;
+        PreparedStatement ps = null;
+        String SQLScript = "select * from iniciativa where nombre = ? order by nombre";
+        try{
+            ArrayList<Iniciativa> iniciativas = new ArrayList<Iniciativa>();
+            cn = new Conexion().getDBConnection();
+            ps = cn.prepareStatement(SQLScript);
+            
+            
+            ResultSet rs;
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Iniciativa in = new Iniciativa();
+                in.setIdiniciativa(rs.getInt("idinciativa"));
+                in.setNombre(rs.getString("nombre"));
+                in.setFechainicio(rs.getDate("fechainicio"));
+                in.setFechafinal(rs.getDate("fechafinal"));
+                in.setIdUsuario(rs.getString("idusuario"));
+                in.setMetaEconomica(rs.getDouble("metaeconomica"));
+                in.setIdSubcategoria(rs.getInt("idsubcategoria"));
+                in.setDescripcion(rs.getString("descripcion"));
+                iniciativas.add(in);
+            }
+            cn.close();
+            ps.close();
+            rs.close();
+            return iniciativas;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
     public ArrayList<Iniciativa> getlistaIniciativa(){
         Connection cn = null;
         PreparedStatement ps = null;
-        String SQLScript = "select * from iniciativa where publicado = 'si'";
+        String SQLScript = "select * from iniciativa where publicado = 'si' order by nombre";
         try{
             ArrayList<Iniciativa> iniciativas = new ArrayList<Iniciativa>();
             cn = new Conexion().getDBConnection();

@@ -25,7 +25,7 @@
 <div class="header">
   <div class="row">
     <div class="logo">
-      <h1>¡Bienvenidos!</h1>
+      <a href="index.jsp"><h1>COPERACHA S.A.</h1></a>
     </div>
   </div>
   <div class="clear"></div>
@@ -62,7 +62,13 @@
             <div class="title">
           
                 <h1>Inicio de Registro</h1>
-        
+        <%
+                        if(request.getParameter("error") != null){
+                            out.print("<h3>"+request.getParameter("error")+"</h3>");
+                        }else{
+                            out.print("");
+                        }
+                    %>
             </div>
             
             <form  action="WSR" method = post class ="form">

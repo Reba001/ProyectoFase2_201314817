@@ -68,16 +68,29 @@
       </div>
         <%
             DetalleIniciativa di = new DetalleIniciativa();
+            String user="";
             ArrayList<Iniciativa> iniciativas = di.getlistaIniciativa();
             if(iniciativas != null){
                 for(Iniciativa ini : iniciativas ){
+                    user = ini.getIdUsuario();
+                
         %>
-      <div class="panel marRight30">
-        <div class="content"> <img src="images/img4.jpg" />
-          <p><span><%out.print(ini.getNombre());%></span></p>
-          <p>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus.</p>
-          <a href="#">visit site</a> </div>
-      </div>
+      <form action="proyecto-usuariodiferente.jsp" method ="post">
+        <div class="panel marRight30">
+            <div class="content"> <img src="images/img4.jpg" />
+            <p><span> <%out.print(ini.getNombre());%></span></p>
+            <input type="hidden" name="hnombre" value="<%out.print(ini.getNombre());%>"/>
+            <input type="hidden" name="husuario" value="<%out.print(ini.getIdUsuario());%>"/>
+            <input type="hidden" name="hidiniciativa" value="<%out.print(ini.getIdiniciativa());%>"/>
+            <p>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus.</p>
+            <%if (usuario != user){%>
+            <input class ="buttons" value="Ir ahora" type="submit"/> 
+            <%}else{%>
+            <a href="iniciativa.jsp">ve hacia la luz </a>
+            <%}%>
+            </div>
+        </div>
+     </form>
       <%  
                 }
             }
