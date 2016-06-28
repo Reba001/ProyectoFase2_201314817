@@ -8,7 +8,6 @@ package Servlet;
 import Conexiones.Persona;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Time;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +18,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author aaper
  */
-public class Salir extends HttpServlet {
+public class baja_alta extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,17 +34,29 @@ public class Salir extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try  {
-            /* TODO output your page here. You may use following sample code. */
-            HttpSession sessionOut = request.getSession();
+            String baja = request.getParameter("baja");
+            String alta = request.getParameter("alta");
             Persona p = new Persona();
-            String usuario = (String) sessionOut.getAttribute("Usuario");
-            Time horasalida = new Time(sessionOut.getLastAccessedTime());
-            p.actualizarSalida(usuario, horasalida);
-            sessionOut.invalidate();
-            
-            response.sendRedirect("index.jsp");
-        }finally{
-            
+            String usuario = request.getParameter("usuario");
+           
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet baja_alta</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet baja_alta at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+            if(baja != null){
+                p.actualizarActividad(usuario, 0);
+                response.sendRedirect("administrador.jsp");
+            }else if(alta != null){
+                p.actualizarActividad(usuario, 1);
+                response.sendRedirect("administrador.jsp");
+            }
+        }catch(Exception e){
         }
     }
 

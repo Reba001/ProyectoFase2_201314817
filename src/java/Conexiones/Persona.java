@@ -7,10 +7,12 @@ package Conexiones;
 
 import DataBase.Conexion;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,20 +27,91 @@ public class Persona {
     
     public Persona(){
     }
-    
-    public Persona(String nickname, String nombre,String contrasenia){
-        this.nickname = nickname;
-        this.nombre = nombre;
-        this.contrasenia = contrasenia;
+    public int getAltaBaja(String nickname){
+        Connection dbConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        String selectSQL = "SELECT activo FROM gestionusuario WHERE nickname = ?";
+        try {
+            dbConnection = new Conexion().getDBConnection();
+            int rol = -1;
+
+            preparedStatement = dbConnection.prepareStatement(selectSQL);
+            preparedStatement.setString(1, nickname);
+            
+            ResultSet rs;
+            rs = preparedStatement.executeQuery();
+            
+            while (rs.next()) {
+                rol = rs.getInt("activo");
+            }
+            rs.close();
+            return rol;
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+        
+    }
+    public boolean actualizarActividad(String usuario, int activo){
+        Connection dbC = null;
+        PreparedStatement ps = null;
+        String insertTableSQL = "UPDATE gestionusuario"+
+                " SET activo = ?"+
+                " WHERE nickname = ?";
+         try {
+            dbC = new Conexion().getDBConnection();
+            ps = dbC.prepareStatement(insertTableSQL);
+            
+            ps.setInt(1, activo);
+            ps.setString(2, usuario);
+            
+
+            // execute insert SQL stetement
+            ps.executeUpdate();
+            dbC.close();
+            ps.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
     
-    public String getNickname(){
-        return this.nickname;
-    }
-    
-    public String getContraseña(){
-        return this.contrasenia;
-    }
+    public ArrayList<GestiondeUsuario> listaGestion(){
+        Connection cn = null;
+        PreparedStatement ps = null;
+        String SQLscript = "SELECT * FROM gestionusuario";
+        try{
+            ArrayList<GestiondeUsuario> gestiones = new ArrayList<GestiondeUsuario>();
+            cn = new Conexion().getDBConnection();
+            ps = cn.prepareStatement(SQLscript);
+            ResultSet rs;
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                GestiondeUsuario gu = new GestiondeUsuario();
+                gu.setIdgestion(rs.getInt("idgestion"));
+                gu.setActivo(rs.getInt("activo"));
+                gu.setNickname(rs.getString("nickname"));
+                gu.setHoraentrada(rs.getTime("horaentrada"));
+                gu.setHorasalida(rs.getTime("horasalida"));
+                gu.setFechaingreso(rs.getDate("fechaingreso"));
+                gestiones.add(gu);
+            }
+            return gestiones;
+            
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+            return null;
+        }
+    } 
     public boolean setRol(String nick, int rol){
         Connection dbc = null;
         PreparedStatement ps = null;
@@ -62,7 +135,88 @@ public class Persona {
             
             return false;
         }
-        
+    }
+    public boolean actualizarSalida(String usuario, Time horasalida){
+        Connection dbC = null;
+        PreparedStatement ps = null;
+        String insertTableSQL = "UPDATE gestionusuario"+
+                " SET horasalida = ?"+
+                " WHERE nickname = ?";
+         try {
+            dbC = new Conexion().getDBConnection();
+            ps = dbC.prepareStatement(insertTableSQL);
+            
+            ps.setTime(1, horasalida);
+            ps.setString(2, usuario);
+            
+
+            // execute insert SQL stetement
+            ps.executeUpdate();
+            dbC.close();
+            ps.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    
+    public boolean setGestion(int activo, String nickname, Time horaentrada, Date fechaingreso){
+        Connection dbC = null;
+        PreparedStatement ps = null;
+        String insertTableSQL = "insert into gestionusuario"+
+                " (activo, nickname, horaentrada, fechaingreso)"+
+                " values (?,?,?,?)";
+         try {
+            dbC = new Conexion().getDBConnection();
+            ps = dbC.prepareStatement(insertTableSQL);
+            
+            ps.setInt(1, activo);
+            ps.setString(2, nickname);
+            ps.setTime(3, horaentrada);
+            ps.setDate(4, fechaingreso);
+
+            // execute insert SQL stetement
+            ps.executeUpdate();
+            dbC.close();
+            ps.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    
+    public boolean actualizarRol(String usuario, int rol){
+        Connection dbc = null;
+        PreparedStatement ps = null;
+        String insertTableSQL = "UPDATE usuario SET rol = ? WHERE nickname = ?";
+        try{
+            dbc = new Conexion().getDBConnection();
+            ps = dbc.prepareStatement(insertTableSQL);
+            ps.setInt(1, rol);
+            ps.setString(2, usuario);
+            ps.executeUpdate();
+            dbc.close();
+            ps.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println("Error: "+ e.getMessage());
+                    
+            return false;
+        }
+        catch (Exception e){
+            System.err.println("Error: "+ e.getMessage());
+            return false;
+        }
     }
     public boolean setPersona(String nick,String nom, String fechanac, String direccion, String telefono
     , String contrasenia, String correo, String numcuenta){

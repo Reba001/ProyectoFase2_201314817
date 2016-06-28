@@ -1,9 +1,8 @@
 <%-- 
-    Document   : Proyectos
-    Created on : 22/06/2016, 05:11:44 PM
+    Document   : busqueda
+    Created on : 25/06/2016, 06:37:23 PM
     Author     : aaper
 --%>
-
 <%@page import="Conexiones.Iniciativa"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Conexiones.DetalleIniciativa"%>
@@ -96,11 +95,11 @@
       </div>
         <%
             DetalleIniciativa di = new DetalleIniciativa();
-            String user="";
-            ArrayList<Iniciativa> iniciativas = di.getlistaIniciativa();
+            String parametroBusqueda = request.getParameter("buscar");
+            ArrayList<Iniciativa> iniciativas = di.getListaNombre(parametroBusqueda);
             if(iniciativas != null){
                 for(Iniciativa ini : iniciativas ){
-                    user = ini.getIdUsuario();
+                    
                 
         %>
       <form action="proyecto-usuariodiferente.jsp" method ="post">
@@ -111,17 +110,20 @@
             <input type="hidden" name="husuario" value="<%out.print(ini.getIdUsuario());%>"/>
             <input type="hidden" name="hidiniciativa" value="<%out.print(ini.getIdiniciativa());%>"/>
             <p>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus.</p>
-            <%if (usuario != user){%>
             <input class ="buttons" value="Ir ahora" type="submit"/> 
-            <%}else{%>
-            <a href="iniciativa.jsp">ve hacia la luz </a>
-            <%}%>
             </div>
         </div>
      </form>
       <%  
                 }
+            }else{
+%>
+<div class="logo">
+    <h1> No se econtro </h1>
+</div>
+<%
             }
+            
       %>
     </div>
     <div class="clear"></div>

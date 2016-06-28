@@ -19,10 +19,7 @@
         $("#f_opc").val("1");
             $.post("comboD.jsp",$("#data").serialize(),function(data){$("#idcbSubC").html(data);});
     }
-    function f_subcategoria($i){
-        //alert("hola Mundo");
-        alert($i);
-    }
+    
 </script>
 
 
@@ -163,7 +160,7 @@
                             
                         %>
                         <td>
-                            <select name="cbSubC" id="idcbSubC"  class="selec-field" onchange ="f_subcategoria(value)">
+                            <select name="cbSubC" id="idcbSubC"  class="selec-field">
                                 <option value="" >--Seleccione Subcategoria--</option>
                             </select>
                         </td>

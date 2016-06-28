@@ -5,21 +5,19 @@
  */
 package Servlet;
 
-import Conexiones.Persona;
+import Conexiones.DetalleIniciativa;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Time;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author aaper
  */
-public class Salir extends HttpServlet {
+public class mod_ini extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,17 +33,41 @@ public class Salir extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try  {
+            String idini = request.getParameter("idini");
+            int id = Integer.parseInt(idini);
+            String nombreini = request.getParameter("nombreini");
+            String usuario = request.getParameter("usuario");
+            String descripcionnueva = request.getParameter("txtDescripcion");
+            String nombrenuevo = request.getParameter("txttitulo");
+            DetalleIniciativa di = new DetalleIniciativa();
             /* TODO output your page here. You may use following sample code. */
-            HttpSession sessionOut = request.getSession();
-            Persona p = new Persona();
-            String usuario = (String) sessionOut.getAttribute("Usuario");
-            Time horasalida = new Time(sessionOut.getLastAccessedTime());
-            p.actualizarSalida(usuario, horasalida);
-            sessionOut.invalidate();
-            
-            response.sendRedirect("index.jsp");
-        }finally{
-            
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet mod_ini</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet mod_ini at " + request.getContextPath() + "</h1>");
+            out.println(idini);
+            out.println(nombreini);
+            out.println(usuario);
+            out.println(descripcionnueva);
+            out.println(nombrenuevo);
+            /**if(nombrenuevo.equals("") && !descripcionnueva.equals("") ){
+                di.modificarIniciativaDescripcion(id, usuario, nombreini, descripcionnueva);
+                response.sendRedirect("Modini.jsp?error=titulo actualizado");
+            }else if(descripcionnueva.equals("") && !nombrenuevo.equals("")){
+                di.modificarIniciativaNombre(id, usuario, nombreini, nombrenuevo);
+                response.sendRedirect("Modini.jsp?error=descripcion actualizada");
+            }else if(!descripcionnueva.equals("") && !nombrenuevo.equals("")){
+                di.modificarIniciativaNombre(id, usuario, nombreini, nombrenuevo);
+                di.modificarIniciativaDescripcion(id, usuario, nombreini, descripcionnueva);
+                response.sendRedirect("Modini.jsp?error=titulo y descripcion actualizada");
+            }**/
+            out.println("</body>");
+            out.println("</html>");
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 

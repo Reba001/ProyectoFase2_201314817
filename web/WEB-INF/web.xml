@@ -36,6 +36,14 @@
         <servlet-name>iniciativadiferente</servlet-name>
         <servlet-class>Servlet.iniciativadiferente</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>mod_ini</servlet-name>
+        <servlet-class>Servlet.mod_ini</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>baja_alta</servlet-name>
+        <servlet-class>Servlet.baja_alta</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/wsI</url-pattern>
@@ -71,6 +79,14 @@
     <servlet-mapping>
         <servlet-name>iniciativadiferente</servlet-name>
         <url-pattern>/iniciativadiferente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>mod_ini</servlet-name>
+        <url-pattern>/mod_ini</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>baja_alta</servlet-name>
+        <url-pattern>/baja_alta</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

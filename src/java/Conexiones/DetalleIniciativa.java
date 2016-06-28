@@ -24,6 +24,49 @@ public class DetalleIniciativa {
     public DetalleIniciativa(){
         
     }
+    
+    public void modificarIniciativaDescripcion(int idiniciativa, String usuario, String nombre, String descripcion){
+        Connection cn = null;
+        PreparedStatement ps = null;
+        String SQLScript = "update iniciativa set descripcion = ? where idusuario = ? and idinciativa = ?";
+        try{
+            cn = new Conexion().getDBConnection();
+            ps = cn.prepareStatement(SQLScript);
+            ps.setString(1, descripcion);
+            ps.setString(2, usuario);
+            
+            ps.setInt(3, idiniciativa);
+            ps.executeUpdate();
+            cn.close();
+            ps.close();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void modificarIniciativaNombre(int idiniciativa, String usuario, String nombre, String nuevonombre){
+        Connection cn = null;
+        PreparedStatement ps = null;
+        String SQLScript = "update iniciativa set nombre = ? where idusuario = ? and idinciativa = ?";
+        try{
+            cn = new Conexion().getDBConnection();
+            ps = cn.prepareStatement(SQLScript);
+            ps.setString(1, nuevonombre);
+            ps.setString(2, usuario);
+            
+            ps.setInt(3, idiniciativa);
+            ps.executeUpdate();
+            cn.close();
+            ps.close();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     public void borrarIniciativa(String idusuario,String nombre){
         Connection cn = null;
         PreparedStatement ps = null;
@@ -202,7 +245,7 @@ public class DetalleIniciativa {
             return null;
         }
     }
-    public ArrayList<Iniciativa> getlistaIniciativa(String nombre){
+    public ArrayList<Iniciativa> getListaNombre(String nombre){
         Connection cn = null;
         PreparedStatement ps = null;
         String SQLScript = "select * from iniciativa where nombre = ? order by nombre";
@@ -210,7 +253,7 @@ public class DetalleIniciativa {
             ArrayList<Iniciativa> iniciativas = new ArrayList<Iniciativa>();
             cn = new Conexion().getDBConnection();
             ps = cn.prepareStatement(SQLScript);
-            
+            ps.setString(1, nombre);
             
             ResultSet rs;
             rs = ps.executeQuery();

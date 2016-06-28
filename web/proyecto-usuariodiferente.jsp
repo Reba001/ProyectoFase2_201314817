@@ -24,7 +24,7 @@
         <li><a><%
                 String u = request.getParameter("husuario").toString();
                 HttpSession sessionIn = request.getSession();
-                String usuario = sessionIn.getAttribute("Usuario").toString();
+                String usuario = (String) sessionIn.getAttribute("Usuario");
                 if( usuario == null ){
                     response.sendRedirect("index.jsp");
                 }else {

@@ -4,6 +4,9 @@
     Author     : aaper
 --%>
 
+<%@page import="Conexiones.GestiondeUsuario"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Conexiones.Persona"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -39,15 +42,14 @@
 <div class="header">
   <div class="row">
     <div class="logo">
-      <h1>Coperacha <br />
-          S.A</h1>
+      <h1>Coperacha S.A</h1>
       
     </div>
     <div class="menu">
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
-        <li><a href="services.html" class="active">Services</a> </li>
+        <li><a href="administrador.jsp" class="active">Services</a> </li>
         <li> <a href="work.html">Work</a> </li>
         <li><a href="pages.html">Pages</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -60,71 +62,97 @@
 <div class="page padding-bottom">
   <div class="content_wrap">
     <div class="left-panel">
-      <div class="panel">
-        <div class="title padBottom">
-          <h1>Services</h1>
-          <h2>Lorem ipsum dolor sit amet consectetur adipiscing elit </h2>
-        </div>
-        <div class="clear"></div>
-        <div class="content marbottom30"> <img src="images/img3.jpg"/>
-          <h3>Fusce eleifend sapi</h3>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit.</p>
-          <p>Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin. </p>
-        </div>
-        <div class="clear"></div>
-        <div class="content marbottom30"> <img src="images/img1.jpg"/>
-          <h3>Vivamus molestie gravida</h3>
-          <p>Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. </p>
-          <p>Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum </p>
-        </div>
-        <div class="clear"></div>
-        <div class="content marbottom30"> <img src="images/img2.jpg"/>
-          <h3>FCras iaculis ultricies nulla.</h3>
-          <p>Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare </p>
-          <p>nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</p>
-        </div>
-        <div class="clear"></div>
-        <div class="content marbottom30"> <img src="images/img1.jpg"/>
-          <h3>Aliquam tincidunt mauris.</h3>
-          <p>Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, </p>
-          <p>ectus arcu pulvinar risus, vitae facilisis libero dolor a purus. Sed vel lacus. Mauris nibh felis, adipiscing varius</p>
-        </div>
-        <div class="clear"></div>
-        <div class="content"> <img src="images/img2.jpg"/>
-          <h3>Cras ornare tristique elit.</h3>
-          <p>dipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. </p>
-          <p>Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.</p>
-        </div>
+      <div class="title">
+          <center>
+              <table border="5">
+                  <tr>
+                      <td>
+                          <div class="title">
+                              Usuario
+                          </div>
+                      </td>
+                      <td>
+                          <div class="title">
+                              Hora de Ingreso
+                          </div>
+                      </td>
+                      <td>
+                          <div class="title">
+                              Hora de Egreso
+                          </div>
+                      </td>
+                      <td>
+                          <div class="title">
+                              Fecha de Ingreso
+                          </div>
+                      </td>
+                      <td>
+                          <div class="title">
+                              Activo
+                          </div>
+                      </td>
+                  </tr>
+                  <%
+                      Persona p = new Persona();
+                      ArrayList<GestiondeUsuario> gestiones = p.listaGestion();
+                      if(gestiones != null){
+                        for(GestiondeUsuario g : gestiones){
+                      
+                  %>
+                  <tr>
+                      <td>
+                          <%out.print(g.getNickname());%>
+                      </td>
+                      <td>
+                          <%out.print(g.getHoraentrada());%>
+                      </td>
+                      <td>
+                          <%out.print(g.getHorasalida());%>
+                      </td>
+                      <td>
+                          <%out.print(g.getFechaingreso());%>
+                      </td>
+                      <td>
+                          <%if (g.getActivo() == 1){
+                              out.print("Alta");
+                              
+                          }else if(g.getActivo() == 0){
+                              out.print("Baja");
+}%>
+                      </td>
+                  </tr>
+                  <%        }
+                    }   
+                  %>
+              </table>
+          </center>
       </div>
-      <div class="clear"></div>
     </div>
     <div class="right-panel">
       <div class="contact-panel">
         <div class="title">
-          <h1>PROIN A RISUS</h1>
+          <h1>Gestionar Usuario</h1>
           <span>Vestibulum suscipit nib</span></div>
-        <div class="form">
+          <form action="baja_alta" method="post">
+          <div class="form">
           <ul>
             <li>
-              <input type="text"  class="text-field" value="your name here"/>
+                <h1>Ingrese Usuario</h1>
             </li>
             <li>
-              <input name="" type="text"  class="text-field" value="your email  here"/>
+              <input name="usuario" type="text"  class="text-field" />
             </li>
-            <li>
-              <textarea name="" cols="" rows="" class="textarea">your message  here
-</textarea>
-            </li>
+              <li>
+                  <input type="submit" class="buttons" value="Dar de Baja" name="baja"/>
+              </li>
+              <li>
+                  <input type="submit" class="buttons" value="Dar de Alta" name="alta"/>
+              </li>
           </ul>
           <div class="clear"></div>
         </div>
-        <div class="controller">
-          <div class="buttons">
-            <h2><a href="#">SUBMIT</a></h2>
-          </div>
-          <div class="clear"></div>
-        </div>
-        <div class="clear"></div>
+        
+        </form>
       </div>
       <div class="clear"></div>
       <div class="panel martop">

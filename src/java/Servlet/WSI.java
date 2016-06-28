@@ -9,6 +9,8 @@ import Conexiones.Persona;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.out;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -56,14 +58,26 @@ public class WSI extends HttpServlet {
                         int rol = p.getRol(user);
                         switch (rol){
                             case 1 :
-                                HttpSession sessionok = request.getSession();
-                                sessionok.setAttribute("Usuario",user);
-                                response.sendRedirect("creador.jsp");
+                                int altabaja = p.getAltaBaja(user);
+                                if(altabaja == 1){
+                                    
+                                    HttpSession sessionok = request.getSession();
+                                    sessionok.setAttribute("Usuario",user);
+                                    response.sendRedirect("creador.jsp");
+                                    Time horaentrada = new Time(sessionok.getCreationTime());
+                                    Date fechasalida = new Date(sessionok.getCreationTime());
+                                    p.setGestion(1, user, horaentrada, fechasalida);
+                                }else {
+                                    response.sendRedirect("index.jsp?error=usuario dado de baja");
+                                }
                                 break;
                             case 2: 
                                 HttpSession sessionA = request.getSession();
                                 sessionA.setAttribute("Administrador",user);
                                 response.sendRedirect("administrador.jsp");
+                                Time horaen = new Time(sessionA.getCreationTime());
+                                Date fecha = new Date(sessionA.getCreationTime());
+                                p.setGestion(1, user, horaen, fecha);
                                 break;
                             default :
                                 response.sendRedirect("index.jsp?error=No posee ningun rol");

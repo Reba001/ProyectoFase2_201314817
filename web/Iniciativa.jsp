@@ -130,7 +130,7 @@
                 <li>
               
                     <input type="radio" align="right" class="text-field" value="<%out.print(ini.getNombre());%>" name="dish"><%out.print(ini.getNombre());%></input>
-            
+                    
                 </li>
           <%
                     }
@@ -157,30 +157,30 @@
           <h1>Perfil Iniciativa</h1>
         </div>
         <div class="content">
-          <form>
+            <form action="mod_ini" method="post">
                 <ul>
+            <%       
+                if(iniciativas != null){
+                    for(Iniciativa ini : iniciativas)
+                    {
+            %>
+            <input type="hidden" value="<%out.print(ini.getIdiniciativa());%>" name="idini"/>
+            
+            <input type="hidden" value="<%out.print(ini.getNombre());%>" name="nombreini"/>
+            <input type="hidden" value="<%out.print(ini.getIdUsuario());%>" name="usuario"/>
+          <%
+                    }
+                }
+          %> 
                     <li><a href="Modini.jsp">Modificar Iniciativa</a></li>
                     <li><a href="AgregarMod.jsp">Agregar Moderador</a></li>
+                    <li><a href="AgregarMod.jsp">Quitar Moderador</a></li>
                 </ul>
           </form>
         </div>
         <div class="clear"></div>
       </div>
       <div class="clear"></div>
-      <div class="contact-panel padding-bottm">
-        <div class="title">
-          <h1>ALIQUAM ADIPIS</h1>
-          <span>Suspendisse ut urna enim</span></div>
-        <div class="search">
-          <ul>
-            <li class="libg">
-              <input type="text" class="search-filed" value="search here..."/>
-            </li>
-            <li><img src="images/search-bt.jpg" alt="" /></li>
-          </ul>
-        </div>
-        <div class="clear"></div>
-      </div>
     </div>
     <div class="clear"></div>
   </div>
