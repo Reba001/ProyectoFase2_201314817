@@ -45,7 +45,7 @@
       <ul>
         <li><a href="creador.jsp" class = "active">Inicio</a></li>
         <li><a href="about.html">About</a></li>
-        <li><a href="services.html">Services</a> </li>
+        <li><a href="Blog.jsp">Services</a> </li>
         <li> <a href="Proyectos.jsp">Proyectos</a> </li>
         <li><a href="Iniciativa.jsp">Iniciativa</a></li>
         <li><a href="contact.html">Contact</a></li>

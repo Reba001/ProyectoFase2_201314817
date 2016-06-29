@@ -75,11 +75,12 @@ public class ingreso_iniciativa extends HttpServlet {
                 
                     
                     setIniciativa(nombre, fechainicio, fechalimite, usuario,descripcion, m, s,"no");
-                    response.sendRedirect("iniciativa.jsp");
+                    response.sendRedirect("proceso-creacion-proyecto.jsp?error=Proyecto Guardado");
                 
             }else if(publicar != null && subcategoria != null){
                 setIniciativa(nombre, fechainicio, fechalimite, usuario,descripcion, m, s,"si");
-            }else if(guardarReco != null && ilimitada != null){
+                response.sendRedirect("proceso-creacion-proyecto.jsp?error=Proyecto Publicado");
+            }/*else if(guardarReco != null && ilimitada != null){
                 if("Limitada".equals(ilimitada) && "Fisica".equals(tipo)){
                     String user = (String) sessionok.getAttribute("Usuario");
                     int id = setIdRecompensa(nombre, user);
@@ -101,7 +102,7 @@ public class ingreso_iniciativa extends HttpServlet {
                     setRecompensa(paquete, id, "NF", true, nombreReco);
                     response.sendRedirect("iniciativa.jsp");
                 }
-            }
+            }*/
             
             
         
