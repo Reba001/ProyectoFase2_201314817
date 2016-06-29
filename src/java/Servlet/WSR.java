@@ -8,6 +8,10 @@ package Servlet;
 import Conexiones.Persona;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -53,8 +57,12 @@ public class WSR extends HttpServlet {
             String correo = request.getParameter("txtCorreo");
             String numcuenta = request.getParameter("txtNumCuenta");
             if(!"".equals(nick) && !"".equals(nombre) && !"".equals(contrasenia)){
-                if(p.setPersona(nick, nombre, fechanac, direccion, telefono, contrasenia, correo, numcuenta) ){ 
-                    if(p.setRol(nick, 1)){
+                if(setPersona(nick, nombre, fechanac, direccion, telefono, contrasenia, correo, numcuenta) ){ 
+                    if(setRol(nick, 1)){
+                        Date fecha = new Date();
+                        java.sql.Date fechasql = new java.sql.Date(fecha.getTime());
+                        Time hora = new Time(fecha.getTime());
+                        p.setGestion(1, nick, hora, fechasql);
                         response.sendRedirect("registro.jsp?error=Usted ha sido registrado");
                     }else{
                         response.sendRedirect("registro.jsp?error=Ha ocurrido un error");
@@ -115,5 +123,17 @@ public class WSR extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private static boolean setRol(java.lang.String nickname, int rol) {
+        ServiciosWeb.Persona_Service service = new ServiciosWeb.Persona_Service();
+        ServiciosWeb.Persona port = service.getPersonaPort();
+        return port.setRol(nickname, rol);
+    }
+
+    private static boolean setPersona(java.lang.String nick, java.lang.String nom, java.lang.String fechanac, java.lang.String direccion, java.lang.String telefono, java.lang.String contrasenia, java.lang.String correo, java.lang.String numcuenta) {
+        ServiciosWeb.Persona_Service service = new ServiciosWeb.Persona_Service();
+        ServiciosWeb.Persona port = service.getPersonaPort();
+        return port.setPersona(nick, nom, fechanac, direccion, telefono, contrasenia, correo, numcuenta);
+    }
 
 }

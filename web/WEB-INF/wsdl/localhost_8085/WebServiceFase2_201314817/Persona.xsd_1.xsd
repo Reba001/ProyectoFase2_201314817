@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-hudson-740-. --><xs:schema xmlns:tns="http://wsPersona/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://wsPersona/">
+
+<xs:element name="getAltaBaja" type="tns:getAltaBaja" />
+
+<xs:element name="getAltaBajaResponse" type="tns:getAltaBajaResponse" />
+
+<xs:element name="getRol" type="tns:getRol" />
+
+<xs:element name="getRolResponse" type="tns:getRolResponse" />
+
+<xs:element name="operation" type="tns:operation" />
+
+<xs:element name="operationResponse" type="tns:operationResponse" />
+
+<xs:element name="setPersona" type="tns:setPersona" />
+
+<xs:element name="setPersonaResponse" type="tns:setPersonaResponse" />
+
+<xs:element name="setRol" type="tns:setRol" />
+
+<xs:element name="setRolResponse" type="tns:setRolResponse" />
+
+<xs:complexType name="setPersona">
+<xs:sequence>
+<xs:element name="nick" type="xs:string" minOccurs="0" />
+<xs:element name="nom" type="xs:string" minOccurs="0" />
+<xs:element name="fechanac" type="xs:string" minOccurs="0" />
+<xs:element name="direccion" type="xs:string" minOccurs="0" />
+<xs:element name="telefono" type="xs:string" minOccurs="0" />
+<xs:element name="contrasenia" type="xs:string" minOccurs="0" />
+<xs:element name="correo" type="xs:string" minOccurs="0" />
+<xs:element name="numcuenta" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setPersonaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getAltaBaja">
+<xs:sequence>
+<xs:element name="nickname" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getAltaBajaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getRol">
+<xs:sequence>
+<xs:element name="usuario" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getRolResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setRol">
+<xs:sequence>
+<xs:element name="nickname" type="xs:string" minOccurs="0" />
+<xs:element name="rol" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setRolResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="operation">
+<xs:sequence>
+<xs:element name="usuarios" type="xs:string" minOccurs="0" />
+<xs:element name="contrasenia" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="operationResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

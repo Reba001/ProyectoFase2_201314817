@@ -54,18 +54,18 @@ public class WSI extends HttpServlet {
                 String user = request.getParameter("txtUsuario");
                 String contra = request.getParameter("txtContrasenia");
                 if (!user.equals("") && !contra.equals("")){
-                    if(p.autenticacion(user, contra)){
-                        int rol = p.getRol(user);
+                    if(operation(user, contra)){
+                        int rol = getRol(user);
                         switch (rol){
                             case 1 :
-                                int altabaja = p.getAltaBaja(user);
+                                int altabaja = getAltaBaja(user);
                                 if(altabaja == 1){
                                     
                                     HttpSession sessionok = request.getSession();
                                     sessionok.setAttribute("Usuario",user);
                                     response.sendRedirect("creador.jsp");
-                                    Time horaentrada = new Time(sessionok.getCreationTime());
-                                    Date fechasalida = new Date(sessionok.getCreationTime());
+                                    java.sql.Time horaentrada = new java.sql.Time(sessionok.getCreationTime());
+                                    java.sql.Date fechasalida = new java.sql.Date(sessionok.getCreationTime());
                                     p.setGestion(1, user, horaentrada, fechasalida);
                                 }else {
                                     response.sendRedirect("index.jsp?error=usuario dado de baja");
@@ -75,8 +75,10 @@ public class WSI extends HttpServlet {
                                 HttpSession sessionA = request.getSession();
                                 sessionA.setAttribute("Administrador",user);
                                 response.sendRedirect("administrador.jsp");
-                                Time horaen = new Time(sessionA.getCreationTime());
-                                Date fecha = new Date(sessionA.getCreationTime());
+                                java.sql.Time horaen = new java.sql.Time(sessionA.getCreationTime());
+                                java.sql.Date fecha = new java.sql.Date(sessionA.getCreationTime());
+                                String hora = horaen.toString();
+                                String fech = fecha.toString();
                                 p.setGestion(1, user, horaen, fecha);
                                 break;
                             default :
@@ -145,6 +147,24 @@ public class WSI extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private static Integer getAltaBaja(java.lang.String nickname) {
+        ServiciosWeb.Persona_Service service = new ServiciosWeb.Persona_Service();
+        ServiciosWeb.Persona port = service.getPersonaPort();
+        return port.getAltaBaja(nickname);
+    }
+
+    private static Integer getRol(java.lang.String usuario) {
+        ServiciosWeb.Persona_Service service = new ServiciosWeb.Persona_Service();
+        ServiciosWeb.Persona port = service.getPersonaPort();
+        return port.getRol(usuario);
+    }
+
+    private static Boolean operation(java.lang.String usuarios, java.lang.String contrasenia) {
+        ServiciosWeb.Persona_Service service = new ServiciosWeb.Persona_Service();
+        ServiciosWeb.Persona port = service.getPersonaPort();
+        return port.operation(usuarios, contrasenia);
+    }
 
     
 

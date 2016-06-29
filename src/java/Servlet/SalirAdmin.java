@@ -5,8 +5,10 @@
  */
 package Servlet;
 
+import Conexiones.Persona;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Time;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,8 +36,13 @@ public class SalirAdmin extends HttpServlet {
         PrintWriter out = response.getWriter();
         try{
             /* TODO output your page here. You may use following sample code. */
-            HttpSession sessionOut = request.getSession();
+             HttpSession sessionOut = request.getSession();
+            Persona p = new Persona();
+            String usuario = (String) sessionOut.getAttribute("Administrador");
+            Time horasalida = new Time(sessionOut.getLastAccessedTime());
+            p.actualizarSalida(usuario, horasalida);
             sessionOut.invalidate();
+            
             response.sendRedirect("index.jsp");
         }finally{
             

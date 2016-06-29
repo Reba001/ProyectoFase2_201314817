@@ -1,9 +1,4 @@
-<%-- 
-    Document   : administrador
-    Created on : 21/06/2016, 05:01:12 PM
-    Author     : aaper
---%>
-
+<%@page import="Conexiones.Usuario"%>
 <%@page import="Conexiones.GestiondeUsuario"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Conexiones.Persona"%>
@@ -48,7 +43,7 @@
     <div class="menu">
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="consultaadminusuario.jsp">Consulta Modificacion</a></li>
+        <li><a href="consultaadminusuario.jsp">Consulta Usuario</a></li>
         <li><a href="administrador.jsp" class="active">Alta/Baja</a> </li>
         <li> <a href="work.html">Work</a> </li>
         <li><a href="pages.html">Pages</a></li>
@@ -73,52 +68,73 @@
                       </td>
                       <td>
                           <div class="title">
-                              Hora de Ingreso
+                              Contraseña
                           </div>
                       </td>
                       <td>
                           <div class="title">
-                              Hora de Egreso
+                              Nombre
                           </div>
                       </td>
                       <td>
                           <div class="title">
-                              Fecha de Ingreso
+                              Direccion
                           </div>
                       </td>
                       <td>
                           <div class="title">
-                              Activo
+                              Fecha de Nacimiento
+                          </div>
+                      </td>
+                      <td>
+                          <div class="title">
+                              Telefono
+                          </div>
+                      </td>
+                      
+                      <td>
+                          <div class="title">
+                              Correo Electronico
+                          </div>
+                      </td>
+                      
+                      <td>
+                          <div class="title">
+                              Numero de Cuenta
                           </div>
                       </td>
                   </tr>
                   <%
                       Persona p = new Persona();
-                      ArrayList<GestiondeUsuario> gestiones = p.listaGestion();
-                      if(gestiones != null){
-                        for(GestiondeUsuario g : gestiones){
+                      ArrayList<Usuario> usuarios = p.listaUsuario();
+                      if(usuarios != null){
+                        for(Usuario u : usuarios){
                       
                   %>
                   <tr>
                       <td>
-                          <%out.print(g.getNickname());%>
+                          <%out.print(u.getNickname());%>
                       </td>
                       <td>
-                          <%out.print(g.getHoraentrada());%>
+                          <%out.print(u.getNombre());%>
                       </td>
                       <td>
-                          <%out.print(g.getHorasalida());%>
+                          <%out.print(u.getContasenia());%>
                       </td>
                       <td>
-                          <%out.print(g.getFechaingreso());%>
+                          <%out.print(u.getDireccion());%>
                       </td>
                       <td>
-                          <%if (g.getActivo() == 1){
-                              out.print("Alta");
-                              
-                          }else if(g.getActivo() == 0){
-                              out.print("Baja");
-}%>
+                          <%out.print(u.getFechanac());%>
+                      </td>
+                      <td>
+                          <%out.print(u.getTelefono());%>
+                      </td>
+                      <td>
+                          <%out.print(u.getCorreo());%>
+                      </td>
+                      <td>
+                          <%out.print(u.getNuncuenta());%>
                       </td>
                   </tr>
                   <%        }

@@ -50,14 +50,14 @@ public class Publicacion extends HttpServlet {
             out.println("<h1>Servlet Publicacion at " + request.getContextPath() + "</h1>");
             if(publicar != null){
                 if(radio != null){
-                    di.publicarIniciativa(usuario,radio,"si");
+                    publicarIniciativa(usuario,radio,"si");
                     response.sendRedirect("Iniciativa.jsp");
                 }else{
                     response.sendRedirect("Iniciativa.jsp?error=No posee ningun proyecto en borrador");
                 }
             }else if(eliminar != null){
                 if(radio != null){
-                    di.borrarIniciativa(usuario, radio);
+                    borrarIniciativa(usuario, radio);
                     response.sendRedirect("Iniciativa.jsp");
                 }else{
                     response.sendRedirect("Iniciativa.jsp?error=No posee ningun proyecto en borrador");
@@ -109,5 +109,17 @@ public class Publicacion extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private static boolean borrarIniciativa(java.lang.String idusuario, java.lang.String nombre) {
+        wspersona.DetalleIniciativa_Service service = new wspersona.DetalleIniciativa_Service();
+        wspersona.DetalleIniciativa port = service.getDetalleIniciativaPort();
+        return port.borrarIniciativa(idusuario, nombre);
+    }
+
+    private static boolean publicarIniciativa(java.lang.String idusuario, java.lang.String nombre, java.lang.String publicado) {
+        wspersona.DetalleIniciativa_Service service = new wspersona.DetalleIniciativa_Service();
+        wspersona.DetalleIniciativa port = service.getDetalleIniciativaPort();
+        return port.publicarIniciativa(idusuario, nombre, publicado);
+    }
 
 }

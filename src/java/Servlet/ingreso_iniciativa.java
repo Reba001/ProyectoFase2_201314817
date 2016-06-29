@@ -8,6 +8,7 @@ package Servlet;
 import Conexiones.DetalleIniciativa;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -40,7 +41,16 @@ public class ingreso_iniciativa extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             /* TODO output your page here. You may use following sample code. */
+            /**codigo para recompensa*/
+            HttpSession sessionok = request.getSession();
+            
+            String nombreReco = request.getParameter("txtNombreReco");
+            String paquete = request.getParameter("txtPaquete");
+            String tipo = request.getParameter("cbTipo");
             String nombre = request.getParameter("txtNombreIni");
+            String guardarReco = request.getParameter("btnGuardarReco");
+            String ilimitada = request.getParameter("cbLimitada");
+            /* aqui termina el codigo */
             Calendar fecha = new GregorianCalendar();
             HttpSession sessionIn = request.getSession();
             String usuario =(String) sessionIn.getAttribute("Usuario");
@@ -64,16 +74,41 @@ public class ingreso_iniciativa extends HttpServlet {
             if(guardar != null && subcategoria != null){
                 
                     
-                    di.setIniciativa(nombre, fechainicio, fechalimite, usuario,descripcion, m, s,"no");
+                    setIniciativa(nombre, fechainicio, fechalimite, usuario,descripcion, m, s,"no");
+                    response.sendRedirect("iniciativa.jsp");
                 
-                
-            }else if(publicar != null){
-                di.setIniciativa(nombre, fechainicio, fechalimite, usuario,descripcion, m, s,"si");
+            }else if(publicar != null && subcategoria != null){
+                setIniciativa(nombre, fechainicio, fechalimite, usuario,descripcion, m, s,"si");
+            }else if(guardarReco != null && ilimitada != null){
+                if("Limitada".equals(ilimitada) && "Fisica".equals(tipo)){
+                    String user = (String) sessionok.getAttribute("Usuario");
+                    int id = setIdRecompensa(nombre, user);
+                    setRecompensa(paquete, id, "F", true, nombreReco);
+                    response.sendRedirect("iniciativa.jsp");
+                }else if("Ilimitada".equals(ilimitada) && "Fisica".equals(tipo)){
+                    String user = (String) sessionok.getAttribute("Usuario");
+                    int id = setIdRecompensa(nombre, user);
+                    setRecompensa(paquete, id, "F", false, nombreReco);
+                    response.sendRedirect("iniciativa.jsp");
+                }else if("Ilimitada".equals(ilimitada) && "No Fisica".equals(tipo)){
+                    String user = (String) sessionok.getAttribute("Usuario");
+                    int id = setIdRecompensa(nombre, user);
+                    setRecompensa(paquete, id, "NF", false, nombreReco);
+                    response.sendRedirect("iniciativa.jsp");
+                }else if("Limitada".equals(ilimitada) && "No Fisica".equals(tipo)){
+                    String user = (String) sessionok.getAttribute("Usuario");
+                    int id = setIdRecompensa(nombre, user);
+                    setRecompensa(paquete, id, "NF", true, nombreReco);
+                    response.sendRedirect("iniciativa.jsp");
+                }
             }
             
             
         
-        }finally{
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        finally{
             out.println("</body>");
             out.println("</html>");
             out.close();
@@ -120,5 +155,26 @@ public class ingreso_iniciativa extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private static boolean setIniciativa(java.lang.String nombre, java.lang.String fechainicio, java.lang.String fechafinal, java.lang.String idusuario, java.lang.String descripcion, double metaeconomica, int idSubcategoria, java.lang.String publicada) {
+        wspersona.DetalleIniciativa_Service service = new wspersona.DetalleIniciativa_Service();
+        wspersona.DetalleIniciativa port = service.getDetalleIniciativaPort();
+        return port.setIniciativa(nombre, fechainicio, fechafinal, idusuario, descripcion, metaeconomica, idSubcategoria, publicada);
+    }
+
+    private static boolean setRecompensa(java.lang.String paquete, int idiniciativa, java.lang.String tipo, boolean limitada, java.lang.String nombre) {
+        wspersona.DetalleIniciativa_Service service = new wspersona.DetalleIniciativa_Service();
+        wspersona.DetalleIniciativa port = service.getDetalleIniciativaPort();
+        return port.setRecompensa(paquete, idiniciativa, tipo, limitada, nombre);
+    }
+
+    private static int setIdRecompensa(java.lang.String nombreIniciativa, java.lang.String usuario) {
+        wspersona.DetalleIniciativa_Service service = new wspersona.DetalleIniciativa_Service();
+        wspersona.DetalleIniciativa port = service.getDetalleIniciativaPort();
+        return port.setIdRecompensa(nombreIniciativa, usuario);
+    }
+
+    
+
 
 }

@@ -13,9 +13,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -166,6 +168,7 @@ public class Persona {
     }
     
     public boolean setGestion(int activo, String nickname, Time horaentrada, Date fechaingreso){
+        //TODO write your implementation code here:
         Connection dbC = null;
         PreparedStatement ps = null;
         String insertTableSQL = "insert into gestionusuario"+
@@ -174,7 +177,6 @@ public class Persona {
          try {
             dbC = new Conexion().getDBConnection();
             ps = dbC.prepareStatement(insertTableSQL);
-            
             ps.setInt(1, activo);
             ps.setString(2, nickname);
             ps.setTime(3, horaentrada);
@@ -256,7 +258,37 @@ public class Persona {
             return false;
         }
     }
-    
+    public ArrayList<Usuario> listaUsuario(){
+        Connection dbC = null;
+        PreparedStatement ps = null;
+        String consultaSQL = "select * from usuario";
+        try{
+            dbC = new Conexion().getDBConnection();
+            ps = dbC.prepareStatement(consultaSQL);
+            ResultSet rs;
+            rs= ps.executeQuery();
+            ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+            
+            while(rs.next()){
+                Usuario u = new Usuario();
+                u.setNickname(rs.getString("nickname"));
+                u.setNombre(rs.getString("nombre"));
+                u.setFechanac(rs.getDate("fechanac"));
+                u.setDireccion(rs.getString("direccion"));
+                u.setTelefono(rs.getInt("telefono"));
+                u.setContasenia(rs.getString("contrasenia"));
+                u.setCorreo(rs.getString("correo"));
+                u.setNuncuenta(rs.getString("numcuenta"));
+                usuarios.add(u);
+            }
+            dbC.close();
+            ps.close();
+            return usuarios;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
     public boolean autenticacion(String usuario, String contraseña){
         Connection dbC = null;
         PreparedStatement pst = null; 
