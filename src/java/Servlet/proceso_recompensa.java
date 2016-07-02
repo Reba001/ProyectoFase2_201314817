@@ -5,10 +5,8 @@
  */
 package Servlet;
 
-import Conexiones.Persona;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Time;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +17,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author aaper
  */
-public class Salir extends HttpServlet {
+public class proceso_recompensa extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,17 +33,33 @@ public class Salir extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try  {
-          
-            HttpSession sessionOut = request.getSession();
-            Persona p = new Persona();
-            String usuario = (String) sessionOut.getAttribute("Usuario");
-            Time horasalida = new Time(sessionOut.getLastAccessedTime());
-            p.actualizarSalida(usuario, horasalida);
-            sessionOut.invalidate();
+            String nombre = request.getParameter("nombreI");
+            HttpSession sessionOk = request.getSession();
+            String usuario = (String) sessionOk.getAttribute("Usuario");
+            String nombreReco = request.getParameter("txtNombreReco");
+            String nombrePaq = request.getParameter("txtPaquete");
+            String tipo = request.getParameter("cbTipo");
+            String limite = request.getParameter("cbLimitada");
+            int id = setIdRecompensa(nombre,usuario);
+            if("Fisica".equals(tipo) && "Limitada".equals(limite)){
+                
+                setRecompensa(nombrePaq, id, "F", 1, nombreReco);
+                response.sendRedirect("proceso-creacion-proyecto.jsp?error=Proyecto Guardado");
+            }else if ("Fisica".equals(tipo) && "Ilimitada".equals(limite)){
+                setRecompensa(nombrePaq, id, "F", 0, nombreReco);
+                response.sendRedirect("proceso-creacion-proyecto.jsp?error=Proyecto Guardado");
+            }else if ("No Fisica".equals(tipo) && "Ilimitada".equals(limite)){
+                setRecompensa(nombrePaq, id, "NF", 0, nombreReco);
+                response.sendRedirect("proceso-creacion-proyecto.jsp?error=Proyecto Guardado");
+            }else if ("No Fisica".equals(tipo) && "Limitada".equals(limite)){
+                setRecompensa(nombrePaq, id, "NF", 1, nombreReco);
+                response.sendRedirect("proceso-creacion-proyecto.jsp?error=Proyecto Guardado");
+            }
             
-            response.sendRedirect("index.jsp");
-        }finally{
+            /* TODO output your page here. You may use following sample code. */
             
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -87,5 +101,18 @@ public class Salir extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private static int setIdRecompensa(java.lang.String nombreIniciativa, java.lang.String usuario) {
+        wspersona.DetalleIniciativa_Service service = new wspersona.DetalleIniciativa_Service();
+        wspersona.DetalleIniciativa port = service.getDetalleIniciativaPort();
+        return port.setIdRecompensa(nombreIniciativa, usuario);
+    }
+
+    private static boolean setRecompensa(java.lang.String paquete, int idiniciativa, java.lang.String tipo, int limitada, java.lang.String nombre) {
+        wspersona.DetalleIniciativa_Service service = new wspersona.DetalleIniciativa_Service();
+        wspersona.DetalleIniciativa port = service.getDetalleIniciativaPort();
+        return port.setRecompensa(paquete, idiniciativa, tipo, limitada, nombre);
+    }
+
 
 }

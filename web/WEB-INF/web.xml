@@ -44,6 +44,14 @@
         <servlet-name>baja_alta</servlet-name>
         <servlet-class>Servlet.baja_alta</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>donacionU</servlet-name>
+        <servlet-class>Servlet.donacionU</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>proceso_recompensa</servlet-name>
+        <servlet-class>Servlet.proceso_recompensa</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/wsI</url-pattern>
@@ -87,6 +95,14 @@
     <servlet-mapping>
         <servlet-name>baja_alta</servlet-name>
         <url-pattern>/baja_alta</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>donacionU</servlet-name>
+        <url-pattern>/donacionU</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>proceso_recompensa</servlet-name>
+        <url-pattern>/proceso_recompensa</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

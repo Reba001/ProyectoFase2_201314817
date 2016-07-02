@@ -119,13 +119,13 @@
           
                 
             
-          <form action="" method="post" class="form">
+          <form action="donar.jsp" method="post" class="form">
           
             <ul>
             
                 <li>
               
-                    <%out.print("<h3>Meta Economica: "+metaecono+"</h3>");%>
+                    <a><%out.print("<h3>Meta Economica: "+metaecono+"</h3>");%></a>
             
                 </li>
                 <li>

@@ -66,6 +66,22 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="setRecompensa">
+<xs:sequence>
+<xs:element name="paquete" type="xs:string" minOccurs="0" />
+<xs:element name="idiniciativa" type="xs:int" />
+<xs:element name="tipo" type="xs:string" minOccurs="0" />
+<xs:element name="limitada" type="xs:int" />
+<xs:element name="nombre" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setRecompensaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="setIdRecompensa">
 <xs:sequence>
 <xs:element name="nombreIniciativa" type="xs:string" minOccurs="0" />
@@ -76,22 +92,6 @@
 <xs:complexType name="setIdRecompensaResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="setRecompensa">
-<xs:sequence>
-<xs:element name="paquete" type="xs:string" minOccurs="0" />
-<xs:element name="idiniciativa" type="xs:int" />
-<xs:element name="tipo" type="xs:string" minOccurs="0" />
-<xs:element name="limitada" type="xs:boolean" />
-<xs:element name="nombre" type="xs:string" minOccurs="0" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="setRecompensaResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" />
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

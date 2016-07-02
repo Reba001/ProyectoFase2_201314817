@@ -10,6 +10,12 @@
 <message name="operationResponse">
 <part name="parameters" element="tns:operationResponse" />
 </message>
+<message name="getCuenta">
+<part name="parameters" element="tns:getCuenta" />
+</message>
+<message name="getCuentaResponse">
+<part name="parameters" element="tns:getCuentaResponse" />
+</message>
 <message name="setRol">
 <part name="parameters" element="tns:setRol" />
 </message>
@@ -22,22 +28,32 @@
 <message name="setPersonaResponse">
 <part name="parameters" element="tns:setPersonaResponse" />
 </message>
-<message name="getAltaBaja">
-<part name="parameters" element="tns:getAltaBaja" />
-</message>
-<message name="getAltaBajaResponse">
-<part name="parameters" element="tns:getAltaBajaResponse" />
-</message>
 <message name="getRol">
 <part name="parameters" element="tns:getRol" />
 </message>
 <message name="getRolResponse">
 <part name="parameters" element="tns:getRolResponse" />
 </message>
+<message name="getAltaBaja">
+<part name="parameters" element="tns:getAltaBaja" />
+</message>
+<message name="getAltaBajaResponse">
+<part name="parameters" element="tns:getAltaBajaResponse" />
+</message>
+<message name="setDonar">
+<part name="parameters" element="tns:setDonar" />
+</message>
+<message name="setDonarResponse">
+<part name="parameters" element="tns:setDonarResponse" />
+</message>
 <portType name="Persona">
 <operation name="operation">
 <input wsam:Action="http://wsPersona/Persona/operationRequest" message="tns:operation" />
 <output wsam:Action="http://wsPersona/Persona/operationResponse" message="tns:operationResponse" />
+</operation>
+<operation name="getCuenta">
+<input wsam:Action="http://wsPersona/Persona/getCuentaRequest" message="tns:getCuenta" />
+<output wsam:Action="http://wsPersona/Persona/getCuentaResponse" message="tns:getCuentaResponse" />
 </operation>
 <operation name="setRol">
 <input wsam:Action="http://wsPersona/Persona/setRolRequest" message="tns:setRol" />
@@ -47,13 +63,17 @@
 <input wsam:Action="http://wsPersona/Persona/setPersonaRequest" message="tns:setPersona" />
 <output wsam:Action="http://wsPersona/Persona/setPersonaResponse" message="tns:setPersonaResponse" />
 </operation>
+<operation name="getRol">
+<input wsam:Action="http://wsPersona/Persona/getRolRequest" message="tns:getRol" />
+<output wsam:Action="http://wsPersona/Persona/getRolResponse" message="tns:getRolResponse" />
+</operation>
 <operation name="getAltaBaja">
 <input wsam:Action="http://wsPersona/Persona/getAltaBajaRequest" message="tns:getAltaBaja" />
 <output wsam:Action="http://wsPersona/Persona/getAltaBajaResponse" message="tns:getAltaBajaResponse" />
 </operation>
-<operation name="getRol">
-<input wsam:Action="http://wsPersona/Persona/getRolRequest" message="tns:getRol" />
-<output wsam:Action="http://wsPersona/Persona/getRolResponse" message="tns:getRolResponse" />
+<operation name="setDonar">
+<input wsam:Action="http://wsPersona/Persona/setDonarRequest" message="tns:setDonar" />
+<output wsam:Action="http://wsPersona/Persona/setDonarResponse" message="tns:setDonarResponse" />
 </operation>
 </portType>
 <binding name="PersonaPortBinding" type="tns:Persona">
@@ -67,6 +87,15 @@
 <soap:body use="literal" />
 </output>
 </operation>
+<operation name="getCuenta">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
 <operation name="setRol">
 <soap:operation soapAction="" />
 <input>
@@ -85,6 +114,15 @@
 <soap:body use="literal" />
 </output>
 </operation>
+<operation name="getRol">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
 <operation name="getAltaBaja">
 <soap:operation soapAction="" />
 <input>
@@ -94,7 +132,7 @@
 <soap:body use="literal" />
 </output>
 </operation>
-<operation name="getRol">
+<operation name="setDonar">
 <soap:operation soapAction="" />
 <input>
 <soap:body use="literal" />

@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
  * @author aaper
  */
 public class ingreso_iniciativa extends HttpServlet {
-    boolean save = false;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -80,29 +80,7 @@ public class ingreso_iniciativa extends HttpServlet {
             }else if(publicar != null && subcategoria != null){
                 setIniciativa(nombre, fechainicio, fechalimite, usuario,descripcion, m, s,"si");
                 response.sendRedirect("proceso-creacion-proyecto.jsp?error=Proyecto Publicado");
-            }/*else if(guardarReco != null && ilimitada != null){
-                if("Limitada".equals(ilimitada) && "Fisica".equals(tipo)){
-                    String user = (String) sessionok.getAttribute("Usuario");
-                    int id = setIdRecompensa(nombre, user);
-                    setRecompensa(paquete, id, "F", true, nombreReco);
-                    response.sendRedirect("iniciativa.jsp");
-                }else if("Ilimitada".equals(ilimitada) && "Fisica".equals(tipo)){
-                    String user = (String) sessionok.getAttribute("Usuario");
-                    int id = setIdRecompensa(nombre, user);
-                    setRecompensa(paquete, id, "F", false, nombreReco);
-                    response.sendRedirect("iniciativa.jsp");
-                }else if("Ilimitada".equals(ilimitada) && "No Fisica".equals(tipo)){
-                    String user = (String) sessionok.getAttribute("Usuario");
-                    int id = setIdRecompensa(nombre, user);
-                    setRecompensa(paquete, id, "NF", false, nombreReco);
-                    response.sendRedirect("iniciativa.jsp");
-                }else if("Limitada".equals(ilimitada) && "No Fisica".equals(tipo)){
-                    String user = (String) sessionok.getAttribute("Usuario");
-                    int id = setIdRecompensa(nombre, user);
-                    setRecompensa(paquete, id, "NF", true, nombreReco);
-                    response.sendRedirect("iniciativa.jsp");
-                }
-            }*/
+            }
             
             
         
@@ -162,20 +140,4 @@ public class ingreso_iniciativa extends HttpServlet {
         wspersona.DetalleIniciativa port = service.getDetalleIniciativaPort();
         return port.setIniciativa(nombre, fechainicio, fechafinal, idusuario, descripcion, metaeconomica, idSubcategoria, publicada);
     }
-
-    private static boolean setRecompensa(java.lang.String paquete, int idiniciativa, java.lang.String tipo, boolean limitada, java.lang.String nombre) {
-        wspersona.DetalleIniciativa_Service service = new wspersona.DetalleIniciativa_Service();
-        wspersona.DetalleIniciativa port = service.getDetalleIniciativaPort();
-        return port.setRecompensa(paquete, idiniciativa, tipo, limitada, nombre);
-    }
-
-    private static int setIdRecompensa(java.lang.String nombreIniciativa, java.lang.String usuario) {
-        wspersona.DetalleIniciativa_Service service = new wspersona.DetalleIniciativa_Service();
-        wspersona.DetalleIniciativa port = service.getDetalleIniciativaPort();
-        return port.setIdRecompensa(nombreIniciativa, usuario);
-    }
-
-    
-
-
 }

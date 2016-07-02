@@ -4,6 +4,12 @@
 <xsd:import namespace="http://wsPersona/" schemaLocation="http://localhost:8085/WebServiceFase2_201314817/DetalleIniciativa?xsd=1" />
 </xsd:schema>
 </types>
+<message name="setIdRecompensa">
+<part name="parameters" element="tns:setIdRecompensa" />
+</message>
+<message name="setIdRecompensaResponse">
+<part name="parameters" element="tns:setIdRecompensaResponse" />
+</message>
 <message name="borrarIniciativa">
 <part name="parameters" element="tns:borrarIniciativa" />
 </message>
@@ -15,12 +21,6 @@
 </message>
 <message name="setIniciativaResponse">
 <part name="parameters" element="tns:setIniciativaResponse" />
-</message>
-<message name="setIdRecompensa">
-<part name="parameters" element="tns:setIdRecompensa" />
-</message>
-<message name="setIdRecompensaResponse">
-<part name="parameters" element="tns:setIdRecompensaResponse" />
 </message>
 <message name="setRecompensa">
 <part name="parameters" element="tns:setRecompensa" />
@@ -35,6 +35,10 @@
 <part name="parameters" element="tns:publicarIniciativaResponse" />
 </message>
 <portType name="DetalleIniciativa">
+<operation name="setIdRecompensa">
+<input wsam:Action="http://wsPersona/DetalleIniciativa/setIdRecompensaRequest" message="tns:setIdRecompensa" />
+<output wsam:Action="http://wsPersona/DetalleIniciativa/setIdRecompensaResponse" message="tns:setIdRecompensaResponse" />
+</operation>
 <operation name="borrarIniciativa">
 <input wsam:Action="http://wsPersona/DetalleIniciativa/borrarIniciativaRequest" message="tns:borrarIniciativa" />
 <output wsam:Action="http://wsPersona/DetalleIniciativa/borrarIniciativaResponse" message="tns:borrarIniciativaResponse" />
@@ -42,10 +46,6 @@
 <operation name="setIniciativa">
 <input wsam:Action="http://wsPersona/DetalleIniciativa/setIniciativaRequest" message="tns:setIniciativa" />
 <output wsam:Action="http://wsPersona/DetalleIniciativa/setIniciativaResponse" message="tns:setIniciativaResponse" />
-</operation>
-<operation name="setIdRecompensa">
-<input wsam:Action="http://wsPersona/DetalleIniciativa/setIdRecompensaRequest" message="tns:setIdRecompensa" />
-<output wsam:Action="http://wsPersona/DetalleIniciativa/setIdRecompensaResponse" message="tns:setIdRecompensaResponse" />
 </operation>
 <operation name="setRecompensa">
 <input wsam:Action="http://wsPersona/DetalleIniciativa/setRecompensaRequest" message="tns:setRecompensa" />
@@ -58,6 +58,15 @@
 </portType>
 <binding name="DetalleIniciativaPortBinding" type="tns:DetalleIniciativa">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+<operation name="setIdRecompensa">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
 <operation name="borrarIniciativa">
 <soap:operation soapAction="" />
 <input>
@@ -68,15 +77,6 @@
 </output>
 </operation>
 <operation name="setIniciativa">
-<soap:operation soapAction="" />
-<input>
-<soap:body use="literal" />
-</input>
-<output>
-<soap:body use="literal" />
-</output>
-</operation>
-<operation name="setIdRecompensa">
 <soap:operation soapAction="" />
 <input>
 <soap:body use="literal" />

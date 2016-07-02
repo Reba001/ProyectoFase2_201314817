@@ -4,6 +4,10 @@
 
 <xs:element name="getAltaBajaResponse" type="tns:getAltaBajaResponse" />
 
+<xs:element name="getCuenta" type="tns:getCuenta" />
+
+<xs:element name="getCuentaResponse" type="tns:getCuentaResponse" />
+
 <xs:element name="getRol" type="tns:getRol" />
 
 <xs:element name="getRolResponse" type="tns:getRolResponse" />
@@ -11,6 +15,10 @@
 <xs:element name="operation" type="tns:operation" />
 
 <xs:element name="operationResponse" type="tns:operationResponse" />
+
+<xs:element name="setDonar" type="tns:setDonar" />
+
+<xs:element name="setDonarResponse" type="tns:setDonarResponse" />
 
 <xs:element name="setPersona" type="tns:setPersona" />
 
@@ -39,15 +47,17 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getAltaBaja">
+<xs:complexType name="setDonar">
 <xs:sequence>
-<xs:element name="nickname" type="xs:string" minOccurs="0" />
+<xs:element name="monto" type="xs:float" />
+<xs:element name="fecha" type="xs:string" minOccurs="0" />
+<xs:element name="usuario" type="xs:string" minOccurs="0" />
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getAltaBajaResponse">
+<xs:complexType name="setDonarResponse">
 <xs:sequence>
-<xs:element name="return" type="xs:int" minOccurs="0" />
+<xs:element name="return" type="xs:boolean" />
 </xs:sequence>
 </xs:complexType>
 
@@ -58,6 +68,18 @@
 </xs:complexType>
 
 <xs:complexType name="getRolResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getAltaBaja">
+<xs:sequence>
+<xs:element name="nickname" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getAltaBajaResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int" minOccurs="0" />
 </xs:sequence>
@@ -86,6 +108,18 @@
 <xs:complexType name="operationResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCuenta">
+<xs:sequence>
+<xs:element name="usuario" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCuentaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" />
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

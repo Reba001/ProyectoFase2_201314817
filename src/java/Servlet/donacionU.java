@@ -5,10 +5,10 @@
  */
 package Servlet;
 
-import Conexiones.Persona;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Time;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author aaper
  */
-public class Salir extends HttpServlet {
+public class donacionU extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,17 +35,16 @@ public class Salir extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try  {
-          
-            HttpSession sessionOut = request.getSession();
-            Persona p = new Persona();
-            String usuario = (String) sessionOut.getAttribute("Usuario");
-            Time horasalida = new Time(sessionOut.getLastAccessedTime());
-            p.actualizarSalida(usuario, horasalida);
-            sessionOut.invalidate();
+            HttpSession sessionOk = request.getSession();
+            String usuario = (String) sessionOk.getAttribute("Usuario");
+            Calendar fecha = new GregorianCalendar();
+            String f = ""+fecha.get(Calendar.DAY_OF_MONTH)+"/"+fecha.get(Calendar.MONTH)+"/"+fecha.get(Calendar.YEAR);
+            String d = request.getParameter("txtMonto");
+            float donacion = Float.parseFloat(d);
+            setDonar(donacion, f, usuario);
             
-            response.sendRedirect("index.jsp");
-        }finally{
-            
+        }catch(Exception e){
+            System.err.print(e.getMessage());
         }
     }
 
@@ -87,5 +86,14 @@ public class Salir extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private static boolean setDonar(float monto, java.lang.String fecha, java.lang.String usuario) {
+        ServiciosWeb.Persona_Service service = new ServiciosWeb.Persona_Service();
+        ServiciosWeb.Persona port = service.getPersonaPort();
+        return port.setDonar(monto, fecha, usuario);
+    }
+
+
+    
 
 }

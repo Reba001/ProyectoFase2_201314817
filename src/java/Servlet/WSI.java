@@ -59,7 +59,7 @@ public class WSI extends HttpServlet {
                         switch (rol){
                             case 1 :
                                 int altabaja = getAltaBaja(user);
-                                if(altabaja == 1){
+                                //if(altabaja == 1){
                                     
                                     HttpSession sessionok = request.getSession();
                                     sessionok.setAttribute("Usuario",user);
@@ -67,9 +67,9 @@ public class WSI extends HttpServlet {
                                     java.sql.Time horaentrada = new java.sql.Time(sessionok.getCreationTime());
                                     java.sql.Date fechasalida = new java.sql.Date(sessionok.getCreationTime());
                                     p.setGestion(1, user, horaentrada, fechasalida);
-                                }else {
+                                //}else {
                                     response.sendRedirect("index.jsp?error=usuario dado de baja");
-                                }
+                                //}
                                 break;
                             case 2: 
                                 HttpSession sessionA = request.getSession();

@@ -4,6 +4,7 @@
     Author     : aaper
 --%>
 
+<%@page import="Conexiones.Iniciativa"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Conexiones.DetalleIniciativa"%>
 <%@page language ="java" contentType="text/html" pageEncoding="UTF-8"%>
@@ -156,14 +157,13 @@
                         </td>
                     </tr>
                     <tr>
-                        <%
-                            
-                        %>
                         <td>
                             <select name="cbSubC" id="idcbSubC"  class="selec-field">
                                 <option value="" >--Seleccione Subcategoria--</option>
                             </select>
+                          
                         </td>
+                        
                         <td>
                             
                         </td>
@@ -216,7 +216,7 @@
           </div>
                         <div class ="left-panel">
                                       <div class ="contact-panel">
-                <form action ="ingreso_iniciativa" method = "post" id="data">
+                <form action ="proceso_recompensa" method = "post" id="data">
                 <table border ="0">
                     <tr>
                         <td>
@@ -227,9 +227,18 @@
                         </td>
                     </tr>
                     <tr>
+                        
                         <td>
                             <input name ="txtNombreReco" type="text" class="text-field"/>
+                        <%
+                            ArrayList<Iniciativa>  iniciativas = di.getIniciativa(usuario);
+                            for (Iniciativa i : iniciativas){
+                        %>
+                        
+                        
+                            <input name="nombreI" type="hidden" value="<%out.print(i.getNombre());%>"  />
                         </td>
+                        <%}%>
                         <td>
                             
                         </td>
