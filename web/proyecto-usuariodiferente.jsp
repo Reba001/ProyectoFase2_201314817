@@ -126,10 +126,11 @@
                 <li>
               
                     <a><%out.print("<h3>Meta Economica: "+metaecono+"</h3>");%></a>
+                    <input name="idiniciativa" type="hidden" value ="<%=id%>" />
             
                 </li>
                 <li>
-                    <h3>Recaudado has ahora:  20.00</h3>
+                    <h3>Recaudado hasta ahora:  20.00</h3>
                 </li>
                 <li>
                     <input type="submit" class="buttons" value="Donar"/>

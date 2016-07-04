@@ -2,8 +2,8 @@
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="http://localhost:8085/WebServiceFase2/Persona?wsdl" uri="src/conf/xml-resources/web-service-references/Persona/wsdl/localhost_8085/WebServiceFase2/Persona.wsdl"/>
     <system systemId="http://localhost:8085/WebServiceFase2/Persona?xsd=1" uri="src/conf/xml-resources/web-service-references/Persona/wsdl/localhost_8085/WebServiceFase2/Persona.xsd_1.xsd"/>
-    <system systemId="http://localhost:8085/WebServiceFase2_201314817/Persona?wsdl" uri="src/conf/xml-resources/web-service-references/Persona/wsdl/localhost_8085/WebServiceFase2_201314817/Persona.wsdl"/>
-    <system systemId="http://localhost:8085/WebServiceFase2_201314817/Persona?xsd=1" uri="src/conf/xml-resources/web-service-references/Persona/wsdl/localhost_8085/WebServiceFase2_201314817/Persona.xsd_1.xsd"/>
     <system systemId="http://localhost:8085/WebServiceFase2_201314817/DetalleIniciativa?wsdl" uri="src/conf/xml-resources/web-service-references/DetalleIniciativa/wsdl/localhost_8085/WebServiceFase2_201314817/DetalleIniciativa.wsdl"/>
     <system systemId="http://localhost:8085/WebServiceFase2_201314817/DetalleIniciativa?xsd=1" uri="src/conf/xml-resources/web-service-references/DetalleIniciativa/wsdl/localhost_8085/WebServiceFase2_201314817/DetalleIniciativa.xsd_1.xsd"/>
+    <system systemId="http://localhost:8085/WebServiceFase2_201314817/Persona?wsdl" uri="src/conf/xml-resources/web-service-references/Persona/wsdl/localhost_8085/WebServiceFase2_201314817/Persona.wsdl"/>
+    <system systemId="http://localhost:8085/WebServiceFase2_201314817/Persona?xsd=1" uri="src/conf/xml-resources/web-service-references/Persona/wsdl/localhost_8085/WebServiceFase2_201314817/Persona.xsd_1.xsd"/>
 </catalog>

@@ -40,6 +40,12 @@
 <message name="getAltaBajaResponse">
 <part name="parameters" element="tns:getAltaBajaResponse" />
 </message>
+<message name="getDonacion">
+<part name="parameters" element="tns:getDonacion" />
+</message>
+<message name="getDonacionResponse">
+<part name="parameters" element="tns:getDonacionResponse" />
+</message>
 <message name="setDonar">
 <part name="parameters" element="tns:setDonar" />
 </message>
@@ -70,6 +76,10 @@
 <operation name="getAltaBaja">
 <input wsam:Action="http://wsPersona/Persona/getAltaBajaRequest" message="tns:getAltaBaja" />
 <output wsam:Action="http://wsPersona/Persona/getAltaBajaResponse" message="tns:getAltaBajaResponse" />
+</operation>
+<operation name="getDonacion">
+<input wsam:Action="http://wsPersona/Persona/getDonacionRequest" message="tns:getDonacion" />
+<output wsam:Action="http://wsPersona/Persona/getDonacionResponse" message="tns:getDonacionResponse" />
 </operation>
 <operation name="setDonar">
 <input wsam:Action="http://wsPersona/Persona/setDonarRequest" message="tns:setDonar" />
@@ -124,6 +134,15 @@
 </output>
 </operation>
 <operation name="getAltaBaja">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
+<operation name="getDonacion">
 <soap:operation soapAction="" />
 <input>
 <soap:body use="literal" />

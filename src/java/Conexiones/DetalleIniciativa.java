@@ -25,6 +25,42 @@ public class DetalleIniciativa {
         
     }
     
+    public ArrayList<Recompensa> getListaRecompensa( int idiniciativa){
+                Connection dbC = null;
+        PreparedStatement ps = null;
+        String scriptSQL = "select * from recompensa where idiniciativa = ? ";
+        try{
+            ArrayList<Recompensa> recompensas = new ArrayList<Recompensa>();
+            dbC = new Conexion().getDBConnection();
+            ps = dbC.prepareStatement(scriptSQL);
+            
+            ps.setInt(1, idiniciativa);
+            
+            ResultSet rs;
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Recompensa r = new Recompensa();
+                r.setCodrecompensa(rs.getInt("codrecompensa"));
+                r.setPaquete(rs.getString("paquete"));
+                r.setIdiniciativa(idiniciativa);
+                r.setTipo(rs.getString("tipo"));
+                r.setNombre(rs.getString("nombre"));
+                r.setLimitada(rs.getInt("limitada"));
+                recompensas.add(r);
+            }
+            dbC.close();
+            
+            ps.close();
+            
+            rs.close();
+            
+            return recompensas;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
     public void modificarIniciativaDescripcion(int idiniciativa, String usuario, String nombre, String descripcion){
         Connection cn = null;
         PreparedStatement ps = null;

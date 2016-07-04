@@ -38,10 +38,12 @@ public class donacionU extends HttpServlet {
             HttpSession sessionOk = request.getSession();
             String usuario = (String) sessionOk.getAttribute("Usuario");
             Calendar fecha = new GregorianCalendar();
+            String id = request.getParameter("idiniciativa");
             String f = ""+fecha.get(Calendar.DAY_OF_MONTH)+"/"+fecha.get(Calendar.MONTH)+"/"+fecha.get(Calendar.YEAR);
             String d = request.getParameter("txtMonto");
             float donacion = Float.parseFloat(d);
-            setDonar(donacion, f, usuario);
+            
+            setDonar(donacion, f, usuario, Integer.parseInt(id));
             
         }catch(Exception e){
             System.err.print(e.getMessage());
@@ -87,12 +89,13 @@ public class donacionU extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private static boolean setDonar(float monto, java.lang.String fecha, java.lang.String usuario) {
+    private static boolean setDonar(float monto, java.lang.String fecha, java.lang.String usuario, int idiniciativa) {
         ServiciosWeb.Persona_Service service = new ServiciosWeb.Persona_Service();
         ServiciosWeb.Persona port = service.getPersonaPort();
-        return port.setDonar(monto, fecha, usuario);
+        return port.setDonar(monto, fecha, usuario, idiniciativa);
     }
 
+  
 
     
 

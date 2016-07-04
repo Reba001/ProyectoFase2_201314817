@@ -93,7 +93,12 @@
       <div class="title">
         <h1>Proyectos</h1>
         <h2>A continuacion presentamos todas las iniciativas, que necesitan de tu aporte.</h2>
-      </div>
+      </div>    <%-- start web service invocation --%><hr/>
+    <%
+    
+    %>
+    <%-- end web service invocation --%><hr/>
+
         <%
             DetalleIniciativa di = new DetalleIniciativa();
             String user="";
@@ -101,6 +106,19 @@
             if(iniciativas != null){
                 for(Iniciativa ini : iniciativas ){
                     user = ini.getIdUsuario();
+                    double result = 0;
+                    try {
+                        ServiciosWeb.Persona_Service service = new ServiciosWeb.Persona_Service();
+                        ServiciosWeb.Persona port = service.getPersonaPort();
+	 // TODO initialize WS operation arguments here
+                        
+	// TODO process result here
+                         result = port.getDonacion(ini.getIdiniciativa());
+	
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+	// TODO handle custom exceptions here
+                        }
                 
         %>
       <form action="proyecto-usuariodiferente.jsp" method ="post">
@@ -110,12 +128,10 @@
             <input type="hidden" name="hnombre" value="<%out.print(ini.getNombre());%>"/>
             <input type="hidden" name="husuario" value="<%out.print(ini.getIdUsuario());%>"/>
             <input type="hidden" name="hidiniciativa" value="<%out.print(ini.getIdiniciativa());%>"/>
-            <p>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus.</p>
-            <%if (usuario != user){%>
+            <p>Meta <%out.print(ini.getMetaEconomica());%></p>
+            <p>Cantidad para la meta <%out.print(ini.getMetaEconomica()- result);%></p>
             <input class ="buttons" value="Ir ahora" type="submit"/> 
-            <%}else{%>
-            <a href="iniciativa.jsp">ve hacia la luz </a>
-            <%}%>
+            
             </div>
         </div>
      </form>
