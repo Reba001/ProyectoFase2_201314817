@@ -44,7 +44,7 @@
     <div class="menu">
       <ul>
         <li><a href="creador.jsp" class = "active">Inicio</a></li>
-        <li><a href="about.html">About</a></li>
+        <li><a href="Denuncias.jsp">Denuncias</a></li>
         <li><a href="Blog.jsp">Services</a> </li>
         <li> <a href="Proyectos.jsp">Proyectos</a> </li>
         <li><a href="Iniciativa.jsp">Iniciativa</a></li>

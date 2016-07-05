@@ -52,6 +52,22 @@
         <servlet-name>proceso_recompensa</servlet-name>
         <servlet-class>Servlet.proceso_recompensa</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Comentar</servlet-name>
+        <servlet-class>Servlet.Comentar</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EliminarComentario</servlet-name>
+        <servlet-class>Servlet.EliminarComentario</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DenunciarC</servlet-name>
+        <servlet-class>Servlet.DenunciarC</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteComent</servlet-name>
+        <servlet-class>Servlet.DeleteComent</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/wsI</url-pattern>
@@ -103,6 +119,22 @@
     <servlet-mapping>
         <servlet-name>proceso_recompensa</servlet-name>
         <url-pattern>/proceso_recompensa</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Comentar</servlet-name>
+        <url-pattern>/Comentar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EliminarComentario</servlet-name>
+        <url-pattern>/EliminarComentario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DenunciarC</servlet-name>
+        <url-pattern>/DenunciarC</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteComent</servlet-name>
+        <url-pattern>/DeleteComent</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -34,6 +34,7 @@ GENERAL CLASS
 .text-field{ background:#91a3c2; width:200px; height:16px; padding:10px; border:none; font-family: 'Open Sans', sans-serif; font-size:13px; color:#fff;}
 .selec-field{ width:220px; height:36px; border:none; float:left; background:#91a3c2; text-indent:5px;font-family: 'Open Sans', sans-serif; font-size:13px; color:#fff;}
 .textarea{background:#91a3c2; width:200px; height:106px; padding:10px; border:none; font-family: 'Open Sans', sans-serif; font-size:13px; color:#fff; overflow:auto;}
+.textarea1{background:#91a3c2; width:500px; height:106px; padding:10px; border:none; font-family: 'Open Sans', sans-serif; font-size:13px; color:#fff; overflow:auto;}
 /*-------------------------------------------------
 SOCIAL NETWORKING CLASSES
 -------------------------------------------------*/

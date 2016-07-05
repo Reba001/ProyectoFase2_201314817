@@ -4,6 +4,7 @@
     Author     : aaper
 --%>
 
+<%@page import="Conexiones.Comentario"%>
 <%@page import="Conexiones.Iniciativa"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Conexiones.DetalleIniciativa"%>
@@ -47,7 +48,7 @@
     <div class="menu">
       <ul>
         <li><a href="creador.jsp">Inicio</a></li>
-        <li><a href="">About</a></li>
+        <li><a href="Denuncias.jsp">Denuncias</a></li>
         <li><a href="Blog.jsp">Blog</a> </li>
         <li> <a href="Proyectos.jsp">Proyectos</a> </li>
         <li><a href="Iniciativa.jsp"  class="active">Iniciativa</a></li>
@@ -63,11 +64,13 @@
     <div class="left-panel">
       <div class="panel">
           <%
+              int id = 0;
               DetalleIniciativa di = new DetalleIniciativa();
               ArrayList<Iniciativa> iniciativas = di.getIniciativa(usuario);
               if(iniciativas != null){
-                  for(Iniciativa ini : iniciativas){
-              
+                  if(iniciativas.size() <= 1){
+                    for(Iniciativa ini : iniciativas){
+                      id = ini.getIdiniciativa();
               %>
         <div class="title">
           <h1><%out.print(ini.getNombre());%></h1>
@@ -77,6 +80,25 @@
             <p><% out.print(ini.getDescripcion()); %></p>
         </div>
         <%
+                    }
+                }else{
+                    for(Iniciativa ini : iniciativas){
+                        id = ini.getIdiniciativa();
+        %>
+        <form action="proyectodelmismo.jsp" method="post">
+        <u>
+            <a href="">
+                
+                <%out.print(ini.getNombre());%>
+                <input name="idiniciativa" value="<%=id%>" type="hidden"/>
+            </a>
+            <a>
+                <input value="Ir Ahora" type="submit"/>
+            </a>
+        </u>
+            </form>
+                <%
+                    }
                 }
             }else{
         %>
@@ -98,6 +120,29 @@
         <% 
            } 
         %>
+        
+                <div class="panel">
+            <%
+                ArrayList<Comentario> comentarios = di.getListaComentario(id);
+                if(comentarios != null){
+                    for(Comentario c : comentarios){
+                
+            %>
+            <p><%out.print(c.getFecha().toString());%></p>
+            <form action="EliminarComentario" method="post">
+                <input type="submit" value="Eliminar"/>
+                <input type="hidden" name="idComentario" value="<%out.print(c.getIdComentario());%>"/>
+            </form>
+            <div class="content">
+                <p><%out.print(c.getComentario());%></p>
+            </div>
+            <%      }
+                }else{%>
+            <div class="content">
+                
+            </div>
+            <%}%>
+        </div>
       </div>
       <div class="clear"></div>
     </div>

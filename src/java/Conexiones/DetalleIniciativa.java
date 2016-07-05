@@ -25,6 +25,80 @@ public class DetalleIniciativa {
         
     }
     
+    public ArrayList<DenunciaComentario> getListaDenuncia(String usuario){
+                Connection dbConection = null;
+        PreparedStatement ps = null;
+        String SQLScript = "select denuncia.iddenuncia, denuncia.idcomentario, denuncia.tipo, denuncia.usuario, comentario.descripcion, iniciativa.nombre"+
+                " from comentario, denuncia, iniciativa where (comentario.idcomentario = denuncia.idcomentario) and (iniciativa.idusuario = ?)";
+        try{
+            ArrayList<DenunciaComentario> comentarios = new ArrayList<DenunciaComentario>();
+            dbConection = new Conexion().getDBConnection();
+            ps = dbConection.prepareStatement(SQLScript);
+            ps.setString(1, usuario);
+            ResultSet rs;
+            rs = ps.executeQuery();
+            while(rs.next()){
+                DenunciaComentario dc = new DenunciaComentario();
+                dc.setIddenuncia(rs.getInt(1));
+                dc.setIdcomentario(rs.getInt(2));
+                dc.setTipo(rs.getInt(3));
+                dc.setUsuario(rs.getString(4));
+                dc.setComentario(rs.getString(5));
+                dc.setIniciativa(rs.getString(6));
+                comentarios.add(dc);
+            }
+            dbConection.close();
+            ps.close();
+            rs.close();
+            return comentarios;
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+            
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public ArrayList<Comentario> getListaComentario( int idiniciativa){
+                Connection dbC = null;
+        PreparedStatement ps = null;
+        String scriptSQL = "select * from comentario where idiniciativa = ? ";
+        try{
+            ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
+            dbC = new Conexion().getDBConnection();
+            ps = dbC.prepareStatement(scriptSQL);
+            
+            ps.setInt(1, idiniciativa);
+            
+            ResultSet rs;
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Comentario c = new Comentario();
+                c.setIdComentario(rs.getInt("idcomentario"));
+                c.setComentario(rs.getString("descripcion"));
+                c.setFecha(rs.getDate("fecha"));
+                c.setIdiniciativa(rs.getInt("idiniciativa"));
+                c.setUsuario(rs.getString("idusuario"));
+                c.setHora(rs.getTime("hora"));
+                comentarios.add(c);
+            }
+            dbC.close();
+            
+            ps.close();
+            
+            rs.close();
+            
+            return comentarios;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
     public ArrayList<Recompensa> getListaRecompensa( int idiniciativa){
                 Connection dbC = null;
         PreparedStatement ps = null;
@@ -182,6 +256,41 @@ public class DetalleIniciativa {
             cn = new Conexion().getDBConnection();
             ps = cn.prepareStatement(SQLScript);
             ps.setString(1, usuario);
+            ResultSet rs;
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Iniciativa in = new Iniciativa();
+                in.setIdiniciativa(rs.getInt("idinciativa"));
+                in.setNombre(rs.getString("nombre"));
+                in.setFechainicio(rs.getDate("fechainicio"));
+                in.setFechafinal(rs.getDate("fechafinal"));
+                in.setIdUsuario(rs.getString("idusuario"));
+                in.setMetaEconomica(rs.getDouble("metaeconomica"));
+                in.setIdSubcategoria(rs.getInt("idsubcategoria"));
+                in.setDescripcion(rs.getString("descripcion"));
+                iniciativas.add(in);
+            }
+            cn.close();
+            ps.close();
+            rs.close();
+            return iniciativas;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public ArrayList<Iniciativa> getIniciativa(int idIniciativa){
+        Connection cn = null;
+        PreparedStatement ps = null;
+        String SQLScript = "select * from iniciativa where idinciativa = ? ";
+        try{
+            ArrayList<Iniciativa> iniciativas = new ArrayList<Iniciativa>();
+            cn = new Conexion().getDBConnection();
+            ps = cn.prepareStatement(SQLScript);
+            ps.setInt(1, idIniciativa);
             ResultSet rs;
             rs = ps.executeQuery();
             while(rs.next()){

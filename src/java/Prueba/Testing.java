@@ -9,6 +9,9 @@ import Conexiones.DetalleIniciativa;
 import Conexiones.Iniciativa;
 import Conexiones.Persona;
 import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,11 +24,12 @@ import javax.servlet.http.HttpSession;
  * @author aaper
  */
 public class Testing {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         Calendar fecha = new GregorianCalendar();
         String f = ""+fecha.get(Calendar.DAY_OF_MONTH)+"/"+(fecha.get(Calendar.MONTH)+1)+"/"+fecha.get(Calendar.YEAR);
+        String h = ""+fecha.get(Calendar.HOUR_OF_DAY);
         System.out.println(f);
-        
+        System.out.println(h);
         DetalleIniciativa di = new DetalleIniciativa();
         
                 

@@ -1,9 +1,3 @@
-<-- 
-    Document   : proyecto-usuariodiferente
-    Created on : 25/06/2016, 01:15:53 PM
-    Author     : aaper
---%>
-
 <%@page import="Conexiones.Comentario"%>
 <%@page import="Conexiones.Iniciativa"%>
 <%@page import="java.util.ArrayList"%>
@@ -24,8 +18,9 @@
         <li><a href="#"><img src="images/th.jpg" alt="" /></a></li>
         <li><a><%
             
-                String u = request.getParameter("husuario");
+                
                 HttpSession sessionIn = request.getSession();
+                String u = (String) sessionIn.getAttribute("husuario");
                 String usuario = (String) sessionIn.getAttribute("Usuario");
                 if( usuario == null ){
                     response.sendRedirect("index.jsp");
@@ -79,9 +74,9 @@
     <div class="left-panel">
       <div class="panel">
           <%
-              String nombre = request.getParameter("hnombre");
-              String user = request.getParameter("husuario");
-              String id = request.getParameter("hidiniciativa");
+              String nombre = (String) sessionIn.getAttribute("hnombre");
+              String user = (String) sessionIn.getAttribute("husuario");
+              String id = (String) sessionIn.getAttribute("hidiniciativa");
               double metaecono= 0.00;
               DetalleIniciativa di = new DetalleIniciativa();
               ArrayList<Iniciativa> iniciativas = di.getIniciativa(Integer.parseInt(id),user,nombre);
@@ -129,6 +124,9 @@
                 <table border="0" width="500">
                 <td>
                     <p>Fecha: <%out.print(c.getFecha().toString());%></p>
+                    <input type="hidden" name="idcomentario" value="<%out.print(c.getIdComentario());%>" />
+                    
+                    <input type="hidden" name="usuario" value="<%=usuario%>" />
                 </td>
                 <td>
                     <p>Hora: <%out.print(c.getHora().toString());%></p>
@@ -137,9 +135,7 @@
                     <p> Usuario: <%out.print(c.getUsuario());%></p>
                 </td>
                 <td>
-                    
                     <input type="submit" value="Denunciar" />
-                    
                 </td>
             </table>
                 
@@ -147,9 +143,6 @@
                 <p><%out.print(c.getComentario());%></p>
             </div>
             </form>
-            <div class="content">
-                <p><%out.print(c.getComentario());%></p>
-            </div>
             <%      }
                 }else{%>
             <div class="content">

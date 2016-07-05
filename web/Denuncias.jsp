@@ -4,6 +4,7 @@
     Author     : aaper
 --%>
 
+<%@page import="Conexiones.DenunciaComentario"%>
 <%@page import="Conexiones.Iniciativa"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Conexiones.DetalleIniciativa"%>
@@ -48,9 +49,9 @@
     <div class="menu">
       <ul>
         <li><a href="creador.jsp">Inicio</a></li>
-        <li><a href="Denuncias.jsp">Denuncias</a></li>
+        <li><a href="Denuncias.jsp" class="active">Denuncias</a></li>
         <li><a href="Blog.jsp">Blog</a> </li>
-        <li> <a href="Proyectos.jsp" class="active">Proyectos</a> </li>
+        <li> <a href="Proyectos.jsp" >Proyectos</a> </li>
         <li><a href="Iniciativa.jsp">Iniciativa</a></li>
         <li><a href="">Contact</a></li>
       </ul>
@@ -65,20 +66,20 @@
         <div>
             <div class="clear"></div>
         <div class="search">
-            <form action="busqueda.jsp" method="post">
+            <form action="DeleteComent" method="post">
             <table border = "0" >
                 <tr>
                     <td>
                     <div class="title">
-                        <h1>Ingresa el nombre de La iniciativa</h1>
+                        <h1>Ingresa el Id del comentario para eliminar</h1>
                         
                     </div>
                     </td>
                     <td>
-                        <input type="text" class="text-field" name="buscar"/>
+                        <input type="text" class="text-field" name="eliminar"/>
                     </td>
                     <td>
-                        <input type="submit" value="Buscar" class="buttons" />
+                        <input type="submit" value="Eliminar" class="buttons" />
                     </td>
 
                 </tr>
@@ -89,59 +90,51 @@
         <div class="clear"></div>
         <div class="clear"></div>
       </div>
-    <div class="portfolio">
-      <div class="title">
-        <h1>Proyectos</h1>
-        <h2>A continuacion presentamos todas las iniciativas, que necesitan de tu aporte.</h2>
-      </div>    <%-- start web service invocation --%><hr/>
-    <%
-    
-    %>
-    <%-- end web service invocation --%><hr/>
 
+    <div class="clear"></div>
+    <div>
         <%
             DetalleIniciativa di = new DetalleIniciativa();
-            String user="";
-            ArrayList<Iniciativa> iniciativas = di.getlistaIniciativa();
-            if(iniciativas != null){
-                for(Iniciativa ini : iniciativas ){
-                    user = ini.getIdUsuario();
-                    double result = 0;
-                    try {
-                        ServiciosWeb.Persona_Service service = new ServiciosWeb.Persona_Service();
-                        ServiciosWeb.Persona port = service.getPersonaPort();
-	 // TODO initialize WS operation arguments here
-                        
-	// TODO process result here
-                         result = port.getDonacion(ini.getIdiniciativa());
-	
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-	// TODO handle custom exceptions here
-                        }
-                
-        %>
-      <form action="proyecto-usuariodiferente.jsp" method ="post">
-        <div class="panel marRight30">
-            <div class="content"> <img src="images/img4.jpg" />
-            <p><span> <%out.print(ini.getNombre());%></span></p>
-            <input type="hidden" name="hnombre" value="<%out.print(ini.getNombre());%>"/>
-            <input type="hidden" name="husuario" value="<%out.print(ini.getIdUsuario());%>"/>
-            <input type="hidden" name="hidiniciativa" value="<%out.print(ini.getIdiniciativa());%>"/>
-            <p>Meta <%out.print(ini.getMetaEconomica());%></p>
-            <p>Cantidad para la meta <%out.print(ini.getMetaEconomica()- result);%></p>
-            <input class ="buttons" value="Ir ahora" type="submit"/> 
+            ArrayList<DenunciaComentario> denuncias = di.getListaDenuncia(usuario);
             
-            </div>
-        </div>
-     </form>
-      <%  
-                }
-            }
-      %>
+        %>
+        <form>
+            <table>
+                <tr>
+                    <td>
+                        <h1>ID Comentario</h1>
+                    
+                    </td>
+                    <td>
+                        <h1>Comentario</h1>
+                    </td>
+                    <td>
+                        <h1>Iniciativa</h1>
+                    </td>    
+                </tr>
+                <%
+                    if(denuncias != null){
+                        for(DenunciaComentario dc: denuncias){
+                %>
+                <tr>
+                    <td>
+                        <h2><%out.print(dc.getIdcomentario());%></h2>
+                    
+                    </td>
+                    <td>
+                        <h2><%out.print(dc.getComentario());%></h2>
+                    </td>    
+                    <td>
+                        <h2><%out.print(dc.getIniciativa());%></h2>
+                    </td>    
+                </tr>
+                <%      }
+                    }
+                %>
+            </table>
+        </form>
+        
     </div>
-    <div class="clear"></div>
-    
   </div>
   <!-- end of BOX WRAPPER -->
   <div class="clear"></div>

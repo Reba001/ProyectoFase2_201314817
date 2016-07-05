@@ -1,12 +1,28 @@
 <?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-hudson-740-. --><xs:schema xmlns:tns="http://wsPersona/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://wsPersona/">
 
+<xs:element name="EliminarDenuncia" type="tns:EliminarDenuncia" />
+
+<xs:element name="EliminarDenunciaResponse" type="tns:EliminarDenunciaResponse" />
+
 <xs:element name="borrarIniciativa" type="tns:borrarIniciativa" />
 
 <xs:element name="borrarIniciativaResponse" type="tns:borrarIniciativaResponse" />
 
+<xs:element name="eliminarComentario" type="tns:eliminarComentario" />
+
+<xs:element name="eliminarComentarioResponse" type="tns:eliminarComentarioResponse" />
+
 <xs:element name="publicarIniciativa" type="tns:publicarIniciativa" />
 
 <xs:element name="publicarIniciativaResponse" type="tns:publicarIniciativaResponse" />
+
+<xs:element name="setComentario" type="tns:setComentario" />
+
+<xs:element name="setComentarioResponse" type="tns:setComentarioResponse" />
+
+<xs:element name="setDenunciaComentario" type="tns:setDenunciaComentario" />
+
+<xs:element name="setDenunciaComentarioResponse" type="tns:setDenunciaComentarioResponse" />
 
 <xs:element name="setIdRecompensa" type="tns:setIdRecompensa" />
 
@@ -53,14 +69,43 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="borrarIniciativa">
+<xs:complexType name="setDenunciaComentario">
 <xs:sequence>
-<xs:element name="idusuario" type="xs:string" minOccurs="0" />
-<xs:element name="nombre" type="xs:string" minOccurs="0" />
+<xs:element name="idComentario" type="xs:int" />
+<xs:element name="tipo" type="xs:int" />
+<xs:element name="usuario" type="xs:string" minOccurs="0" />
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="borrarIniciativaResponse">
+<xs:complexType name="setDenunciaComentarioResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="eliminarComentario">
+<xs:sequence>
+<xs:element name="idComentario" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="eliminarComentarioResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setComentario">
+<xs:sequence>
+<xs:element name="descripcion" type="xs:string" minOccurs="0" />
+<xs:element name="fecha" type="xs:string" minOccurs="0" />
+<xs:element name="idiniciativa" type="xs:int" />
+<xs:element name="idusuario" type="xs:string" minOccurs="0" />
+<xs:element name="hora" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setComentarioResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean" />
 </xs:sequence>
@@ -82,6 +127,19 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="borrarIniciativa">
+<xs:sequence>
+<xs:element name="idusuario" type="xs:string" minOccurs="0" />
+<xs:element name="nombre" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="borrarIniciativaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="setIdRecompensa">
 <xs:sequence>
 <xs:element name="nombreIniciativa" type="xs:string" minOccurs="0" />
@@ -92,6 +150,18 @@
 <xs:complexType name="setIdRecompensaResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="EliminarDenuncia">
+<xs:sequence>
+<xs:element name="idComentario" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="EliminarDenunciaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

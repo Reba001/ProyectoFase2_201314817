@@ -4,23 +4,23 @@
 <xsd:import namespace="http://wsPersona/" schemaLocation="http://localhost:8085/WebServiceFase2_201314817/DetalleIniciativa?xsd=1" />
 </xsd:schema>
 </types>
-<message name="setIdRecompensa">
-<part name="parameters" element="tns:setIdRecompensa" />
+<message name="publicarIniciativa">
+<part name="parameters" element="tns:publicarIniciativa" />
 </message>
-<message name="setIdRecompensaResponse">
-<part name="parameters" element="tns:setIdRecompensaResponse" />
+<message name="publicarIniciativaResponse">
+<part name="parameters" element="tns:publicarIniciativaResponse" />
 </message>
-<message name="borrarIniciativa">
-<part name="parameters" element="tns:borrarIniciativa" />
+<message name="eliminarComentario">
+<part name="parameters" element="tns:eliminarComentario" />
 </message>
-<message name="borrarIniciativaResponse">
-<part name="parameters" element="tns:borrarIniciativaResponse" />
+<message name="eliminarComentarioResponse">
+<part name="parameters" element="tns:eliminarComentarioResponse" />
 </message>
-<message name="setIniciativa">
-<part name="parameters" element="tns:setIniciativa" />
+<message name="setDenunciaComentario">
+<part name="parameters" element="tns:setDenunciaComentario" />
 </message>
-<message name="setIniciativaResponse">
-<part name="parameters" element="tns:setIniciativaResponse" />
+<message name="setDenunciaComentarioResponse">
+<part name="parameters" element="tns:setDenunciaComentarioResponse" />
 </message>
 <message name="setRecompensa">
 <part name="parameters" element="tns:setRecompensa" />
@@ -28,37 +28,77 @@
 <message name="setRecompensaResponse">
 <part name="parameters" element="tns:setRecompensaResponse" />
 </message>
-<message name="publicarIniciativa">
-<part name="parameters" element="tns:publicarIniciativa" />
+<message name="borrarIniciativa">
+<part name="parameters" element="tns:borrarIniciativa" />
 </message>
-<message name="publicarIniciativaResponse">
-<part name="parameters" element="tns:publicarIniciativaResponse" />
+<message name="borrarIniciativaResponse">
+<part name="parameters" element="tns:borrarIniciativaResponse" />
+</message>
+<message name="setIdRecompensa">
+<part name="parameters" element="tns:setIdRecompensa" />
+</message>
+<message name="setIdRecompensaResponse">
+<part name="parameters" element="tns:setIdRecompensaResponse" />
+</message>
+<message name="setIniciativa">
+<part name="parameters" element="tns:setIniciativa" />
+</message>
+<message name="setIniciativaResponse">
+<part name="parameters" element="tns:setIniciativaResponse" />
+</message>
+<message name="setComentario">
+<part name="parameters" element="tns:setComentario" />
+</message>
+<message name="setComentarioResponse">
+<part name="parameters" element="tns:setComentarioResponse" />
+</message>
+<message name="EliminarDenuncia">
+<part name="parameters" element="tns:EliminarDenuncia" />
+</message>
+<message name="EliminarDenunciaResponse">
+<part name="parameters" element="tns:EliminarDenunciaResponse" />
 </message>
 <portType name="DetalleIniciativa">
-<operation name="setIdRecompensa">
-<input wsam:Action="http://wsPersona/DetalleIniciativa/setIdRecompensaRequest" message="tns:setIdRecompensa" />
-<output wsam:Action="http://wsPersona/DetalleIniciativa/setIdRecompensaResponse" message="tns:setIdRecompensaResponse" />
+<operation name="publicarIniciativa">
+<input wsam:Action="http://wsPersona/DetalleIniciativa/publicarIniciativaRequest" message="tns:publicarIniciativa" />
+<output wsam:Action="http://wsPersona/DetalleIniciativa/publicarIniciativaResponse" message="tns:publicarIniciativaResponse" />
 </operation>
-<operation name="borrarIniciativa">
-<input wsam:Action="http://wsPersona/DetalleIniciativa/borrarIniciativaRequest" message="tns:borrarIniciativa" />
-<output wsam:Action="http://wsPersona/DetalleIniciativa/borrarIniciativaResponse" message="tns:borrarIniciativaResponse" />
+<operation name="eliminarComentario">
+<input wsam:Action="http://wsPersona/DetalleIniciativa/eliminarComentarioRequest" message="tns:eliminarComentario" />
+<output wsam:Action="http://wsPersona/DetalleIniciativa/eliminarComentarioResponse" message="tns:eliminarComentarioResponse" />
 </operation>
-<operation name="setIniciativa">
-<input wsam:Action="http://wsPersona/DetalleIniciativa/setIniciativaRequest" message="tns:setIniciativa" />
-<output wsam:Action="http://wsPersona/DetalleIniciativa/setIniciativaResponse" message="tns:setIniciativaResponse" />
+<operation name="setDenunciaComentario">
+<input wsam:Action="http://wsPersona/DetalleIniciativa/setDenunciaComentarioRequest" message="tns:setDenunciaComentario" />
+<output wsam:Action="http://wsPersona/DetalleIniciativa/setDenunciaComentarioResponse" message="tns:setDenunciaComentarioResponse" />
 </operation>
 <operation name="setRecompensa">
 <input wsam:Action="http://wsPersona/DetalleIniciativa/setRecompensaRequest" message="tns:setRecompensa" />
 <output wsam:Action="http://wsPersona/DetalleIniciativa/setRecompensaResponse" message="tns:setRecompensaResponse" />
 </operation>
-<operation name="publicarIniciativa">
-<input wsam:Action="http://wsPersona/DetalleIniciativa/publicarIniciativaRequest" message="tns:publicarIniciativa" />
-<output wsam:Action="http://wsPersona/DetalleIniciativa/publicarIniciativaResponse" message="tns:publicarIniciativaResponse" />
+<operation name="borrarIniciativa">
+<input wsam:Action="http://wsPersona/DetalleIniciativa/borrarIniciativaRequest" message="tns:borrarIniciativa" />
+<output wsam:Action="http://wsPersona/DetalleIniciativa/borrarIniciativaResponse" message="tns:borrarIniciativaResponse" />
+</operation>
+<operation name="setIdRecompensa">
+<input wsam:Action="http://wsPersona/DetalleIniciativa/setIdRecompensaRequest" message="tns:setIdRecompensa" />
+<output wsam:Action="http://wsPersona/DetalleIniciativa/setIdRecompensaResponse" message="tns:setIdRecompensaResponse" />
+</operation>
+<operation name="setIniciativa">
+<input wsam:Action="http://wsPersona/DetalleIniciativa/setIniciativaRequest" message="tns:setIniciativa" />
+<output wsam:Action="http://wsPersona/DetalleIniciativa/setIniciativaResponse" message="tns:setIniciativaResponse" />
+</operation>
+<operation name="setComentario">
+<input wsam:Action="http://wsPersona/DetalleIniciativa/setComentarioRequest" message="tns:setComentario" />
+<output wsam:Action="http://wsPersona/DetalleIniciativa/setComentarioResponse" message="tns:setComentarioResponse" />
+</operation>
+<operation name="EliminarDenuncia">
+<input wsam:Action="http://wsPersona/DetalleIniciativa/EliminarDenunciaRequest" message="tns:EliminarDenuncia" />
+<output wsam:Action="http://wsPersona/DetalleIniciativa/EliminarDenunciaResponse" message="tns:EliminarDenunciaResponse" />
 </operation>
 </portType>
 <binding name="DetalleIniciativaPortBinding" type="tns:DetalleIniciativa">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
-<operation name="setIdRecompensa">
+<operation name="publicarIniciativa">
 <soap:operation soapAction="" />
 <input>
 <soap:body use="literal" />
@@ -67,7 +107,7 @@
 <soap:body use="literal" />
 </output>
 </operation>
-<operation name="borrarIniciativa">
+<operation name="eliminarComentario">
 <soap:operation soapAction="" />
 <input>
 <soap:body use="literal" />
@@ -76,7 +116,7 @@
 <soap:body use="literal" />
 </output>
 </operation>
-<operation name="setIniciativa">
+<operation name="setDenunciaComentario">
 <soap:operation soapAction="" />
 <input>
 <soap:body use="literal" />
@@ -94,7 +134,43 @@
 <soap:body use="literal" />
 </output>
 </operation>
-<operation name="publicarIniciativa">
+<operation name="borrarIniciativa">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
+<operation name="setIdRecompensa">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
+<operation name="setIniciativa">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
+<operation name="setComentario">
+<soap:operation soapAction="" />
+<input>
+<soap:body use="literal" />
+</input>
+<output>
+<soap:body use="literal" />
+</output>
+</operation>
+<operation name="EliminarDenuncia">
 <soap:operation soapAction="" />
 <input>
 <soap:body use="literal" />
