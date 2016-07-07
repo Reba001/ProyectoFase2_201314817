@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Scanner;
 import javax.servlet.http.HttpSession;
 
@@ -31,6 +32,21 @@ public class Testing {
         System.out.println(f);
         System.out.println(h);
         DetalleIniciativa di = new DetalleIniciativa();
+        
+        List<String> cadenas = new ArrayList();
+        cadenas.add(h);
+        cadenas.add(f);
+        cadenas.add("prueba");
+        cadenas.add("si hubo un buen resultado");
+        if(cadenas != null){
+            for(String c : cadenas){
+                System.out.println(c);
+            }
+                
+        }else {
+            System.out.println("nada :V");
+                    
+        }
         
                 
     }

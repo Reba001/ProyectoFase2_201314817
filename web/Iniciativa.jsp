@@ -71,20 +71,38 @@
                   if(iniciativas.size() <= 1){
                     for(Iniciativa ini : iniciativas){
                       id = ini.getIdiniciativa();
+                      
               %>
-        <div class="title">
-          <h1><%out.print(ini.getNombre());%></h1>
-          <h2><%out.print(ini.getFechainicio()+"---"+ini.getFechafinal());%></h2>
-        </div>
-        <div class="content">
+              <table border="0" width="600">
+                  <tr>
+                      <td>
+                          <div class="title">
+                                <h1><%out.print(ini.getNombre());%></h1>
+                                <h2><%out.print(ini.getFechainicio()+"---"+ini.getFechafinal());%></h2>
+                          </div>
+                      </td>
+                          <td>
+                              <form action="Blog.jsp" method="post">
+                                  <input type="hidden" name="idiniciativa" value="<%out.print(ini.getIdiniciativa());%>"/>
+                                  <input type="submit" value="Ir al blog"/>
+                              </form>
+                              </td>
+                                  
+                  </tr>
+                  
+        
+        </table>
+                                  <div class="content">
             <p><% out.print(ini.getDescripcion()); %></p>
         </div>
         <%
+            sessionIn.setAttribute("identificador", id);
                     }
                 }else{
                     for(Iniciativa ini : iniciativas){
                         id = ini.getIdiniciativa();
         %>
+                
         <form action="proyectodelmismo.jsp" method="post">
         <u>
             <a href="">
@@ -93,6 +111,8 @@
                 <input name="idiniciativa" value="<%=id%>" type="hidden"/>
             </a>
             <a>
+                <%sessionIn.setAttribute("identificador", id);
+%>
                 <input value="Ir Ahora" type="submit"/>
             </a>
         </u>
@@ -123,9 +143,10 @@
         
                 <div class="panel">
             <%
+                if(iniciativas.size() < 2){
                 ArrayList<Comentario> comentarios = di.getListaComentario(id);
-                if(comentarios != null){
-                    for(Comentario c : comentarios){
+                    if(comentarios != null){
+                        for(Comentario c : comentarios){
                 
             %>
             <p><%out.print(c.getFecha().toString());%></p>
@@ -136,12 +157,14 @@
             <div class="content">
                 <p><%out.print(c.getComentario());%></p>
             </div>
-            <%      }
+            <%          }
+                    
                 }else{%>
             <div class="content">
                 
             </div>
-            <%}%>
+            <%  }
+            }%>
         </div>
       </div>
       <div class="clear"></div>
@@ -204,22 +227,9 @@
         <div class="content">
             <form action="mod_ini" method="post">
                 <ul>
-            <%       
-                if(iniciativas != null){
-                    for(Iniciativa ini : iniciativas)
-                    {
-            %>
-            <input type="hidden" value="<%out.print(ini.getIdiniciativa());%>" name="idini"/>
-            
-            <input type="hidden" value="<%out.print(ini.getNombre());%>" name="nombreini"/>
-            <input type="hidden" value="<%out.print(ini.getIdUsuario());%>" name="usuario"/>
-          <%
-                    }
-                }
-          %> 
-                    <li><a href="Modini.jsp">Modificar Iniciativa</a></li>
-                    <li><a href="AgregarMod.jsp">Agregar Moderador</a></li>
-                    <li><a href="AgregarMod.jsp">Quitar Moderador</a></li>
+                    <li><a href="">Modificar Iniciativa</a></li>
+                    <li><a href="">Agregar Moderador</a></li>
+                    <li><a href="">Quitar Moderador</a></li>
                 </ul>
           </form>
         </div>

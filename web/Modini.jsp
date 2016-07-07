@@ -41,14 +41,9 @@
         
             <div class="title">
           
-                <h1>Inicio de Registro</h1>
-        <%
-                        if(request.getParameter("error") != null){
-                            out.print("<h3>"+request.getParameter("error")+"</h3>");
-                        }else{
-                            out.print("");
-                        }
-        %>
+                <h1>Inicio de Modificacion</h1>
+                
+        
             </div>
             <span>
                     <%
@@ -77,7 +72,7 @@
                                 <a><h3>Descripcion</h3></a>
                             </td>
                             <td>
-                                <textarea class="textarea" name="txtDescripcion">
+                                <textarea  class="textarea" name="txtDescripcion">
                                     
                                 </textarea>
                             </td>

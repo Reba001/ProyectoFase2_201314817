@@ -68,6 +68,10 @@
         <servlet-name>DeleteComent</servlet-name>
         <servlet-class>Servlet.DeleteComent</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ingresopublicacion</servlet-name>
+        <servlet-class>Servlet.ingresopublicacion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/wsI</url-pattern>
@@ -135,6 +139,10 @@
     <servlet-mapping>
         <servlet-name>DeleteComent</servlet-name>
         <url-pattern>/DeleteComent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ingresopublicacion</servlet-name>
+        <url-pattern>/ingresopublicacion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +24,38 @@ import java.util.logging.Logger;
 public class DetalleIniciativa {
     public DetalleIniciativa(){
         
+    }
+    public ArrayList<Blog> getListaBlog(int idiniciativa){
+        Connection dbConeciton = null;
+        PreparedStatement ps = null;
+        String ScriptSQL = "select * from blog where idiniciativa = ?";
+        try{
+            ArrayList<Blog> blogss = new ArrayList<Blog>() ;
+            dbConeciton = new Conexion().getDBConnection();
+            ps = dbConeciton.prepareStatement(ScriptSQL);
+            ps.setInt(1, idiniciativa);
+            ResultSet rs;
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Blog b = new Blog();
+                b.setIdblog(rs.getInt("idblog"));
+                b.setPublicacion(rs.getString("publicacion"));
+                b.setFecha(rs.getDate("fecha"));
+                b.setHora(rs.getTime("hora"));
+                b.setIdiniciativa(rs.getInt("idiniciativa"));
+                blogss.add(b);
+            }
+            dbConeciton.close();
+            ps.close();
+            rs.close();
+            return blogss;
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
     
     public ArrayList<DenunciaComentario> getListaDenuncia(String usuario){
@@ -98,6 +131,44 @@ public class DetalleIniciativa {
             return null;
         }
     }
+    public ArrayList<Comentario> getListaComentarioBlog( int idblog){
+                Connection dbC = null;
+        PreparedStatement ps = null;
+        String scriptSQL = "select * from comentario where idblog = ? ";
+        try{
+            ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
+            dbC = new Conexion().getDBConnection();
+            ps = dbC.prepareStatement(scriptSQL);
+            
+            ps.setInt(1, idblog);
+            
+            ResultSet rs;
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Comentario c = new Comentario();
+                c.setIdComentario(rs.getInt("idcomentario"));
+                c.setComentario(rs.getString("descripcion"));
+                c.setFecha(rs.getDate("fecha"));
+                c.setIdiniciativa(rs.getInt("idblog"));
+                c.setUsuario(rs.getString("idusuario"));
+                c.setHora(rs.getTime("hora"));
+                comentarios.add(c);
+            }
+            dbC.close();
+            
+            ps.close();
+            
+            rs.close();
+            
+            return comentarios;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
     
     public ArrayList<Recompensa> getListaRecompensa( int idiniciativa){
                 Connection dbC = null;
@@ -135,46 +206,51 @@ public class DetalleIniciativa {
         }
     }
     
-    public void modificarIniciativaDescripcion(int idiniciativa, String usuario, String nombre, String descripcion){
+    public boolean modificarIniciativaDescripcion(int idiniciativa, String descripcion){
         Connection cn = null;
         PreparedStatement ps = null;
-        String SQLScript = "update iniciativa set descripcion = ? where idusuario = ? and idinciativa = ?";
+        String SQLScript = "update iniciativa set descripcion = ? where idinciativa = ?";
         try{
             cn = new Conexion().getDBConnection();
             ps = cn.prepareStatement(SQLScript);
             ps.setString(1, descripcion);
-            ps.setString(2, usuario);
             
-            ps.setInt(3, idiniciativa);
+            
+            ps.setInt(2, idiniciativa);
             ps.executeUpdate();
             cn.close();
             ps.close();
+            return true;
         }catch(SQLException e){
             e.printStackTrace();
+            return false;
         }
         catch(Exception e){
             e.printStackTrace();
+            return false;
         }
     }
-    public void modificarIniciativaNombre(int idiniciativa, String usuario, String nombre, String nuevonombre){
+    public boolean modificarIniciativaNombre(int idiniciativa, String nuevonombre){
         Connection cn = null;
         PreparedStatement ps = null;
-        String SQLScript = "update iniciativa set nombre = ? where idusuario = ? and idinciativa = ?";
+        String SQLScript = "update iniciativa set nombre = ? where idinciativa = ?";
         try{
             cn = new Conexion().getDBConnection();
             ps = cn.prepareStatement(SQLScript);
             ps.setString(1, nuevonombre);
-            ps.setString(2, usuario);
+            ps.setInt(2, idiniciativa);
             
-            ps.setInt(3, idiniciativa);
             ps.executeUpdate();
             cn.close();
             ps.close();
+            return true;
         }catch(SQLException e){
             e.printStackTrace();
+            return false;
         }
         catch(Exception e){
             e.printStackTrace();
+            return false;
         }
     }
     public void borrarIniciativa(String idusuario,String nombre){

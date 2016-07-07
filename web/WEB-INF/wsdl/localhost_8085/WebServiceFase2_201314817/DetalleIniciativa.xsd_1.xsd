@@ -18,6 +18,10 @@
 
 <xs:element name="setComentario" type="tns:setComentario" />
 
+<xs:element name="setComentarioBlog" type="tns:setComentarioBlog" />
+
+<xs:element name="setComentarioBlogResponse" type="tns:setComentarioBlogResponse" />
+
 <xs:element name="setComentarioResponse" type="tns:setComentarioResponse" />
 
 <xs:element name="setDenunciaComentario" type="tns:setDenunciaComentario" />
@@ -31,6 +35,10 @@
 <xs:element name="setIniciativa" type="tns:setIniciativa" />
 
 <xs:element name="setIniciativaResponse" type="tns:setIniciativaResponse" />
+
+<xs:element name="setPublicacion" type="tns:setPublicacion" />
+
+<xs:element name="setPublicacionResponse" type="tns:setPublicacionResponse" />
 
 <xs:element name="setRecompensa" type="tns:setRecompensa" />
 
@@ -153,6 +161,22 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="setComentarioBlog">
+<xs:sequence>
+<xs:element name="descripcion" type="xs:string" minOccurs="0" />
+<xs:element name="fecha" type="xs:string" minOccurs="0" />
+<xs:element name="idblog" type="xs:int" />
+<xs:element name="idusuario" type="xs:string" minOccurs="0" />
+<xs:element name="hora" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setComentarioBlogResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="EliminarDenuncia">
 <xs:sequence>
 <xs:element name="idComentario" type="xs:int" />
@@ -160,6 +184,21 @@
 </xs:complexType>
 
 <xs:complexType name="EliminarDenunciaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setPublicacion">
+<xs:sequence>
+<xs:element name="publicacion" type="xs:string" minOccurs="0" />
+<xs:element name="fecha" type="xs:string" minOccurs="0" />
+<xs:element name="hora" type="xs:string" minOccurs="0" />
+<xs:element name="idiniciativa" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setPublicacionResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean" />
 </xs:sequence>

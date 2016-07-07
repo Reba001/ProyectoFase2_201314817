@@ -5,6 +5,7 @@
 --%>
 
 <%@page import="Conexiones.Comentario"%>
+<%@page import="Conexiones.Blog"%>
 <%@page import="Conexiones.Iniciativa"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Conexiones.DetalleIniciativa"%>
@@ -48,10 +49,10 @@
     <div class="menu">
       <ul>
         <li><a href="creador.jsp">Inicio</a></li>
-        <li><a href="Denuncias.jsp">Denuncias</a></li>
-        <li><a href="Blog.jsp">Blog</a> </li>
+        <li><a href="">About</a></li>
+        <li><a href="Blog.jsp" class="active">Blog</a> </li>
         <li> <a href="Proyectos.jsp">Proyectos</a> </li>
-        <li><a href="Iniciativa.jsp"  class="active">Iniciativa</a></li>
+        <li><a href="Iniciativa.jsp"  >Iniciativa</a></li>
         <li><a href="">Contact</a></li>
       </ul>
     </div>
@@ -64,40 +65,49 @@
     <div class="left-panel">
       <div class="panel">
           <%
-              String id = request.getParameter("idiniciativa");
-              int idiniciativa = Integer.parseInt(id);
+              
+              
+              String idini = (String) sessionIn.getAttribute("idiniP");
+              int id = 0;
+              
+              int idblog = 0;
+              
               DetalleIniciativa di = new DetalleIniciativa();
-              ArrayList<Iniciativa> iniciativas = di.getIniciativa(idiniciativa);
-              if(iniciativas != null){
-                  
-                    for(Iniciativa ini : iniciativas){
-                      
+              if (idini != null){
+                  id = Integer.parseInt(idini);
+                  ArrayList<Blog> blogss = di.getListaBlog(id);
+              if(blogss != null){
+                  for(Blog b : blogss){
+                    idblog =  b.getIdblog();
               %>
-        <table border="0" width="600">
-                  <tr>
-                      <td>
-                          <div class="title">
-                                <h1><%out.print(ini.getNombre());%></h1>
-                                <h2><%out.print(ini.getFechainicio()+"---"+ini.getFechafinal());%></h2>
-                          </div>
-                      </td>
-                          <td>
-                              <form action="Blog.jsp" method="post">
-                                  <input type="hidden" name="idiniciativa" value="<%out.print(ini.getIdiniciativa());%>"/>
-                                  <input type="submit" value="Ir al blog"/>
-                              </form>
-                              </td>
-                                  
-                  </tr>
-                  
-        
-        </table>
-                                  <div class="content">
-            <p><% out.print(ini.getDescripcion()); %></p>
+        <div class="title">
+          <h1>Publicaciones</h1>
         </div>
+        <div class="content">
+            <p><% out.print(b.getPublicacion()); %></p>
+        </div>
+        
         <%
-                    }
-                
+              }  }else{
+%>
+<div class="title">
+          <h1>Aun debes de Publica tu Proyecto</h1>
+          <h2>Vivamus et augue sed orci auctor</h2>
+        </div>
+        <div class="content">
+          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.</p>
+          <p>Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</p>
+          <p>Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae facilisis libero dolor a purus. Sed vel lacus. Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.</p>
+          <p>Suspendisse mauris. Fusce accumsan mollis eros. Pellentesque a diam sit amet mi ullamcorper vehicula. Integer adipiscing risus a sem. Nullam quis massa sit amet nibh viverra malesuada. Nunc sem lacus, accumsan quis, faucibus non, congue vel, arcu. Ut scelerisque hendrerit tellus. Integer sagittis. Vivamus a mauris eget arcu gravida tristique. Nunc iaculis mi in ante. Vivamus imperdiet nibh feugiat est.</p>
+          <p>Ut convallis, sem sit amet interdum consectetuer, odio augue aliquam leo, nec dapibus tortor nibh sed augue. Integer eu magna sit amet metus fermentum posuere. Morbi sit amet nulla sed dolor elementum imperdiet. Quisque fermentum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque adipiscing eros ut libero. Ut condimentum mi vel tellus. Suspendisse laoreet. Fusce ut est sed dolor gravida convallis. Morbi vitae ante. Vivamus ultrices luctus nunc. Suspendisse et dolor. Etiam dignissim. Proin malesuada adipiscing lacus. Donec metus. Curabitur gravida.</p>
+          <p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.</p>
+          <p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.</p>
+          <p>Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euismod vel, velit.</p>
+          <p> Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo.</p>
+        </div>
+        
+<%}
+
             }else{
         %>
         <div class="title">
@@ -115,25 +125,37 @@
           <p>Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euismod vel, velit.</p>
           <p> Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo.</p>
         </div>
-        <% 
-           } 
-        %>
-        
-                <div class="panel">
+        <%}%>
+        <div class="panel">
             <%
-                ArrayList<Comentario> comentarios = di.getListaComentario(idiniciativa);
+                ArrayList<Comentario> comentarios = di.getListaComentarioBlog(idblog);
                 if(comentarios != null){
                     for(Comentario c : comentarios){
                 
             %>
-            <p><%out.print(c.getFecha().toString());%></p>
-            <form action="EliminarComentario" method="post">
-                <input type="submit" value="Eliminar"/>
-                <input type="hidden" name="idComentario" value="<%out.print(c.getIdComentario());%>"/>
-            </form>
+            <form action="DenunciarC"  method="post">
+                <table border="0" width="500">
+                <td>
+                    <p>Fecha: <%out.print(c.getFecha().toString());%></p>
+                    <input type="hidden" name="idcomentario" value="<%out.print(c.getIdComentario());%>" />
+                    
+                    <input type="hidden" name="usuario" value="<%=usuario%>" />
+                </td>
+                <td>
+                    <p>Hora: <%out.print(c.getHora().toString());%></p>
+                </td>
+                <td>
+                    <p> Usuario: <%out.print(c.getUsuario());%></p>
+                </td>
+                <td>
+                    <input type="submit" value="Denunciar" />
+                </td>
+            </table>
+                
             <div class="content">
                 <p><%out.print(c.getComentario());%></p>
             </div>
+            </form>
             <%      }
                 }else{%>
             <div class="content">
@@ -141,86 +163,65 @@
             </div>
             <%}%>
         </div>
+        
+        <div class="panel">
+            <form action="ComentarBlog" method="post">
+            <table>
+                <tr>
+                    <td>
+                        <textarea class="textarea1" name="txtAComent">
+                            
+                        </textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <input name="idiniciativa" type="hidden" value ="<%=id%>" />
+                    <input name="idblog" type="hidden" value ="<%=idblog%>" />
+                    <input type="submit" value="Hacer Comentario"/>
+                    </td>
+                </tr>                
+            </table>
+            
+        </form>
+        </div>
       </div>
       <div class="clear"></div>
     </div>
     <div class="right-panel">
-      <div class="contact-panel">
-        <div class="title">
-          <h1>Proyectos en borrador</h1>
-          <span>publica tu proyecto aqui</span></div>
-          
-                <span>
-                    <%
-                        if(request.getParameter("error") != null){
-                            out.print("<h3>"+request.getParameter("error")+"</h3>");
-                        }else{
-                            out.print("");
-                        }
-                    %>
-                </span>
-            
-          <form action="Publicacion" method="post" class="form">
-          
-            <ul>
-            <%
-                
-                ArrayList<Iniciativa> listainiciativa = di.getIniciativasBorrador(usuario);
-                if(listainiciativa != null){
-                    for(Iniciativa ini : listainiciativa)
-                    {
-            %>
-                <li>
-              
-                    <input type="radio" align="right" class="text-field" value="<%out.print(ini.getNombre());%>" name="dish"><%out.print(ini.getNombre());%></input>
-                    
-                </li>
-          <%
-                    }
-                }
-          %>
-            </ul>
-          <div class="clear"></div>
-          <div class="controller">
-              <input type="submit" class="buttons" value="Publicar" name="btnPublicar"/>
-          <div class="clear"></div>
-        </div>
-          
-          <div class="controller">
-              <input type="submit" class="buttons" value="Eliminar" name="btnEliminar"/>
-          <div class="clear"></div>
-        </div>
-        </form>
-        
-        <div class="clear"></div>
-      </div>
+      
       <div class="clear"></div>
       <div class="panel martop">
         <div class="title">
           <h1>Perfil Iniciativa</h1>
         </div>
-        <div class="content">
-            <form action="mod_ini" method="post">
-                <ul>
-            <%       
-                if(iniciativas != null){
-                    for(Iniciativa ini : iniciativas)
-                    {
-            %>
-            <input type="hidden" value="<%out.print(ini.getIdiniciativa());%>" name="idini"/>
-            
-            <input type="hidden" value="<%out.print(ini.getNombre());%>" name="nombreini"/>
-            <input type="hidden" value="<%out.print(ini.getIdUsuario());%>" name="usuario"/>
-          <%
-                    }
-                }
-          %> 
-                    <li><a href="Modini.jsp">Modificar Iniciativa</a></li>
-                    <li><a href="AgregarMod.jsp">Agregar Moderador</a></li>
-                    <li><a href="AgregarMod.jsp">Quitar Moderador</a></li>
-                </ul>
-          </form>
-        </div>
+          <div class="content">
+              <form action="ingresopublicacion" method ="post">
+                  <table>
+                      <tr>
+                          <td>
+                              <h1>Ingrese publicacion</h1>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                              <textarea class="textarea" name="txtPublicacion"></textarea>
+                              <input type="hidden" name="idini" value="<%=id%>"/>
+                              <input type="hidden" name="idini" value="<%=idblog%>"/>
+                              
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                              <input type="submit" value="publicar"/>
+                              
+                          </td>
+                      </tr>
+                  </table>
+              </form>
+              
+          </div>
+        
         <div class="clear"></div>
       </div>
       <div class="clear"></div>

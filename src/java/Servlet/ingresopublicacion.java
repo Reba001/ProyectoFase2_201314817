@@ -5,20 +5,20 @@
  */
 package Servlet;
 
-import Conexiones.DetalleIniciativa;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author aaper
  */
-public class mod_ini extends HttpServlet {
+public class ingresopublicacion extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,40 +32,18 @@ public class mod_ini extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
         try  {
-            HttpSession sessionOk = request.getSession();
-            int idini = (int) sessionOk.getAttribute("identificador") ;
-            
-            String nombreini = request.getParameter("nombreini");
-            String usuario = request.getParameter("usuario");
-            String descripcionnueva = request.getParameter("txtDescripcion");
-            String nombrenuevo = request.getParameter("txttitulo");
-            DetalleIniciativa di = new DetalleIniciativa();
-            if("".equals(descripcionnueva) && !"".equals(nombrenuevo)){
-                if(di.modificarIniciativaNombre(idini, nombrenuevo)){
-                    response.sendRedirect("Modini.jsp?error=iniciativa modificada");
-                }else{
-                    response.sendRedirect("Modini.jsp?error=Error no modificada");
-                }
-                
-            }else if(!"".equals(descripcionnueva) && "".equals(nombrenuevo)){
-                if(di.modificarIniciativaDescripcion(idini, descripcionnueva)){
-                    response.sendRedirect("Modini.jsp?error=iniciativa modificada");
-                }else{
-                    
-                    response.sendRedirect("Modini.jsp?error=Error no modificada");
-                }
-            }else if(!"".equals(descripcionnueva) && !"".equals(nombrenuevo)){
-                if(di.modificarIniciativaDescripcion(idini, descripcionnueva) && di.modificarIniciativaNombre(idini, nombreini)){
-                    response.sendRedirect("Modini.jsp?error=iniciativa modificada");
-                }else{
-                    
-                    response.sendRedirect("Modini.jsp?error=Error no modificada");
-                }
-            }else {
-                response.sendRedirect("Modini.jsp?error=Campos vacios");
+            String publicacion = request.getParameter("txtPublicacion");
+            String idiniciativa = request.getParameter("idini");
+            int idinic = Integer.parseInt(idiniciativa);
+            Calendar fecha = new GregorianCalendar();
+            String f = ""+fecha.get(Calendar.DAY_OF_MONTH)+"/"+fecha.get(Calendar.MONTH)+"/"+fecha.get(Calendar.YEAR);
+            String h = ""+fecha.get(Calendar.HOUR)+":"+fecha.get(Calendar.MINUTE)+":"+fecha.get(Calendar.SECOND);
+            if(setPublicacion(publicacion, f, h, idinic)){
+                request.getSession().setAttribute("idiniP", idiniciativa);
+                response.sendRedirect("Blog2.jsp");
             }
+            
             
         }catch(Exception e){
             e.printStackTrace();
@@ -110,5 +88,11 @@ public class mod_ini extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private static boolean setPublicacion(java.lang.String publicacion, java.lang.String fecha, java.lang.String hora, int idiniciativa) {
+        wspersona.DetalleIniciativa_Service service = new wspersona.DetalleIniciativa_Service();
+        wspersona.DetalleIniciativa port = service.getDetalleIniciativaPort();
+        return port.setPublicacion(publicacion, fecha, hora, idiniciativa);
+    }
 
 }
