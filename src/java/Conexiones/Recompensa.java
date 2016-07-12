@@ -16,6 +16,16 @@ public class Recompensa {
     private String tipo;
     private String nombre;
     private int limitada;
+    private float montominimo;
+
+    public float getMontominimo() {
+        return montominimo;
+    }
+
+    public void setMontominimo(float montominimo) {
+        this.montominimo = montominimo;
+    }
+    
 
     public int getCodrecompensa() {
         return codrecompensa;

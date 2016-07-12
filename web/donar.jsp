@@ -49,11 +49,11 @@
     <div class="menu">
       <ul>
         <li><a href="creador.jsp">Inicio</a></li>
-        <li><a href="">About</a></li>
+        <li><a href="Denuncias.jsp">Denuncias</a></li>
         <li><a href="Blog.jsp">Blog</a> </li>
         <li> <a href="Proyectos.jsp" class="active">Proyectos</a> </li>
         <li><a href="Iniciativa.jsp">Iniciativa</a></li>
-        <li><a href="">Contact</a></li>
+        <li><a href="Donaciones.jsp">Donaciones</a></li>
       </ul>
     </div>
   </div>
@@ -69,6 +69,9 @@
       </div>
         <%
             String id = request.getParameter("idiniciativa");
+            if(id == null){
+                id = (String) sessionIn.getAttribute("idinis");
+            }
             DetalleIniciativa di = new DetalleIniciativa();
             
             ArrayList<Recompensa> recompensas = di.getListaRecompensa(Integer.parseInt(id));
@@ -80,6 +83,7 @@
             <div class="content"> <img src="images/img4.jpg" />
             <p><span> <%out.print(r.getNombre());%></span></p>
             <p><%out.print(r.getPaquete());%></p>
+            <p>Monto para recompensa: <%out.print(r.getMontominimo());%></p>
             
             <input class ="buttons" value="Ir ahora" type="submit"/> 
             
@@ -94,6 +98,10 @@
     <%
                   HttpSession sessionOk = request.getSession();
                   String u = (String) sessionOk.getAttribute("Usuario");
+                  ArrayList<Iniciativa> inis = di.getIniciativa(Integer.parseInt(id));
+                  for(Iniciativa in: inis){
+                    if(!u.equals(in.getIdUsuario())){
+                  
               %>
     <div class="clear"></div>
           <div class="contact-panel">
@@ -163,7 +171,8 @@
             </form>        
         
       </div>
-     
+     <%}
+}%>
       <div class="clear"></div>
 
       <div class="clear"></div>

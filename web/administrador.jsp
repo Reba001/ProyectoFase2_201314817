@@ -47,12 +47,12 @@
     </div>
     <div class="menu">
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="consultaadminusuario.jsp">Consulta Modificacion</a></li>
+        <li><a href="Iniciativas.jsp">Iniciativas</a></li>
+        <li><a href="consultaadminusuario.jsp">Consulta Usuario</a></li>
         <li><a href="administrador.jsp" class="active">Alta/Baja</a> </li>
-        <li> <a href="work.html">Work</a> </li>
-        <li><a href="pages.html">Pages</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li> <a href="DenunciasAdmin.jsp">Denuncias</a> </li>
+        <li><a href="subirArchivo.jsp">Archivos</a></li>
+        <li><a href="Reportes.jsp">Reportes</a></li>
       </ul>
     </div>
   </div>

@@ -2,19 +2,39 @@
 
 <xs:element name="EliminarDenuncia" type="tns:EliminarDenuncia" />
 
+<xs:element name="EliminarDenunciaIniciativa" type="tns:EliminarDenunciaIniciativa" />
+
+<xs:element name="EliminarDenunciaIniciativaResponse" type="tns:EliminarDenunciaIniciativaResponse" />
+
 <xs:element name="EliminarDenunciaResponse" type="tns:EliminarDenunciaResponse" />
 
 <xs:element name="borrarIniciativa" type="tns:borrarIniciativa" />
 
 <xs:element name="borrarIniciativaResponse" type="tns:borrarIniciativaResponse" />
 
+<xs:element name="deleteRecompensa" type="tns:deleteRecompensa" />
+
+<xs:element name="deleteRecompensaResponse" type="tns:deleteRecompensaResponse" />
+
 <xs:element name="eliminarComentario" type="tns:eliminarComentario" />
 
 <xs:element name="eliminarComentarioResponse" type="tns:eliminarComentarioResponse" />
 
+<xs:element name="eliminarIniciativa" type="tns:eliminarIniciativa" />
+
+<xs:element name="eliminarIniciativaResponse" type="tns:eliminarIniciativaResponse" />
+
+<xs:element name="getIdRecompensa" type="tns:getIdRecompensa" />
+
+<xs:element name="getIdRecompensaResponse" type="tns:getIdRecompensaResponse" />
+
 <xs:element name="publicarIniciativa" type="tns:publicarIniciativa" />
 
 <xs:element name="publicarIniciativaResponse" type="tns:publicarIniciativaResponse" />
+
+<xs:element name="setCategoria" type="tns:setCategoria" />
+
+<xs:element name="setCategoriaResponse" type="tns:setCategoriaResponse" />
 
 <xs:element name="setComentario" type="tns:setComentario" />
 
@@ -28,9 +48,13 @@
 
 <xs:element name="setDenunciaComentarioResponse" type="tns:setDenunciaComentarioResponse" />
 
-<xs:element name="setIdRecompensa" type="tns:setIdRecompensa" />
+<xs:element name="setDenunciaIniciativa" type="tns:setDenunciaIniciativa" />
 
-<xs:element name="setIdRecompensaResponse" type="tns:setIdRecompensaResponse" />
+<xs:element name="setDenunciaIniciativaResponse" type="tns:setDenunciaIniciativaResponse" />
+
+<xs:element name="setGanancia" type="tns:setGanancia" />
+
+<xs:element name="setGananciaResponse" type="tns:setGananciaResponse" />
 
 <xs:element name="setIniciativa" type="tns:setIniciativa" />
 
@@ -43,6 +67,22 @@
 <xs:element name="setRecompensa" type="tns:setRecompensa" />
 
 <xs:element name="setRecompensaResponse" type="tns:setRecompensaResponse" />
+
+<xs:element name="setSubcategoria" type="tns:setSubcategoria" />
+
+<xs:element name="setSubcategoriaResponse" type="tns:setSubcategoriaResponse" />
+
+<xs:complexType name="deleteRecompensa">
+<xs:sequence>
+<xs:element name="idiniciativa" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="deleteRecompensaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
 
 <xs:complexType name="publicarIniciativa">
 <xs:sequence>
@@ -58,20 +98,14 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="setIniciativa">
+<xs:complexType name="eliminarIniciativa">
 <xs:sequence>
-<xs:element name="nombre" type="xs:string" minOccurs="0" />
-<xs:element name="fechainicio" type="xs:string" minOccurs="0" />
-<xs:element name="fechafinal" type="xs:string" minOccurs="0" />
-<xs:element name="idusuario" type="xs:string" minOccurs="0" />
-<xs:element name="descripcion" type="xs:string" minOccurs="0" />
-<xs:element name="metaeconomica" type="xs:double" />
-<xs:element name="idSubcategoria" type="xs:int" />
-<xs:element name="publicada" type="xs:string" minOccurs="0" />
+<xs:element name="idiniciativa" type="xs:int" />
+<xs:element name="publicado" type="xs:string" minOccurs="0" />
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="setIniciativaResponse">
+<xs:complexType name="eliminarIniciativaResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean" />
 </xs:sequence>
@@ -103,22 +137,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="setComentario">
-<xs:sequence>
-<xs:element name="descripcion" type="xs:string" minOccurs="0" />
-<xs:element name="fecha" type="xs:string" minOccurs="0" />
-<xs:element name="idiniciativa" type="xs:int" />
-<xs:element name="idusuario" type="xs:string" minOccurs="0" />
-<xs:element name="hora" type="xs:string" minOccurs="0" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="setComentarioResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" />
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="setRecompensa">
 <xs:sequence>
 <xs:element name="paquete" type="xs:string" minOccurs="0" />
@@ -126,6 +144,7 @@
 <xs:element name="tipo" type="xs:string" minOccurs="0" />
 <xs:element name="limitada" type="xs:int" />
 <xs:element name="nombre" type="xs:string" minOccurs="0" />
+<xs:element name="montominimo" type="xs:float" />
 </xs:sequence>
 </xs:complexType>
 
@@ -148,16 +167,127 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="setIdRecompensa">
+<xs:complexType name="setCategoria">
+<xs:sequence>
+<xs:element name="nombre" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setCategoriaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setSubcategoria">
+<xs:sequence>
+<xs:element name="nombre" type="xs:string" minOccurs="0" />
+<xs:element name="idcategoria" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setSubcategoriaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getIdRecompensa">
 <xs:sequence>
 <xs:element name="nombreIniciativa" type="xs:string" minOccurs="0" />
 <xs:element name="usuario" type="xs:string" minOccurs="0" />
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="setIdRecompensaResponse">
+<xs:complexType name="getIdRecompensaResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="EliminarDenuncia">
+<xs:sequence>
+<xs:element name="idComentario" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="EliminarDenunciaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="EliminarDenunciaIniciativa">
+<xs:sequence>
+<xs:element name="idperfil" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="EliminarDenunciaIniciativaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setGanancia">
+<xs:sequence>
+<xs:element name="idiniciativa" type="xs:int" />
+<xs:element name="porcentajeiniciativa" type="xs:float" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setGananciaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setDenunciaIniciativa">
+<xs:sequence>
+<xs:element name="idperfil" type="xs:int" />
+<xs:element name="tipo" type="xs:int" />
+<xs:element name="usuario" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setDenunciaIniciativaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setIniciativa">
+<xs:sequence>
+<xs:element name="nombre" type="xs:string" minOccurs="0" />
+<xs:element name="fechainicio" type="xs:string" minOccurs="0" />
+<xs:element name="fechafinal" type="xs:string" minOccurs="0" />
+<xs:element name="idusuario" type="xs:string" minOccurs="0" />
+<xs:element name="descripcion" type="xs:string" minOccurs="0" />
+<xs:element name="metaeconomica" type="xs:double" />
+<xs:element name="idSubcategoria" type="xs:int" />
+<xs:element name="publicada" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setIniciativaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setComentario">
+<xs:sequence>
+<xs:element name="descripcion" type="xs:string" minOccurs="0" />
+<xs:element name="fecha" type="xs:string" minOccurs="0" />
+<xs:element name="idiniciativa" type="xs:int" />
+<xs:element name="idusuario" type="xs:string" minOccurs="0" />
+<xs:element name="hora" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setComentarioResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
 </xs:sequence>
 </xs:complexType>
 
@@ -172,18 +302,6 @@
 </xs:complexType>
 
 <xs:complexType name="setComentarioBlogResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="EliminarDenuncia">
-<xs:sequence>
-<xs:element name="idComentario" type="xs:int" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="EliminarDenunciaResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean" />
 </xs:sequence>

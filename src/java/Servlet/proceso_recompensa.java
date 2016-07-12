@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import wspersona.DetalleIniciativa;
 
 /**
  *
@@ -32,29 +33,36 @@ public class proceso_recompensa extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        
         try  {
             String nombre = request.getParameter("nombreI");
+            
             HttpSession sessionOk = request.getSession();
             String usuario = (String) sessionOk.getAttribute("Usuario");
             String nombreReco = request.getParameter("txtNombreReco");
             String nombrePaq = request.getParameter("txtPaquete");
             String tipo = request.getParameter("cbTipo");
             String limite = request.getParameter("cbLimitada");
-            int id = setIdRecompensa(nombre,usuario);
+            String montominimo = request.getParameter("txMontominimo");
+            String idiniciativa = (String) sessionOk.getAttribute("idiniR");
+            float montomin = Float.parseFloat(montominimo);
+            int id = Integer.parseInt(idiniciativa);
             if("Fisica".equals(tipo) && "Limitada".equals(limite)){
                 
-                setRecompensa(nombrePaq, id, "F", 1, nombreReco);
-                response.sendRedirect("proceso-creacion-proyecto.jsp?error=Proyecto Guardado");
+                setRecompensa(nombrePaq, id, "F", 1, nombreReco, montomin);
+                response.sendRedirect("recompensa.jsp?error=Proyecto Guardado");
             }else if ("Fisica".equals(tipo) && "Ilimitada".equals(limite)){
-                setRecompensa(nombrePaq, id, "F", 0, nombreReco);
-                response.sendRedirect("proceso-creacion-proyecto.jsp?error=Proyecto Guardado");
+                setRecompensa(nombrePaq, id, "F", 0, nombreReco, montomin);
+                response.sendRedirect("recompensa.jsp?error=Proyecto Guardado");
             }else if ("No Fisica".equals(tipo) && "Ilimitada".equals(limite)){
-                setRecompensa(nombrePaq, id, "NF", 0, nombreReco);
-                response.sendRedirect("proceso-creacion-proyecto.jsp?error=Proyecto Guardado");
+                setRecompensa(nombrePaq, id, "NF", 0, nombreReco, montomin);
+                response.sendRedirect("recompensa.jsp?error=Proyecto Guardado");
             }else if ("No Fisica".equals(tipo) && "Limitada".equals(limite)){
-                setRecompensa(nombrePaq, id, "NF", 1, nombreReco);
-                response.sendRedirect("proceso-creacion-proyecto.jsp?error=Proyecto Guardado");
+                setRecompensa(nombrePaq, id, "NF", 1, nombreReco, montomin);
+                response.sendRedirect("recompensa.jsp?error=Proyecto Guardado");
             }
+            
+            
             
             /* TODO output your page here. You may use following sample code. */
             
@@ -102,17 +110,19 @@ public class proceso_recompensa extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private static int setIdRecompensa(java.lang.String nombreIniciativa, java.lang.String usuario) {
+
+    private static boolean setRecompensa(java.lang.String paquete, int idiniciativa, java.lang.String tipo, int limitada, java.lang.String nombre, float montominimo) {
         wspersona.DetalleIniciativa_Service service = new wspersona.DetalleIniciativa_Service();
         wspersona.DetalleIniciativa port = service.getDetalleIniciativaPort();
-        return port.setIdRecompensa(nombreIniciativa, usuario);
+        return port.setRecompensa(paquete, idiniciativa, tipo, limitada, nombre, montominimo);
     }
 
-    private static boolean setRecompensa(java.lang.String paquete, int idiniciativa, java.lang.String tipo, int limitada, java.lang.String nombre) {
+    private static int getIdRecompensa(java.lang.String nombreIniciativa, java.lang.String usuario) {
         wspersona.DetalleIniciativa_Service service = new wspersona.DetalleIniciativa_Service();
         wspersona.DetalleIniciativa port = service.getDetalleIniciativaPort();
-        return port.setRecompensa(paquete, idiniciativa, tipo, limitada, nombre);
+        return port.getIdRecompensa(nombreIniciativa, usuario);
     }
+
 
 
 }

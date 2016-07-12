@@ -45,7 +45,7 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="consultaadminusuario.jsp">Consulta Usuario</a></li>
         <li><a href="administrador.jsp" class="active">Alta/Baja</a> </li>
-        <li> <a href="work.html">Work</a> </li>
+        <li> <a href="DenunciasAdmin.jsp">Denuncias</a> </li>
         <li><a href="pages.html">Pages</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>

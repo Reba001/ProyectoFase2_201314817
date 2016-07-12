@@ -5,6 +5,8 @@
 --%>
 
 
+<%@page import="java.sql.Time"%>
+<%@page import="ServiciosWeb.Persona"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -30,6 +32,19 @@
   </div>
   <div class="clear"></div>
 </div>
+<%
+    HttpSession sessionOut = request.getSession();
+            
+            String usuario = (String) sessionOut.getAttribute("Usuario");
+            if(usuario != null)
+                sessionOut.invalidate();
+            else{
+                String usuarioAdmin =(String) sessionOut.getAttribute("Administrador");
+                if(usuarioAdmin != null){
+                    sessionOut.invalidate();
+                }
+            }
+%>
 <!-- end of MENU WRAPPER -->
 <div class="banner-wrapper">
   <div class="row">

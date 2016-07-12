@@ -48,7 +48,7 @@
         <li><a href="Blog.jsp">Services</a> </li>
         <li> <a href="Proyectos.jsp">Proyectos</a> </li>
         <li><a href="Iniciativa.jsp">Iniciativa</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="Donaciones.jsp">Donaciones</a></li>
       </ul>
     </div>
   </div>

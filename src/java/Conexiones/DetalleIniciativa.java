@@ -25,6 +25,39 @@ public class DetalleIniciativa {
     public DetalleIniciativa(){
         
     }
+    public ArrayList<ReporteDonacion> getListaDonaciones(String usuario){
+        Connection dbConeciton = null;
+        PreparedStatement ps = null;
+        String ScriptSQL = "select d.iddonacion, i.nombre, d.monto, d.fechadonacion, r.nombre, r.paquete from donacion d, iniciativa i, recompensa r where (d.idiniciativa = i.idinciativa and d.idusuario = ?) and d.monto = r.montominimo" ;
+        try{
+            ArrayList<ReporteDonacion> reportesD = new ArrayList<ReporteDonacion>() ;
+            dbConeciton = new Conexion().getDBConnection();
+            ps = dbConeciton.prepareStatement(ScriptSQL);
+            ps.setString(1, usuario);
+            ResultSet rs;
+            rs = ps.executeQuery();
+            while(rs.next()){
+                ReporteDonacion rd = new ReporteDonacion();
+                rd.setIddonacion(rs.getInt(1));
+                rd.setNombreiniciativa(rs.getString(2));
+                rd.setMonto(rs.getFloat(3));
+                rd.setFechadonacion(rs.getDate(4));
+                rd.setNombrerecompensa(rs.getString(5));
+                rd.setPaquete(rs.getString(6));
+                reportesD.add(rd);
+            }
+            dbConeciton.close();
+            ps.close();
+            rs.close();
+            return reportesD;
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
     public ArrayList<Blog> getListaBlog(int idiniciativa){
         Connection dbConeciton = null;
         PreparedStatement ps = null;
@@ -52,6 +85,76 @@ public class DetalleIniciativa {
         }catch (SQLException e){
             e.printStackTrace();
             return null;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public ArrayList<DenunciaComentario> getListaDenunciaIniciativa(){
+                Connection dbConection = null;
+        PreparedStatement ps = null;
+        String SQLScript = "select denuncia.iddenuncia, denuncia.idperfil, denuncia.tipo, denuncia.usuario, iniciativa.nombre"+
+                " from  denuncia, iniciativa where (iniciativa.idinciativa = denuncia.idperfil)";
+        try{
+            ArrayList<DenunciaComentario> comentarios = new ArrayList<DenunciaComentario>();
+            dbConection = new Conexion().getDBConnection();
+            ps = dbConection.prepareStatement(SQLScript);
+            
+            ResultSet rs;
+            rs = ps.executeQuery();
+            while(rs.next()){
+                DenunciaComentario dc = new DenunciaComentario();
+                dc.setIddenuncia(rs.getInt(1));
+                dc.setIdcomentario(rs.getInt(2));
+                dc.setTipo(rs.getInt(3));
+                dc.setUsuario(rs.getString(4));
+                
+                dc.setIniciativa(rs.getString(5));
+                comentarios.add(dc);
+            }
+            dbConection.close();
+            ps.close();
+            rs.close();
+            return comentarios;
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+            
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public ArrayList<DenunciaComentario> getListaDenuncia(){
+                Connection dbConection = null;
+        PreparedStatement ps = null;
+        String SQLScript = "select denuncia.iddenuncia, denuncia.idcomentario, denuncia.tipo, denuncia.usuario, comentario.descripcion, iniciativa.nombre"+
+                " from comentario, denuncia, iniciativa where (comentario.idcomentario = denuncia.idcomentario) and (iniciativa.idinciativa = comentario.idiniciativa)";
+        try{
+            ArrayList<DenunciaComentario> comentarios = new ArrayList<DenunciaComentario>();
+            dbConection = new Conexion().getDBConnection();
+            ps = dbConection.prepareStatement(SQLScript);
+            
+            ResultSet rs;
+            rs = ps.executeQuery();
+            while(rs.next()){
+                DenunciaComentario dc = new DenunciaComentario();
+                dc.setIddenuncia(rs.getInt(1));
+                dc.setIdcomentario(rs.getInt(2));
+                dc.setTipo(rs.getInt(3));
+                dc.setUsuario(rs.getString(4));
+                dc.setComentario(rs.getString(5));
+                dc.setIniciativa(rs.getString(6));
+                comentarios.add(dc);
+            }
+            dbConection.close();
+            ps.close();
+            rs.close();
+            return comentarios;
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+            
         }catch(Exception e){
             e.printStackTrace();
             return null;
@@ -191,6 +294,7 @@ public class DetalleIniciativa {
                 r.setTipo(rs.getString("tipo"));
                 r.setNombre(rs.getString("nombre"));
                 r.setLimitada(rs.getInt("limitada"));
+                r.setMontominimo(rs.getFloat("montominimo"));
                 recompensas.add(r);
             }
             dbC.close();
@@ -501,6 +605,55 @@ public class DetalleIniciativa {
             e.printStackTrace();
             return null;
         }
+        
+    }
+    
+    public int getIdCategoria (String nombre){
+        Connection cn = null;
+        PreparedStatement ps = null;
+        String SQLScript = "select idcategoria from categoria where nombre = ?";
+        try{
+            cn = new Conexion().getDBConnection();
+            ps = cn.prepareStatement(SQLScript);
+            ps.setString(1, nombre);
+            ResultSet rs ;
+            rs = ps.executeQuery();
+            int id = 0;
+            while(rs.next()){
+                id = rs.getInt("idcategoria");
+            }
+            
+            cn.close();
+            ps.close();
+            rs.close();
+            return id;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return 0;
+        }catch(Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+    public boolean setCategoria(String ruta){
+        Connection cn = null;
+        PreparedStatement ps = null;
+        String SQLScript = "COPY categoria, subcategoria FROM "+ruta+" USING DELIMITERS ','";
+        try{
+            cn = new Conexion().getDBConnection();
+            ps = cn.prepareStatement(SQLScript);
+            ps.executeUpdate();
+            cn.close();
+            ps.close();
+            
+            return true;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
     public ArrayList<Iniciativa> getlistaIniciativa(){
         Connection cn = null;
@@ -524,6 +677,7 @@ public class DetalleIniciativa {
                 in.setMetaEconomica(rs.getDouble("metaeconomica"));
                 in.setIdSubcategoria(rs.getInt("idsubcategoria"));
                 in.setDescripcion(rs.getString("descripcion"));
+                in.setPorcentaje(rs.getFloat("porcentajeganancia"));
                 iniciativas.add(in);
             }
             cn.close();
@@ -567,6 +721,66 @@ public class DetalleIniciativa {
             return null;
         }
     }
+    public ArrayList<String> listaSubcategoria(){
+        Connection cn = null;
+        PreparedStatement ps = null;
+        String selectSQL = "select nombre from subcategoria";
+        ArrayList<String> subcategorias = new ArrayList();
+        try{
+            
+            cn = new Conexion().getDBConnection();
+            ps = cn.prepareStatement(selectSQL);
+            
+            ResultSet rs;
+            rs = ps.executeQuery();
+            while(rs.next()){
+                String subcategoria = rs.getString("nombre");
+                subcategorias.add(subcategoria);
+            }
+            rs.close();
+            cn.close();
+            ps.close();
+            return subcategorias;
+        }catch(SQLException e){
+            System.err.print("Error: "+ e.getMessage());
+            return null;
+        }catch (Exception e){
+            
+            System.err.print("Error: "+ e.getMessage());
+            return null;
+        }
+    }
+    public ArrayList<Integer> getIdSubCategoriaS(){
+        Connection cn = null;
+        PreparedStatement ps = null;
+        String insertScript ="select idsubcategoria from subcategoria ";
+        try{
+            ArrayList<Integer> subcategoriasId = new ArrayList<Integer>();
+            
+            cn = new Conexion().getDBConnection();
+            ps = cn.prepareStatement(insertScript);
+            
+            ResultSet rs;
+            rs = ps.executeQuery();
+            while(rs.next()){
+                int id;
+                id = rs.getInt("idsubcategoria");
+                subcategoriasId.add(id);
+            }
+            rs.close();
+            ps.close();
+            cn.close();
+            return subcategoriasId;
+        }catch(SQLException e){
+            System.err.print("Error: "+ e.getMessage());
+            return null;
+        }catch(Exception e){
+            System.err.print("Error: "+ e.getMessage());
+            return null;
+        }
+        
+    }
+    
     public int getIdSubCategoria(String nombre){
         Connection cn = null;
         PreparedStatement ps = null;
@@ -593,30 +807,93 @@ public class DetalleIniciativa {
         return -1;
     }
     
-    public int getIdCategoria(String nombre){
+    public ArrayList<Integer> getIdCategorias(){
         Connection cn = null;
         PreparedStatement ps = null;
-        String insertScript ="select idcategoria from categoria where nombre = ?";
+        String insertScript ="select idcategoria from categoria";
         try{
-            int id = 0;
+            ArrayList<Integer> identificadores = new ArrayList<Integer> ();
+            
             cn = new Conexion().getDBConnection();
             ps = cn.prepareStatement(insertScript);
-            ps.setString(1, nombre);
+            
             ResultSet rs;
             rs = ps.executeQuery();
             while(rs.next()){
+                int id = 0;
                 id = rs.getInt("idcategoria");
+                identificadores.add(id);
             }
             rs.close();
             ps.close();
             cn.close();
-            return id;
+            return identificadores;
+        }catch(SQLException e){
+            System.err.print("Error: "+ e.getMessage());
+            return null;
+        }catch(Exception e){
+            System.err.print("Error: "+ e.getMessage());
+            return null;
+        }
+        
+    }
+    public ArrayList<Categoria> listaSubCategorias(){
+        Connection cn = null;
+        PreparedStatement ps = null;
+        String insertSQL = "select * from subcategoria";
+        ArrayList<Categoria> categorias = new ArrayList();
+        try{
+            cn = new Conexion().getDBConnection();
+            ps = cn.prepareStatement(insertSQL);
+            ResultSet rs;
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                Categoria c = new Categoria();
+                c.setIdcategoria(rs.getInt("idsubcategoria"));
+                c.setNombre(rs.getString("nombre"));
+                categorias.add(c);
+            }
+            cn.close();
+            ps.close();
+            rs.close();
+            return categorias;
+            
         }catch(SQLException e){
             System.err.print("Error: "+ e.getMessage());
         }catch(Exception e){
             System.err.print("Error: "+ e.getMessage());
         }
-        return -1;
+        return null;
+    }
+    public ArrayList<Categoria> listaCategorias(){
+        Connection cn = null;
+        PreparedStatement ps = null;
+        String insertSQL = "select * from categoria";
+        ArrayList<Categoria> categorias = new ArrayList();
+        try{
+            cn = new Conexion().getDBConnection();
+            ps = cn.prepareStatement(insertSQL);
+            ResultSet rs;
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                Categoria c = new Categoria();
+                c.setIdcategoria(rs.getInt("idcategoria"));
+                c.setNombre(rs.getString("nombre"));
+                categorias.add(c);
+            }
+            cn.close();
+            ps.close();
+            rs.close();
+            return categorias;
+            
+        }catch(SQLException e){
+            System.err.print("Error: "+ e.getMessage());
+        }catch(Exception e){
+            System.err.print("Error: "+ e.getMessage());
+        }
+        return null;
     }
     
     public ArrayList<String> listaCategoria(){

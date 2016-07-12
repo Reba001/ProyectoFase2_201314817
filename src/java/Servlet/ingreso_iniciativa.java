@@ -44,12 +44,10 @@ public class ingreso_iniciativa extends HttpServlet {
             /**codigo para recompensa*/
             HttpSession sessionok = request.getSession();
             
-            String nombreReco = request.getParameter("txtNombreReco");
-            String paquete = request.getParameter("txtPaquete");
-            String tipo = request.getParameter("cbTipo");
+            
             String nombre = request.getParameter("txtNombreIni");
             String guardarReco = request.getParameter("btnGuardarReco");
-            String ilimitada = request.getParameter("cbLimitada");
+            
             /* aqui termina el codigo */
             Calendar fecha = new GregorianCalendar();
             HttpSession sessionIn = request.getSession();
@@ -63,7 +61,7 @@ public class ingreso_iniciativa extends HttpServlet {
             String publicar = request.getParameter("btnPublicar");
             String subcategoria = request.getParameter("cbSubC");
             int s = Integer.parseInt(subcategoria);
-            DetalleIniciativa di = new DetalleIniciativa();
+            sessionIn.setAttribute("nombreInis1", nombre);
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -73,7 +71,6 @@ public class ingreso_iniciativa extends HttpServlet {
             out.println("<h1>Servlet ingreso_iniciativa at " + request.getContextPath() + "</h1>");
             if(guardar != null && subcategoria != null){
                 
-                    
                     setIniciativa(nombre, fechainicio, fechalimite, usuario,descripcion, m, s,"no");
                     response.sendRedirect("proceso-creacion-proyecto.jsp?error=Proyecto Guardado");
                 
@@ -81,6 +78,7 @@ public class ingreso_iniciativa extends HttpServlet {
                 setIniciativa(nombre, fechainicio, fechalimite, usuario,descripcion, m, s,"si");
                 response.sendRedirect("proceso-creacion-proyecto.jsp?error=Proyecto Publicado");
             }
+            
             
             
         
@@ -139,5 +137,17 @@ public class ingreso_iniciativa extends HttpServlet {
         wspersona.DetalleIniciativa_Service service = new wspersona.DetalleIniciativa_Service();
         wspersona.DetalleIniciativa port = service.getDetalleIniciativaPort();
         return port.setIniciativa(nombre, fechainicio, fechafinal, idusuario, descripcion, metaeconomica, idSubcategoria, publicada);
+    }
+
+    private static boolean setRecompensa(java.lang.String paquete, int idiniciativa, java.lang.String tipo, int limitada, java.lang.String nombre, float montominimo) {
+        wspersona.DetalleIniciativa_Service service = new wspersona.DetalleIniciativa_Service();
+        wspersona.DetalleIniciativa port = service.getDetalleIniciativaPort();
+        return port.setRecompensa(paquete, idiniciativa, tipo, limitada, nombre, montominimo);
+    }
+
+    private static int getIdRecompensa(java.lang.String nombreIniciativa, java.lang.String usuario) {
+        wspersona.DetalleIniciativa_Service service = new wspersona.DetalleIniciativa_Service();
+        wspersona.DetalleIniciativa port = service.getDetalleIniciativaPort();
+        return port.getIdRecompensa(nombreIniciativa, usuario);
     }
 }

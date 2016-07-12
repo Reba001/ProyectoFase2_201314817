@@ -52,7 +52,7 @@
         <li><a href="Blog.jsp">Blog</a> </li>
         <li> <a href="Proyectos.jsp">Proyectos</a> </li>
         <li><a href="Iniciativa.jsp"  class="active">Iniciativa</a></li>
-        <li><a href="">Contact</a></li>
+        <li><a href="Donaciones.jsp">Donaciones</a></li>
       </ul>
     </div>
   </div>
@@ -71,7 +71,8 @@
                   if(iniciativas.size() <= 1){
                     for(Iniciativa ini : iniciativas){
                       id = ini.getIdiniciativa();
-                      
+                      String idinis = ""+id;
+                      sessionIn.setAttribute("idinis", idinis);
               %>
               <table border="0" width="600">
                   <tr>
@@ -198,7 +199,7 @@
                 <li>
               
                     <input type="radio" align="right" class="text-field" value="<%out.print(ini.getNombre());%>" name="dish"><%out.print(ini.getNombre());%></input>
-                    
+                    <input type="hidden" value="<%out.print(ini.getIdiniciativa());%>" name="idInis"/>
                 </li>
           <%
                     }
@@ -215,6 +216,10 @@
               <input type="submit" class="buttons" value="Eliminar" name="btnEliminar"/>
           <div class="clear"></div>
         </div>
+          <div class="controller">
+              <input type="submit" class="buttons" value="Agregar Recompensa" name="btnAgregarREcompensa"/>
+          <div class="clear"></div>
+        </div>
         </form>
         
         <div class="clear"></div>
@@ -229,7 +234,7 @@
                 <ul>
                     <li><a href="">Modificar Iniciativa</a></li>
                     <li><a href="">Agregar Moderador</a></li>
-                    <li><a href="">Quitar Moderador</a></li>
+                    <li><a href="donar.jsp">Visualizar Recompensa</a></li>
                 </ul>
           </form>
         </div>

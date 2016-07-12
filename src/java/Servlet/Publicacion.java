@@ -38,8 +38,11 @@ public class Publicacion extends HttpServlet {
             String publicar = request.getParameter("btnPublicar");
             HttpSession sessionIn = request.getSession();
             String usuario = (String) sessionIn.getAttribute("Usuario");
+            String idiniciativa = request.getParameter("idInis");
+            
             String eliminar = request.getParameter("btnEliminar");
             DetalleIniciativa di = new DetalleIniciativa();
+            String recompensa = request.getParameter("btnAgregarREcompensa");
             String radio = request.getParameter("dish");
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -60,6 +63,14 @@ public class Publicacion extends HttpServlet {
                     borrarIniciativa(usuario, radio);
                     response.sendRedirect("Iniciativa.jsp");
                 }else{
+                    response.sendRedirect("Iniciativa.jsp?error=No posee ningun proyecto en borrador");
+                }
+                
+            }else if (recompensa != null){
+                if(radio != null){
+                    request.getSession().setAttribute("idiniR", idiniciativa);
+                    response.sendRedirect("recompensa.jsp");
+                }else {
                     response.sendRedirect("Iniciativa.jsp?error=No posee ningun proyecto en borrador");
                 }
                 

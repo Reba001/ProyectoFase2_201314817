@@ -67,7 +67,7 @@
         <li><a href="Blog.jsp">Services</a> </li>
         <li> <a href="Proyectos.jsp">Proyectos</a> </li>
         <li><a href="Iniciativa.jsp"  class="active">Iniciativa</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="Donaciones.jsp">Donaciones</a></li>
       </ul>
     </div>
   </div>
@@ -89,14 +89,36 @@
                   for(Iniciativa ini : iniciativas){
                       metaecono = ini.getMetaEconomica();
               %>
-        <div class="title">
-          <h1><%out.print(ini.getNombre());%></h1>
-          <h2><%out.print(ini.getFechainicio()+" --- "+ini.getFechafinal());%></h2>
-        </div>
-        <div class="content">
+        <table border="0" width="600">
+                  <tr>
+                      <td>
+                          <div class="title">
+                                <h1><%out.print(ini.getNombre());%></h1>
+                                <h2><%out.print(ini.getFechainicio()+"---"+ini.getFechafinal());%></h2>
+                          </div>
+                      </td>
+                          <td>
+                              <form action="Blog.jsp" method="post">
+                                  <input type="hidden" name="idiniciativa" value="<%out.print(ini.getIdiniciativa());%>"/>
+                                  <input type="submit" value="Ir al blog"/>
+                              </form>
+                              </td>
+                                  <form action="DenunciarIniciativa" method="post">
+                                  <input type="hidden" name="idiniciativa" value="<%out.print(ini.getIdiniciativa());%>"/>
+                                  
+                    <input name="nombre" type="hidden" value ="<%=nombre%>" />
+                    <input name="usuario" type="hidden" value ="<%=user%>" />
+                                  <input type="submit" value="Denunciar"/>
+                              </form>
+                              </td>  
+                  </tr>
+                  
+        
+        </table>
+                                  <div class="content">
             <p><% out.print(ini.getDescripcion()); %></p>
         </div>
-        <%          
+        <%    sessionIn.setAttribute("identificador", id);      
                 }
             }else{
         %>
@@ -195,7 +217,23 @@
           
             <ul>
             
-                <li>
+                <li>    <%-- start web service invocation --%><hr/>
+    <%
+        double result = 0;
+    try {
+	ServiciosWeb.Persona_Service service = new ServiciosWeb.Persona_Service();
+	ServiciosWeb.Persona port = service.getPersonaPort();
+	 // TODO initialize WS operation arguments here
+	int idiniciativa = Integer.parseInt(id);
+	// TODO process result here
+	 result = port.getDonacion(idiniciativa);
+	
+    } catch (Exception ex) {
+	// TODO handle custom exceptions here
+    }
+    %>
+    <%-- end web service invocation --%><hr/>
+
               
                     <a><%out.print("<h3>Meta Economica: "+metaecono+"</h3>");%></a>
                     <input name="idiniciativa" type="hidden" value ="<%=id%>" />
@@ -203,7 +241,7 @@
                     <input name="usuario" type="hidden" value ="<%=user%>" />
                 </li>
                 <li>
-                    <h3>Recaudado hasta ahora:  20.00</h3>
+                    <h3>Recaudado hasta ahora:  <%=result%></h3>
                 </li>
                 <li>
                     <input type="submit" class="buttons" value="Donar"/>

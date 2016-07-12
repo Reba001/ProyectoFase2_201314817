@@ -49,11 +49,11 @@
     <div class="menu">
       <ul>
         <li><a href="creador.jsp">Inicio</a></li>
-        <li><a href="">About</a></li>
+        <li><a href="Denuncias.jsp">Denuncias</a></li>
         <li><a href="Blog.jsp" class="active">Blog</a> </li>
         <li> <a href="Proyectos.jsp">Proyectos</a> </li>
         <li><a href="Iniciativa.jsp"  >Iniciativa</a></li>
-        <li><a href="">Contact</a></li>
+        <li><a href="Donaciones.jsp">Donaciones</a></li>
       </ul>
     </div>
   </div>
@@ -194,6 +194,11 @@
     <div class="right-panel">
       
       <div class="clear"></div>
+      <%
+          int idiniciativa1 = Integer.parseInt(idini);
+          ArrayList<Iniciativa> in = di.getIniciativa(idiniciativa1);
+          for (Iniciativa iniciativa: in){
+    if (usuario.equals(iniciativa.getIdUsuario())){%>
       <div class="panel martop">
         <div class="title">
           <h1>Perfil Iniciativa</h1>
@@ -226,6 +231,8 @@
         
         <div class="clear"></div>
       </div>
+                              <%}
+                    }   %>
       <div class="clear"></div>
     </div>
     <div class="clear"></div>

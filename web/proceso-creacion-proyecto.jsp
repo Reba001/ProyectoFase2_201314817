@@ -39,7 +39,8 @@
                 if( usuario == null ){
                     response.sendRedirect("index.jsp");
                 }else {
-                    out.print("<h2>"+sessionIn.getAttribute("Usuario")+"</h2>");
+                    out.println("<h2>"+usuario+"</h2>");
+                    
                 }  
             %></a></li>
       <li><a ><form action ="Salir" method="post" class = "">
@@ -214,123 +215,6 @@
                         </div>
                         
           </div>
-                        <div class ="left-panel">
-                                      <div class ="contact-panel">
-                <form action ="proceso_recompensa" method = "post" id="data">
-                <table border ="0">
-                    <tr>
-                        <td>
-                            <h3>Nombre Recompensa</h3>
-                        </td>
-                        <td>
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        
-                        <td>
-                            <input name ="txtNombreReco" type="text" class="text-field"/>
-                        <%
-                            ArrayList<Iniciativa>  iniciativas = di.getIniciativa(usuario);
-                            for (Iniciativa i : iniciativas){
-                        %>
-                        
-                        
-                            <input name="nombreI" type="hidden" value="<%out.print(i.getNombre());%>"  />
-                        </td>
-                        <%}%>
-                        <td>
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h3>Paquete</h3>
-                        </td>
-                        <td>
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input name ="txtPaquete" type="text" class="text-field"/>
-                        </td>
-                        <td>
-                            <br />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h3>Tipo</h3>
-                        </td>
-                        <td>
-                            <br />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <select name="cbTipo"  id="cbTipo" class="selec-field" >
-                                
-                                <option value="Fisica">Fisica </option>
-                                <option value="No Fisica">No Fisica</option>
-                                
-                            </select>
-                            
-                        </td>
-                        <td>
-                            <br />
-                        </td>
-                    </tr>
-                    <tr>
-                        
-                        <td>
-                            <h3>Seleccione su tipo de Recompensa</h3>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            
-                            
-                            
-                            <select name="cbLimitada"  id="cbLimitada" class="selec-field" >
-                                
-                                <option value="Limitada">Limitada</option>
-                                <option value="Ilimitada">ILimitada</option>
-                                
-                            </select>
-                            
-                            
-                         
-                        </td>
-                            
-                        <td>
-                            
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <td>
-                            
-                            <div class="controller">
-                                <input type ="submit" value ="Guardar Recompensa" name ="btnGuardarReco"/>
-                                <div class="clear"></div>
-                            </div>
-                        </td>
-                        <td>
-                            
-                        </td>
-                    </tr>
-                    
-                </table
-            </form>
-        
-      
-    </div>
-                        </div>
-          
-    
   <!-- end of BOX WRAPPER -->
   <div class="clear"></div>
   

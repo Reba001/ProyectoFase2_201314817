@@ -20,6 +20,15 @@ public class Iniciativa {
     private String descripcion;
     private double metaEconomica;
     private int idSubcategoria;
+    private float porcentaje;
+
+    public float getPorcentaje() {
+        return porcentaje;
+    }
+
+    public void setPorcentaje(float porcentaje) {
+        this.porcentaje = porcentaje;
+    }
 
     public int getIdiniciativa() {
         return idiniciativa;

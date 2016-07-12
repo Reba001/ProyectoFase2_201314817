@@ -43,7 +43,11 @@ public class donacionU extends HttpServlet {
             String d = request.getParameter("txtMonto");
             float donacion = Float.parseFloat(d);
             
-            setDonar(donacion, f, usuario, Integer.parseInt(id));
+            if(setDonar(donacion, f, usuario, Integer.parseInt(id))){
+                
+            }
+                
+            
             
         }catch(Exception e){
             System.err.print(e.getMessage());

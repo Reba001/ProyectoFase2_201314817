@@ -65,6 +65,7 @@
       <div class="panel">
           <%
               String id = request.getParameter("idiniciativa");
+              sessionIn.setAttribute("idinis", id);
               int idiniciativa = Integer.parseInt(id);
               DetalleIniciativa di = new DetalleIniciativa();
               ArrayList<Iniciativa> iniciativas = di.getIniciativa(idiniciativa);
@@ -202,22 +203,10 @@
         <div class="content">
             <form action="mod_ini" method="post">
                 <ul>
-            <%       
-                if(iniciativas != null){
-                    for(Iniciativa ini : iniciativas)
-                    {
-            %>
-            <input type="hidden" value="<%out.print(ini.getIdiniciativa());%>" name="idini"/>
             
-            <input type="hidden" value="<%out.print(ini.getNombre());%>" name="nombreini"/>
-            <input type="hidden" value="<%out.print(ini.getIdUsuario());%>" name="usuario"/>
-          <%
-                    }
-                }
-          %> 
                     <li><a href="Modini.jsp">Modificar Iniciativa</a></li>
                     <li><a href="AgregarMod.jsp">Agregar Moderador</a></li>
-                    <li><a href="AgregarMod.jsp">Quitar Moderador</a></li>
+                    <li><a href="donar.jsp">Visualizar Recompensas</a></li>
                 </ul>
           </form>
         </div>

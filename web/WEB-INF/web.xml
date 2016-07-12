@@ -72,6 +72,22 @@
         <servlet-name>ingresopublicacion</servlet-name>
         <servlet-class>Servlet.ingresopublicacion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DenunciarIniciativa</servlet-name>
+        <servlet-class>Servlet.DenunciarIniciativa</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteIniciativa</servlet-name>
+        <servlet-class>Servlet.DeleteIniciativa</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>upload</servlet-name>
+        <servlet-class>Servlet.upload</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>baja_altainiciativa</servlet-name>
+        <servlet-class>Servlet.baja_altainiciativa</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/wsI</url-pattern>
@@ -143,6 +159,22 @@
     <servlet-mapping>
         <servlet-name>ingresopublicacion</servlet-name>
         <url-pattern>/ingresopublicacion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DenunciarIniciativa</servlet-name>
+        <url-pattern>/DenunciarIniciativa</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteIniciativa</servlet-name>
+        <url-pattern>/DeleteIniciativa</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>upload</servlet-name>
+        <url-pattern>/upload</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>baja_altainiciativa</servlet-name>
+        <url-pattern>/baja_altainiciativa</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
